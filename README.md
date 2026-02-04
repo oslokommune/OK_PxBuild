@@ -167,7 +167,6 @@ cd $HOME\PxBuild
 conda activate pxbuild
 poetry install
 
-### Build MYTABLE01
 cd $HOME\PxBuild
 poetry run python my_project\xlsx_to_parquet_wide.py
 poetry run python -c "import pxbuild; pxbuild.LoadFromPxmetadata('MYTABLE01','my_project/pxjson/pxbuildconfig/my_config.json')"

@@ -1,0 +1,51 @@
+{
+  "id": "contents",
+  "admin": {
+    "isFinal": true,
+    "tags": [
+      "generated"
+    ],
+    "todoCreation": "Auto-generated from MYTABLE.parquet / geografi_codes.csv"
+  },
+  "sortValueitemsOn": "code",
+  "label": {
+    "no": "Innhold",
+    "en": "Contents"
+  },
+  "valueitems": [
+    {
+      "code": "andeler",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Andeler",
+        "en": "Share"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "befolkning",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Befolkning",
+        "en": "Population"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "sysselsatte",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Sysselsatte",
+        "en": "Employed"
+      },
+      "rank": null,
+      "notes": null
+    }
+  ],
+  "eliminationPossible": true,
+  "eliminationCode": null,
+  "sortGroupingsOn": null,
+  "groupings": null
+}

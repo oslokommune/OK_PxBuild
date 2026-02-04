@@ -1,0 +1,1075 @@
+{
+  "id": "geografi",
+  "label": {
+    "no": "geografi"
+  },
+  "sortValueitemsOn": "code",
+  "valueitems": [
+    {
+      "code": "102",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Grønland"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "103",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Enerhaugen"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "104",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Nedre Tøyen"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "105",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Kampen"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "106",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Vålerenga"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "108",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Kværnerbyen"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "109",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Bispevika"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "110",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Ensjø"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "111",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Etterstad"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "201",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Grünerløkka vest"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "202",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Grünerløkka øst"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "203",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Dælenenga"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "204",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Rodeløkka"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "205",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Sinsen"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "206",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Sofienberg"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "208",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Løren"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "209",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Hasle"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "301",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Iladalen"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "302",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Sagene"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "303",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Bjølsen"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "304",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Sandaker"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "305",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Torshov"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "401",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Hammersborg"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "402",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Bislett"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "403",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Ila"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "404",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Fagerborg"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "405",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Lindern"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "501",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Bygdøy"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "502",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Frogner"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "503",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Frognerparken"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "504",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Majorstuen nord"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "505",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Majorstuen syd"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "506",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Homansbyen"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "507",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Uranienborg"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "508",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Skillebekk"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "601",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Ullernåsen"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "602",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Lilleaker"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "603",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Ullern"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "604",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Montebello-Hoff"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "605",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Skøyen"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "701",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Røa"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "702",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Holmenkollen"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "703",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Hovseter"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "704",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Holmen"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "705",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Slemdal"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "706",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Grimelund"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "707",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Vinderen"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "801",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Disen"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "802",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Myrer"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "803",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Grefsen"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "804",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Kjelsås"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "805",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Korsvoll"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "806",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Tåsen"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "807",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Nordberg"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "808",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Ullevål hageby"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "901",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Veitvet"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "902",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Linderud"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "904",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Årvoll"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "905",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Refstad"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "906",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Ulven"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1001",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Ammerud"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1002",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Rødtvet"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1003",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Nordtvet"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1004",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Grorud"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1005",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Romsås"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1101",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Vestli"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1102",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Fossum"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1103",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Rommen"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1104",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Haugenstua"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1105",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Stovner"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1106",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Høybråten"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1201",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Furuset"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1202",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Ellingsrud"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1203",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Lindeberg"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1204",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Trosterud"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1205",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Hellerudtoppen"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1206",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Tveita"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1207",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Teisen"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1301",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Manglerud"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1302",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Godlia"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1303",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Oppsal"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1304",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Bøler"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1305",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Skullerud"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1306",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Abildsø"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1401",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Ljan"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1402",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Nordstrand"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1403",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Bekkelaget"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1404",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Simensbråten"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1405",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Lambertseter"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1406",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Munkerud"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1501",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Holmlia Syd"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1502",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Holmlia Nord"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1503",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Prinsdal"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1504",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Bjørnerud"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1505",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Mortensrud"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1506",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Bjørndal"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1601",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Sentrum"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "1701",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Marka"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "9999",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Uten registrert adresse"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "30101",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Gamle Oslo"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "30102",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Grünerløkka"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "30103",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Sagene"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "30104",
+      "unorderedChildren": null,
+      "label": {
+        "no": "St.Hanshaugen"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "30105",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Frogner"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "30106",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Ullern"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "30107",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Vestre Aker"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "30108",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Nordre Aker"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "30109",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Bjerke"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "30110",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Grorud"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "30111",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Stovner"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "30112",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Alna"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "30113",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Østensjø"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "30114",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Nordstrand"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "30115",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Søndre Nordstrand"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "30116",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Sentrum"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "30117",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Marka"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "30199",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Uten registrert adresse"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "100000",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Oslo i alt"
+      },
+      "rank": null,
+      "notes": null
+    }
+  ],
+  "eliminationPossible": true,
+  "eliminationCode": null,
+  "sortGroupingsOn": null,
+  "groupings": null
+}

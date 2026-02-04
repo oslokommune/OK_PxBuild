@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import List, Dict
 
+# from PxBuild.tests.controll.test_03024 import out_model
 from pxbuild.models.input.pydantic_pxmetadata import PxMetadata, AttachmentItem
 from pxbuild.models.input.pydantic_pxbuildconfig import PxbuildConfig
 from pxbuild.models.input.pydantic_pxstatistics import PxStatistics
@@ -86,6 +87,17 @@ class LoadFromPxmetadata:
 
         support = SupportFiles(self._pxmetadata_model, self._config, self._dims, self._pxmetadata_id)
         support.make_vs_file()
+
+    def _px_lang(self, lang: str) -> str | None:
+        """
+        Return None to emit untagged PX keywords when only one language is used.
+        """
+        single_lang = len(self._config.admin.valid_languages) == 1
+        # If you are writing one file per language (not multilingual combined file),
+        # and only one language exists, use untagged keywords.
+        if single_lang and not self._config.admin.build_multilingual_files:
+            return None
+        return lang
 
     def map_metaid_to_pxfile(self, out_model: PXFileModel) -> None:
         if self._add_language_independent:
@@ -176,17 +188,21 @@ class LoadFromPxmetadata:
 
     def map_stub_heading_to_pxfile(self, out_model: PXFileModel):
         lang = self._current_lang
-        seen = False
-        if self._dims.get_headingcodes():
 
+        # Only set STUB/HEADING once (untagged), otherwise you get duplicate keys
+        if not self._add_language_independent:
+            return
+
+        seen = False
+
+        if self._dims.get_headingcodes():
             my_headings: List[str] = self._dims.get_as_lables(self._dims.get_headingcodes(), lang)
-            out_model.heading.set(my_headings, lang)
+            out_model.heading.set(my_headings, None)  # untagged, written once
             seen = True
 
         if self._dims.get_stubcodes():
             my_stubs: List[str] = self._dims.get_as_lables(self._dims.get_stubcodes(), lang)
-
-            out_model.stub.set(my_stubs, lang)
+            out_model.stub.set(my_stubs, None)  # untagged, written once
             seen = True
 
         if not seen:
@@ -195,9 +211,10 @@ class LoadFromPxmetadata:
     def map_time_dimension_to_pxfile(self, out_model: PXFileModel):
         time = self._dims.time
         lang = self._current_lang
+        pxlang = self._px_lang(lang)  # <--- add
 
-        out_model.values.set(time.get_labels(lang), time.get_label(lang), lang)
-        out_model.codes.set(time.get_codes(), time.get_label(lang), lang)
+        out_model.values.set(time.get_labels(lang), time.get_label(lang), pxlang)  # <--- change
+        out_model.codes.set(time.get_codes(), time.get_label(lang), pxlang)  # <--- change
         out_model.variablecode.set(time.get_code(), time.get_label(lang), lang)
         out_model.variable_type.set(time.get_variabletype(), time.get_label(lang), lang)
 
@@ -205,12 +222,13 @@ class LoadFromPxmetadata:
 
         if self._dims.coded_dimensions:
             lang = self._current_lang
+            pxlang = self._px_lang(lang)  # <--- add
             for n_var in self._dims.coded_dimensions:
 
                 out_model.variablecode.set(n_var.get_code(), n_var.get_label(lang), lang)
                 out_model.variable_type.set(n_var.get_variabletype(), n_var.get_label(lang), lang)
-                out_model.codes.set(n_var.get_codes(lang), n_var.get_label(lang), lang)
-                out_model.values.set(n_var.get_labels(lang), n_var.get_label(lang), lang)
+                out_model.codes.set(n_var.get_codes(lang), n_var.get_label(lang), pxlang)  # <--- change
+                out_model.values.set(n_var.get_labels(lang), n_var.get_label(lang), pxlang)  # <--- change
 
                 my_var = n_var.get_pydantic()
                 my_funny_var_id = n_var.get_label(lang)
@@ -256,6 +274,7 @@ class LoadFromPxmetadata:
     def map_measurements_to_pxfile(self, out_model: PXFileModel):
         contdim = self._dims.contdim
         lang = self._current_lang
+        pxlang = self._px_lang(lang)  # <--- add
         out_model.units.set(
             "Hi, it seems this has to be here to aviod a crash. For multi-content at least.", None, lang
         )
@@ -291,8 +310,8 @@ class LoadFromPxmetadata:
                     else:
                         out_model.valuenote.set(note.text[lang], contdim.get_label(lang), my_funny_cont_id, lang)
 
-        out_model.values.set(contdim.get_labels(lang), contdim.get_label(lang), lang)
-        out_model.codes.set(contdim.get_codes(), contdim.get_label(lang), lang)
+        out_model.values.set(contdim.get_labels(lang), contdim.get_label(lang), pxlang)  # <--- change
+        out_model.codes.set(contdim.get_codes(), contdim.get_label(lang), pxlang)  # <--- change
         out_model.variablecode.set(contdim.get_code(), contdim.get_label(lang), lang)
         out_model.variable_type.set(contdim.get_variabletype(), contdim.get_label(lang), lang)
 

@@ -1,0 +1,48 @@
+{
+  "id": "kjoenn",
+  "admin": {
+    "isFinal": true,
+    "tags": []
+  },
+  "sortValueitemsOn": "code",
+  "label": {
+    "no": "kjoenn",
+    "en": "kjoenn"
+  },
+  "valueitems": [
+    {
+      "code": "Begge kjønn",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Begge kjønn",
+        "en": "Begge kjønn"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "Kvinne",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Kvinne",
+        "en": "Kvinne"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "Mann",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Mann",
+        "en": "Mann"
+      },
+      "rank": null,
+      "notes": null
+    }
+  ],
+  "eliminationPossible": true,
+  "eliminationCode": null,
+  "sortGroupingsOn": null,
+  "groupings": null
+}

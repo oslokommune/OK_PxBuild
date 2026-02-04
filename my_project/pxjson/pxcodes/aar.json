@@ -1,0 +1,28 @@
+{
+  "id": "aar",
+  "admin": {
+    "isFinal": true,
+    "tags": []
+  },
+  "sortValueitemsOn": "code",
+  "label": {
+    "no": "aar",
+    "en": "aar"
+  },
+  "valueitems": [
+    {
+      "code": "2024",
+      "unorderedChildren": null,
+      "label": {
+        "no": "2024",
+        "en": "2024"
+      },
+      "rank": null,
+      "notes": null
+    }
+  ],
+  "eliminationPossible": true,
+  "eliminationCode": null,
+  "sortGroupingsOn": null,
+  "groupings": null
+}

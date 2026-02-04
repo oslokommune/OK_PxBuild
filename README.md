@@ -65,7 +65,7 @@ pre-commit install
 
 # Branch 1_1
 
-## What we did (and why)
+## What we did 
 
 ### Goal
 We wanted to generate a valid **PX file** (PxEdit/PxWeb compatible) from an **Excel (.xlsx)** input file, using **PxBuild**. The target output is a `.px` file with correct metadata (`TABLEID`, `STUB`, `HEADING`, `VALUES`, `CODES`, etc.) and a correct `DATA=` section.
@@ -79,7 +79,7 @@ This approach avoids manual editing of the `.px` (which is fragile and easy to b
 
 ---
 
-## What we added ourselves (project glue)
+## What we added ourselves 
 
 ### 1) `xlsx_to_parquet_wide.py`
 This script prepares the data for PxBuild:

@@ -21,8 +21,8 @@
       "no": [],
       "en": []
     },
-    "dataFile": "MYTABLE01",
-    "data_file": "MYTABLE01",
+    "dataFile": "MYTABLE01.parquet",
+    "data_file": "MYTABLE01.parquet",
     "statisticsId": "MYTABLE01",
     "timeDimension": {
       "codelistId": "aar",

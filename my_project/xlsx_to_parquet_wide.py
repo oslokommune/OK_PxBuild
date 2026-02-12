@@ -4,7 +4,7 @@ import json
 
 REPO = Path(__file__).resolve().parents[1]  # ...\PxBuild
 XLSX = REPO / "my_project" / "input" / "sysselsatte_per_befolkning_2024.xlsx"
-OUT_PARQUET = REPO / "my_project" / "pxjson" / "parquet_files" / "MYTABLE01.parquet"
+OUT_PARQUET = REPO / "my_project" / "pxjson_out" / "parquet_files" / "MYTABLE01.parquet"
 
 OUT_PARQUET.parent.mkdir(parents=True, exist_ok=True)
 
@@ -94,14 +94,8 @@ print("Columns:", list(out.columns))
 codes_dir = REPO / "my_project" / "pxcodes"
 codes_dir.mkdir(parents=True, exist_ok=True)
 
-"""
-geo_codes = (
-    df[["geografi_kode", "geografi_navn"]]
-    .dropna()
-    .drop_duplicates()
-    .sort_values("geografi_kode")
-)
+""
+geo_codes = df[["geografi_kode", "geografi_navn"]].dropna().drop_duplicates().sort_values("geografi_kode")
 geo_codes.to_csv(codes_dir / "geografi_codes.csv", index=False, encoding="utf-8")
 
 print("Wrote:", codes_dir / "geografi_codes.csv")
-"""

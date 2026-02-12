@@ -35,7 +35,7 @@ def make_codelist(
         "admin": {
             "isFinal": True,
             "tags": ["generated"],
-            "todoCreation": "Auto-generated from MYTABLE.parquet / geografi_codes.csv",
+            "todoCreation": "Auto-generated from MYTABLE01.parquet / geografi_codes.csv",
         },
         "sortValueitemsOn": "code",
         "label": {"no": label_no, "en": label_en},
@@ -56,15 +56,22 @@ def make_codelist(
     }
 
 
+def detect_measure_columns(df: pd.DataFrame) -> list[str]:
+    # “dims we expect” in wide parquet
+    dim_cols = {"aar", "geografi_kode", "kjoenn", "aldersgrupper"}
+    # Everything else is treated as a measure column
+    return [c for c in df.columns if c not in dim_cols]
+
+
 def main() -> None:
     here = Path(__file__).resolve()
     repo = find_repo_root(here)
     base = repo / "my_project"
 
-    parquet_path = base / "MYTABLE.parquet"
+    parquet_path = base / "pxjson_out" / "parquet_files" / "MYTABLE01.parquet"
     geo_csv_path = base / "pxcodes" / "geografi_codes.csv"
 
-    out_dir = base / "pxjson" / "pxcodes"
+    out_dir = base / "pxjson_out" / "pxcodes"
     out_dir.mkdir(parents=True, exist_ok=True)
 
     # --- Load parquet (needs pyarrow, which you already have in pxbuild env) ---
@@ -127,19 +134,25 @@ def main() -> None:
         items=age_items,
     )
 
-    # --- 4) contents (values from parquet) ---
+    # --- 4) contents (derived from WIDE parquet measure columns) ---
     contents_map_no = {
         "sysselsatte": "Sysselsatte",
         "befolkning": "Befolkning",
         "andeler": "Andeler",
+        "antall": "Antall",
+        "andel": "Andel",
     }
     contents_map_en = {
         "sysselsatte": "Employed",
         "befolkning": "Population",
         "andeler": "Share",
+        "antall": "Count",
+        "andel": "Share",
     }
 
-    cont_vals = sorted({str(x).strip() for x in df["contents"].dropna().unique()})
+    measure_cols = detect_measure_columns(df)
+    cont_vals = sorted(measure_cols)
+
     cont_items = [(v, contents_map_no.get(v, v), contents_map_en.get(v, v)) for v in cont_vals]
 
     contents_json = make_codelist(

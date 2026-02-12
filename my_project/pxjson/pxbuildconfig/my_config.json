@@ -7,8 +7,8 @@
 
     "pxMetadataResource": { "adressFormat": "my_project/pxjson/pxmetadata/{id}.json" },
     "pxStatisticsResource": { "adressFormat": "my_project/pxjson/pxstatistics/pxstatistics_{id}.json" },
-    "pxCodesResource": { "adressFormat": "my_project/pxjson/pxcodes/{id}.json" },
-    "pxDataResource": { "adressFormat": "my_project/pxjson/parquet_files/{id}.parquet" },
+    "pxCodesResource": { "adressFormat": "my_project/pxjson_out/pxcodes/{id}.json" },
+    "pxDataResource": { "adressFormat": "my_project/pxjson_out/parquet_files/{id}.parquet" },
 
     "outputDestination": {
       "pxFolderFormat": "my_project/output/px/output_{id}",

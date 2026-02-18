@@ -74,12 +74,12 @@ def main() -> None:
     out_dir = base / "pxjson_out" / "pxcodes"
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    # --- Load parquet (needs pyarrow, which you already have in pxbuild env) ---
+    # --- Load parquet (needs pyarrow, which is already in pxbuild env) ---
     df = pd.read_parquet(parquet_path)
 
     # --- 1) geografi (codes + names from csv) ---
     geo = pd.read_csv(geo_csv_path, dtype=str)
-    # Expect columns: geografi_kode, geografi_navn (as written by your converter)
+    # Expect columns: geografi_kode, geografi_navn (as written by the converter)
     if not {"geografi_kode", "geografi_navn"}.issubset(set(geo.columns)):
         # fallback: use first two columns
         geo = geo.iloc[:, :2]

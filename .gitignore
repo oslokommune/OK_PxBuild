@@ -234,10 +234,3 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
-
-# my_project build artifacts
-my_project/output/
-my_project/pxjson/parquet_files/
-my_project/pxjson/pxmetadata/*.json
-my_project/pxjson/pxstatistics/*.json
-my_project/pxjson/pxcodes/*.json

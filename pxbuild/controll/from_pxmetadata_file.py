@@ -211,10 +211,10 @@ class LoadFromPxmetadata:
     def map_time_dimension_to_pxfile(self, out_model: PXFileModel):
         time = self._dims.time
         lang = self._current_lang
-        pxlang = self._px_lang(lang)  # <--- add
+        pxlang = self._px_lang(lang)  # <--- added
 
-        out_model.values.set(time.get_labels(lang), time.get_label(lang), pxlang)  # <--- change
-        out_model.codes.set(time.get_codes(), time.get_label(lang), pxlang)  # <--- change
+        out_model.values.set(time.get_labels(lang), time.get_label(lang), pxlang)  # <--- changed
+        out_model.codes.set(time.get_codes(), time.get_label(lang), pxlang)  # <--- changed
         out_model.variablecode.set(time.get_code(), time.get_label(lang), lang)
         out_model.variable_type.set(time.get_variabletype(), time.get_label(lang), lang)
 
@@ -222,13 +222,13 @@ class LoadFromPxmetadata:
 
         if self._dims.coded_dimensions:
             lang = self._current_lang
-            pxlang = self._px_lang(lang)  # <--- add
+            pxlang = self._px_lang(lang)  # <--- added
             for n_var in self._dims.coded_dimensions:
 
                 out_model.variablecode.set(n_var.get_code(), n_var.get_label(lang), lang)
                 out_model.variable_type.set(n_var.get_variabletype(), n_var.get_label(lang), lang)
-                out_model.codes.set(n_var.get_codes(lang), n_var.get_label(lang), pxlang)  # <--- change
-                out_model.values.set(n_var.get_labels(lang), n_var.get_label(lang), pxlang)  # <--- change
+                out_model.codes.set(n_var.get_codes(lang), n_var.get_label(lang), pxlang)  # <--- changed
+                out_model.values.set(n_var.get_labels(lang), n_var.get_label(lang), pxlang)  # <--- changed
 
                 my_var = n_var.get_pydantic()
                 my_funny_var_id = n_var.get_label(lang)
@@ -275,9 +275,7 @@ class LoadFromPxmetadata:
         contdim = self._dims.contdim
         lang = self._current_lang
         pxlang = self._px_lang(lang)  # <--- add
-        out_model.units.set(
-            "Hi, it seems this has to be here to aviod a crash. For multi-content at least.", None, lang
-        )
+        out_model.units.set("", None, lang)
 
         for my_cont in self._pxmetadata_model.dataset.measurements:
 

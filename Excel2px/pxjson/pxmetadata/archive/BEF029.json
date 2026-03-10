@@ -1,0 +1,81 @@
+{
+  "dataset": {
+    "tableId": "BEF029",
+    "baseTitle": {
+      "no": "BEF029",
+      "en": "BEF029"
+    },
+    "label": {
+      "no": "BEF029",
+      "en": "BEF029"
+    },
+    "searchKeywords": {
+      "no": [],
+      "en": []
+    },
+    "statisticsId": "BEF029",
+    "dataFile": "BEF029",
+    "timeDimension": {
+      "dimensionId": "aar",
+      "columnName": "aar",
+      "label": {
+        "no": "aar",
+        "en": "year"
+      }
+    },
+    "codedDimensions": [
+      {
+        "dimensionId": "bosted",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "bosted",
+          "en": "bosted"
+        },
+        "codelistId": "bosted",
+        "pxcodesId": "bosted",
+        "columnName": "bosted_kode"
+      },
+      {
+        "dimensionId": "innvandringsgrunn",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "innvandringsgrunn",
+          "en": "innvandringsgrunn"
+        },
+        "codelistId": "innvandringsgrunn",
+        "pxcodesId": "innvandringsgrunn",
+        "columnName": "innvandringsgrunn_kode"
+      },
+      {
+        "dimensionId": "botid",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "botid",
+          "en": "botid"
+        },
+        "codelistId": "botid",
+        "pxcodesId": "botid",
+        "columnName": "botid_kode"
+      }
+    ],
+    "dimensions": [],
+    "measurements": [
+      {
+        "measurementId": "value_7",
+        "measurementCode": "V7XX",
+        "code": "V7XX",
+        "label": {
+          "no": "value_7",
+          "en": "value_7"
+        },
+        "columnName": "value_7",
+        "showDecimals": 1,
+        "aggregationAllowed": true,
+        "unitOfMeasure": {
+          "no": "",
+          "en": ""
+        }
+      }
+    ]
+  }
+}

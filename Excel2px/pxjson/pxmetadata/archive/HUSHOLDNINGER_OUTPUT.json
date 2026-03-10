@@ -1,0 +1,134 @@
+{
+  "dataset": {
+    "tableId": "HUSHOLDNINGER_OUTPUT",
+    "baseTitle": {
+      "no": "HUSHOLDNINGER_OUTPUT",
+      "en": "HUSHOLDNINGER_OUTPUT"
+    },
+    "label": {
+      "no": "HUSHOLDNINGER_OUTPUT",
+      "en": "HUSHOLDNINGER_OUTPUT"
+    },
+    "searchKeywords": {
+      "no": [],
+      "en": []
+    },
+    "statisticsId": "HUSHOLDNINGER_OUTPUT",
+    "dataFile": "HUSHOLDNINGER_OUTPUT",
+    "timeDimension": {
+      "dimensionId": "aar",
+      "columnName": "aar",
+      "label": {
+        "no": "aar",
+        "en": "year"
+      }
+    },
+    "codedDimensions": [
+      {
+        "dimensionId": "geografi",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "geografi",
+          "en": "geografi"
+        },
+        "codelistId": "geografi",
+        "pxcodesId": "geografi",
+        "columnName": "geografi_kode"
+      },
+      {
+        "dimensionId": "husholdningstype",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "husholdningstype",
+          "en": "husholdningstype"
+        },
+        "codelistId": "husholdningstype",
+        "pxcodesId": "husholdningstype",
+        "columnName": "husholdningstype"
+      }
+    ],
+    "dimensions": [],
+    "measurements": [
+      {
+        "measurementId": "antall_husholdninger",
+        "measurementCode": "AHXX",
+        "code": "AHXX",
+        "label": {
+          "no": "antall_husholdninger",
+          "en": "antall_husholdninger"
+        },
+        "columnName": "antall_husholdninger",
+        "showDecimals": 1,
+        "aggregationAllowed": true,
+        "unitOfMeasure": {
+          "no": "",
+          "en": ""
+        }
+      },
+      {
+        "measurementId": "antall_husholdninger_med_lavinntekt",
+        "measurementCode": "AHML",
+        "code": "AHML",
+        "label": {
+          "no": "antall_husholdninger_med_lavinntekt",
+          "en": "antall_husholdninger_med_lavinntekt"
+        },
+        "columnName": "antall_husholdninger_med_lavinntekt",
+        "showDecimals": 1,
+        "aggregationAllowed": true,
+        "unitOfMeasure": {
+          "no": "",
+          "en": ""
+        }
+      },
+      {
+        "measurementId": "antall_husholdninger_med_lavinntekt_korrigert_for_formue",
+        "measurementCode": "AHM1",
+        "code": "AHM1",
+        "label": {
+          "no": "antall_husholdninger_med_lavinntekt_korrigert_for_formue",
+          "en": "antall_husholdninger_med_lavinntekt_korrigert_for_formue"
+        },
+        "columnName": "antall_husholdninger_med_lavinntekt_korrigert_for_formue",
+        "showDecimals": 1,
+        "aggregationAllowed": true,
+        "unitOfMeasure": {
+          "no": "",
+          "en": ""
+        }
+      },
+      {
+        "measurementId": "andel_husholdninger_med_lavinntekt",
+        "measurementCode": "AHM2",
+        "code": "AHM2",
+        "label": {
+          "no": "andel_husholdninger_med_lavinntekt",
+          "en": "andel_husholdninger_med_lavinntekt"
+        },
+        "columnName": "andel_husholdninger_med_lavinntekt",
+        "showDecimals": 1,
+        "aggregationAllowed": true,
+        "unitOfMeasure": {
+          "no": "",
+          "en": ""
+        }
+      },
+      {
+        "measurementId": "andel_husholdninger_med_lavinntekt_korrigert_for_formue",
+        "measurementCode": "AHM3",
+        "code": "AHM3",
+        "label": {
+          "no": "andel_husholdninger_med_lavinntekt_korrigert_for_formue",
+          "en": "andel_husholdninger_med_lavinntekt_korrigert_for_formue"
+        },
+        "columnName": "andel_husholdninger_med_lavinntekt_korrigert_for_formue",
+        "showDecimals": 1,
+        "aggregationAllowed": true,
+        "unitOfMeasure": {
+          "no": "",
+          "en": ""
+        }
+      }
+    ]
+  }
+}

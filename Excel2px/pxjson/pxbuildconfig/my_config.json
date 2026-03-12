@@ -1,8 +1,9 @@
 {
   "admin": {
     "validLanguages": ["no"],
-	  "theWordAnd": { "no": "og", "en": "and" },
-	  "theWordBy":  { "no": "etter", "en": "by" },
+    "buildMultilingualFiles": false,
+	  "theWordAnd": { "no": "og"},
+	  "theWordBy":  { "no": "etter"},
 
 
     "pxMetadataResource": { "adressFormat": "Excel2px/pxjson/pxmetadata/{id}.json" },
@@ -19,16 +20,16 @@
   "charset": "ANSI",
   "axisVersion": "2013",
   "codePage": "WINDOWS-1252",
-  "contvariable": { "no": "innhold", "en": "contents" },
+  "contvariable": { "no": "innhold"},
   "contvariableCode": "ContentsCode",
   "descriptionDefault": false,
 
   "timevariableCode": "Tid",
-  "datasymbol1":  { "no": ".", "en": "." },
-  "datasymbol2":  { "no": "..", "en": ".." },
-  "datasymbol3":  { "no": ":", "en": ":" },
-  "datasymbolNil": { "no": ".", "en": "." },
-  "datasymbolSum": { "no": ".", "en": "." },
+  "datasymbol1":  { "no": "."},
+  "datasymbol2":  { "no": ".."},
+  "datasymbol3":  { "no": ":"},
+  "datasymbolNil": { "no": "."},
+  "datasymbolSum": { "no": "."},
 
-  "source": { "no": "Statistisk sentralbyra", "en": "Statistics Norway"  }
+  "source": { "no": "Statistisk sentralbyra"}
 }

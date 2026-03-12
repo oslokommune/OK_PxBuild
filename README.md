@@ -73,8 +73,8 @@ conda activate PxBuild
 
 cd C:\...\PxBuild
 
+Converting from Excel to Parquet + JSON:
 Python Excel2pxt\excel_to_pxjson_general3_2.py Excel2pxt\input\<ID>.xlsx
 
-python -c "from pathlib import Path; import pxbuild; ID='<ID>'; Path(f'Excel2px/output/px/output_{ID}').mkdir(parents=True, exist_ok=True); pxbuild.LoadFromPxmetadata(ID,'Excel2px/pxjson/pxbuildconfig/my_config.json')"
-
-Python Excel2px\finalize_px_language.py Excel2px\output\px\output_<ID>\tab_<ID>.px no
+Converting from Parquet to px:
+python RunPx.py

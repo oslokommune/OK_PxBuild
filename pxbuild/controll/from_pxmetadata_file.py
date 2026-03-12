@@ -1,4 +1,5 @@
 from datetime import datetime
+from turtle import title
 from typing import List, Dict
 
 # from PxBuild.tests.controll.test_03024 import out_model
@@ -124,6 +125,7 @@ class LoadFromPxmetadata:
                 )
 
     def map_cellnote_to_pxfile(self, out_model: PXFileModel) -> None:
+        pxlang = self._px_lang(self._current_lang)
         if not self._pxmetadata_model.dataset.cell_notes:
             return
         # the input is code-based , the output is dimension-order and label-based
@@ -144,9 +146,9 @@ class LoadFromPxmetadata:
                     valuetexts_for_subkey.append("*")
 
             if cellnote.is_mandatory:
-                out_model.cellnotex.set(cellnote.text[lang], valuetexts_for_subkey, lang)
+                out_model.cellnotex.set(cellnote.text[lang], valuetexts_for_subkey, pxlang)
             else:
-                out_model.cellnote.set(cellnote.text[lang], valuetexts_for_subkey, lang)
+                out_model.cellnote.set(cellnote.text[lang], valuetexts_for_subkey, pxlang)
 
     def get_valuecode_by_dimensioncode(self, attachments: List[AttachmentItem]) -> Dict[str, str]:
         my_out: Dict[str, str] = {}
@@ -184,7 +186,9 @@ class LoadFromPxmetadata:
             + vari_list[-1]
         )
 
-        out_model.title.set(title, self._current_lang)
+        lang = self._current_lang
+        pxlang = self._px_lang(lang)
+        out_model.title.set(title, pxlang)
 
     def map_stub_heading_to_pxfile(self, out_model: PXFileModel):
         lang = self._current_lang
@@ -225,8 +229,8 @@ class LoadFromPxmetadata:
             pxlang = self._px_lang(lang)  # <--- added
             for n_var in self._dims.coded_dimensions:
 
-                out_model.variablecode.set(n_var.get_code(), n_var.get_label(lang), lang)
-                out_model.variable_type.set(n_var.get_variabletype(), n_var.get_label(lang), lang)
+                out_model.variablecode.set(n_var.get_code(), n_var.get_label(lang), pxlang)
+                out_model.variable_type.set(n_var.get_variabletype(), n_var.get_label(lang), pxlang)
                 out_model.codes.set(n_var.get_codes(lang), n_var.get_label(lang), pxlang)  # <--- changed
                 out_model.values.set(n_var.get_labels(lang), n_var.get_label(lang), pxlang)  # <--- changed
 
@@ -234,31 +238,31 @@ class LoadFromPxmetadata:
                 my_funny_var_id = n_var.get_label(lang)
 
                 if n_var.groupings():
-                    out_model.domain.set(n_var.get_domain_id(lang), my_funny_var_id, lang)
+                    out_model.domain.set(n_var.get_domain_id(lang), my_funny_var_id, pxlang)
 
                 out_model.prestext.set(
-                    self.LabelConstructionOptionDict[str(my_var.label_construction_option)], my_funny_var_id, lang
+                    self.LabelConstructionOptionDict[str(my_var.label_construction_option)], my_funny_var_id, pxlang
                 )
 
                 if not n_var.elimination_possible:
-                    out_model.elimination.set("NO", my_funny_var_id, lang)
+                    out_model.elimination.set("NO", my_funny_var_id, pxlang)
                 else:
                     label = n_var.get_elimination_label(lang)
                     if label:
-                        out_model.elimination.set(label, my_funny_var_id, lang)
+                        out_model.elimination.set(label, my_funny_var_id, pxlang)
                     else:
-                        out_model.elimination.set("YES", my_funny_var_id, lang)
+                        out_model.elimination.set("YES", my_funny_var_id, pxlang)
 
                 if my_var.doublecolumn:
-                    out_model.doublecolumn.set(my_var.doublecolumn, my_funny_var_id, lang)
+                    out_model.doublecolumn.set(my_var.doublecolumn, my_funny_var_id, pxlang)
 
                 # Note on variable
                 if my_var.notes:
                     for note in my_var.notes:
                         if note.is_mandatory:
-                            out_model.notex.set(note.text[lang], my_funny_var_id, lang)
+                            out_model.notex.set(note.text[lang], my_funny_var_id, pxlang)
                         else:
-                            out_model.note.set(note.text[lang], my_funny_var_id, lang)
+                            out_model.note.set(note.text[lang], my_funny_var_id, pxlang)
 
                 # Note on a value in variale
                 my_value_notes = n_var.get_valuenotes()
@@ -267,51 +271,62 @@ class LoadFromPxmetadata:
                         for note in my_value_notes[valuecode]:
                             valuelabel = n_var.get_valuelabel(lang, valuecode)
                             if note.is_mandatory:
-                                out_model.valuenotex.set(note.text[lang], n_var.get_label(lang), valuelabel, lang)
+                                out_model.valuenotex.set(note.text[lang], n_var.get_label(lang), valuelabel, pxlang)
                             else:
-                                out_model.valuenote.set(note.text[lang], n_var.get_label(lang), valuelabel, lang)
+                                out_model.valuenote.set(note.text[lang], n_var.get_label(lang), valuelabel, pxlang)
 
     def map_measurements_to_pxfile(self, out_model: PXFileModel):
         contdim = self._dims.contdim
         lang = self._current_lang
-        pxlang = self._px_lang(lang)  # <--- add
-        out_model.units.set("", None, lang)
+        pxlang = self._px_lang(lang)
 
-        for my_cont in self._pxmetadata_model.dataset.measurements:
+        measurements = self._pxmetadata_model.dataset.measurements
 
+        # Force a clean global UNITS instead of pxbuild placeholder text.
+        # For multi-content tables, use "flere".
+        if len(measurements) > 1:
+            out_model.units.set("flere", None, pxlang)
+        else:
+            only_unit = measurements[0].unit_of_measure[self._current_lang] if measurements else ""
+            out_model.units.set(only_unit or "", None, pxlang)
+
+        for my_cont in measurements:
             my_funny_cont_id = my_cont.label[self._current_lang]
 
-            out_model.seasadj.set(my_cont.is_seasonally_adjusted or False, my_funny_cont_id, lang)
-            out_model.dayadj.set(my_cont.is_workingdays_adjusted or False, my_funny_cont_id, lang)
-            out_model.units.set(my_cont.unit_of_measure[self._current_lang], my_funny_cont_id, lang)
-            out_model.contact.set(self._contact_string, my_funny_cont_id, lang)
-            out_model.last_updated.set(self._last_updated, my_funny_cont_id, lang)
+            out_model.seasadj.set(my_cont.is_seasonally_adjusted or False, my_funny_cont_id, pxlang)
+            out_model.dayadj.set(my_cont.is_workingdays_adjusted or False, my_funny_cont_id, pxlang)
+
+            # Only write content-specific UNITS when a real unit exists
+            unit_text = my_cont.unit_of_measure[self._current_lang]
+            if unit_text:
+                out_model.units.set(unit_text, my_funny_cont_id, pxlang)
+
+            out_model.contact.set(self._contact_string, my_funny_cont_id, pxlang)
+            out_model.last_updated.set(self._last_updated, my_funny_cont_id, pxlang)
 
             if my_cont.reference_period and my_cont.reference_period[lang]:
-                out_model.refperiod.set(my_cont.reference_period[lang], my_funny_cont_id, lang)
+                out_model.refperiod.set(my_cont.reference_period[lang], my_funny_cont_id, pxlang)
 
             if my_cont.base_period and my_cont.base_period[lang]:
-                out_model.baseperiod.set(my_cont.base_period[self._current_lang], my_funny_cont_id, lang)
+                out_model.baseperiod.set(my_cont.base_period[self._current_lang], my_funny_cont_id, pxlang)
 
             if my_cont.show_decimals > 0:
-                out_model.precision.set(my_cont.show_decimals, contdim.get_label(lang), my_funny_cont_id, lang)
+                out_model.precision.set(my_cont.show_decimals, contdim.get_label(lang), my_funny_cont_id, pxlang)
 
-            # optional with no default
             if my_cont.price_type:
-                out_model.cfprices.set(self.PriceTypeDict[str(my_cont.price_type)], my_funny_cont_id, lang)
+                out_model.cfprices.set(self.PriceTypeDict[str(my_cont.price_type)], my_funny_cont_id, pxlang)
 
-            # Note on a contentvalue
             if my_cont.notes:
                 for note in my_cont.notes:
                     if note.is_mandatory:
-                        out_model.valuenotex.set(note.text[lang], contdim.get_label(lang), my_funny_cont_id, lang)
+                        out_model.valuenotex.set(note.text[lang], contdim.get_label(lang), my_funny_cont_id, pxlang)
                     else:
-                        out_model.valuenote.set(note.text[lang], contdim.get_label(lang), my_funny_cont_id, lang)
+                        out_model.valuenote.set(note.text[lang], contdim.get_label(lang), my_funny_cont_id, pxlang)
 
-        out_model.values.set(contdim.get_labels(lang), contdim.get_label(lang), pxlang)  # <--- change
-        out_model.codes.set(contdim.get_codes(), contdim.get_label(lang), pxlang)  # <--- change
-        out_model.variablecode.set(contdim.get_code(), contdim.get_label(lang), lang)
-        out_model.variable_type.set(contdim.get_variabletype(), contdim.get_label(lang), lang)
+        out_model.values.set(contdim.get_labels(lang), contdim.get_label(lang), pxlang)
+        out_model.codes.set(contdim.get_codes(), contdim.get_label(lang), pxlang)
+        out_model.variablecode.set(contdim.get_code(), contdim.get_label(lang), pxlang)
+        out_model.variable_type.set(contdim.get_variabletype(), contdim.get_label(lang), pxlang)
 
     def map_decimals_to_pxfile(self, out_model: PXFileModel):
         if self._add_language_independent:
@@ -367,8 +382,9 @@ class LoadFromPxmetadata:
 
     def map_pxstatistics_to_pxfile(self, in_model: PxStatistics, out_model: PXFileModel):
         lang = self._current_lang
+        pxlang = self._px_lang(lang)
 
-        out_model.subject_area.set(in_model.subject_text[lang], lang)
+        out_model.subject_area.set(in_model.subject_text[lang], pxlang)
         if self._add_language_independent:
             out_model.subject_code.set(in_model.subject_code)
 
@@ -400,15 +416,19 @@ class LoadFromPxmetadata:
             if temp_tags:
                 out_model.synonyms.set(" ".join(temp_tags))
 
-        out_model.contents.set(in_model.dataset.table_id + ": " + in_model.dataset.base_title[lang] + ",", lang)
+        lang = self._current_lang
+        pxlang = self._px_lang(lang)
+        out_model.contents.set(in_model.dataset.table_id + ": " + in_model.dataset.base_title[lang] + ",", pxlang)
         if in_model.dataset.notes:
             for note in in_model.dataset.notes:
                 if note.is_mandatory:
-                    out_model.notex.set(note.text[lang], None, lang)
+                    out_model.notex.set(note.text[lang], None, pxlang)
                 else:
-                    out_model.note.set(note.text[lang], None, lang)
+                    out_model.note.set(note.text[lang], None, pxlang)
 
     def map_pxbuildconfig_to_pxfile(self, in_config: PxbuildConfig, current_lang: str, out_model: PXFileModel):
+        pxlang = self._px_lang(current_lang)
+
         if self._add_language_independent:
             out_model.language.set(current_lang)
             if in_config.admin.build_multilingual_files:
@@ -420,26 +440,26 @@ class LoadFromPxmetadata:
             if not in_config.admin.skip_creation_date:
                 out_model.creation_date.set(get_current_time())
 
-        out_model.contvariable.set(str(in_config.contvariable[current_lang]), current_lang)
+        out_model.contvariable.set(str(in_config.contvariable[current_lang]), pxlang)
 
         if in_config.datasymbol1 and in_config.datasymbol1[self._current_lang]:
-            out_model.datasymbol1.set(str(in_config.datasymbol1[self._current_lang]), self._current_lang)
+            out_model.datasymbol1.set(str(in_config.datasymbol1[self._current_lang]), pxlang)
         if in_config.datasymbol2 and in_config.datasymbol2[self._current_lang]:
-            out_model.datasymbol2.set(str(in_config.datasymbol2[self._current_lang]), self._current_lang)
+            out_model.datasymbol2.set(str(in_config.datasymbol2[self._current_lang]), pxlang)
         if in_config.datasymbol3 and in_config.datasymbol3[self._current_lang]:
-            out_model.datasymbol3.set(str(in_config.datasymbol3[self._current_lang]), self._current_lang)
+            out_model.datasymbol3.set(str(in_config.datasymbol3[self._current_lang]), pxlang)
         if in_config.datasymbol4 and in_config.datasymbol4[self._current_lang]:
-            out_model.datasymbol4.set(str(in_config.datasymbol4[self._current_lang]), self._current_lang)
+            out_model.datasymbol4.set(str(in_config.datasymbol4[self._current_lang]), pxlang)
         if in_config.datasymbol5 and in_config.datasymbol5[self._current_lang]:
-            out_model.datasymbol5.set(str(in_config.datasymbol5[self._current_lang]), self._current_lang)
+            out_model.datasymbol5.set(str(in_config.datasymbol5[self._current_lang]), pxlang)
         if in_config.datasymbol6 and in_config.datasymbol6[self._current_lang]:
-            out_model.datasymbol6.set(str(in_config.datasymbol6[self._current_lang]), self._current_lang)
+            out_model.datasymbol6.set(str(in_config.datasymbol6[self._current_lang]), pxlang)
         if in_config.datasymbol_nil and in_config.datasymbol_nil[self._current_lang]:
-            out_model.datasymbolnil.set(str(in_config.datasymbol_nil[self._current_lang]), self._current_lang)
+            out_model.datasymbolnil.set(str(in_config.datasymbol_nil[self._current_lang]), pxlang)
         if in_config.datasymbol_sum and in_config.datasymbol_sum[self._current_lang]:
-            out_model.datasymbolsum.set(str(in_config.datasymbol_sum[self._current_lang]), self._current_lang)
+            out_model.datasymbolsum.set(str(in_config.datasymbol_sum[self._current_lang]), pxlang)
 
-        out_model.source.set(in_config.source[self._current_lang], self._current_lang)
+        out_model.source.set(in_config.source[self._current_lang], pxlang)
 
 
 def convert_to_pxdate_string(date_string: str, date_format: str) -> str:

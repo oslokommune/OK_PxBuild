@@ -351,8 +351,8 @@ def main() -> None:
     root = Path(args.root)
 
     # Construct file paths from tableid
-    csv_path = root / "pxjson" / "csv_files" / f"{tableid}.csv"
-    metadata_path = root / "pxjson" / "pxmetadata" / f"{tableid}.json"
+    csv_path = root / "input" / "csv_files" / f"{tableid}.csv"
+    metadata_path = root / "input" / "pxmetadata" / f"{tableid}.json"
 
     if not csv_path.exists():
         raise FileNotFoundError(f"CSV file not found: {csv_path}")

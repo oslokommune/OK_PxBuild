@@ -6,10 +6,10 @@
 	  "theWordBy":  { "no": "etter"},
 
 
-    "pxMetadataResource": { "adressFormat": "pxjson/pxmetadata/{id}.json" },
+    "pxMetadataResource": { "adressFormat": "input/pxmetadata/{id}.json" },
     "pxStatisticsResource": { "adressFormat": "pxjson/pxstatistics/pxstatistics_{id}.json" },
     "pxCodesResource": { "adressFormat": "pxjson/pxcodes/{id}.json" },
-    "pxDataResource": { "adressFormat": "pxjson/csv_files/{id}.csv" },
+    "pxDataResource": { "adressFormat": "input/csv_files/{id}.csv" },
 
     "outputDestination": {
       "pxFolderFormat": "output/px/output_{id}",

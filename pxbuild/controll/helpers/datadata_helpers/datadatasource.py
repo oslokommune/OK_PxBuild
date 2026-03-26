@@ -61,6 +61,10 @@ class Datadatasource:
                     print(invalid_rows.head(10))
                     raise PxDataSourceError(err_mess)
 
+    def get_data(self) -> pd.DataFrame:
+        """Return the raw pandas dataframe for querying values."""
+        return self._raw_df
+
     def get_timeperiodes(self, column_name: str) -> List[str]:
         """Reads all values from a column, applies unique and sorts descending."""
 

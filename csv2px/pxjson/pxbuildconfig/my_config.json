@@ -1,0 +1,34 @@
+{
+  "admin": {
+    "validLanguages": ["no"],
+    "buildMultilingualFiles": false,
+	  "theWordAnd": { "no": "og"},
+	  "theWordBy":  { "no": "etter"},
+
+
+    "pxMetadataResource": { "adressFormat": "pxjson/pxmetadata/{id}.json" },
+    "pxStatisticsResource": { "adressFormat": "pxjson/pxstatistics/pxstatistics_{id}.json" },
+    "pxCodesResource": { "adressFormat": "pxjson/pxcodes/{id}.json" },
+    "pxDataResource": { "adressFormat": "pxjson/csv_files/{id}.csv" },
+
+    "outputDestination": {
+      "pxFolderFormat": "output/px/output_{id}",
+      "aggFolderFormat": "output"
+    }
+  },
+
+  "charset": "ANSI",
+  "axisVersion": "2013",
+  "codePage": "WINDOWS-1252",
+  "contvariable": { "no": "innhold"},
+  "contvariableCode": "ContentsCode",
+  "descriptionDefault": false,
+
+  "timevariableCode": "Tid",
+  "datasymbol1":  { "no": "."},
+  "datasymbol2":  { "no": ".."},
+  "datasymbol3":  { "no": ":"},
+  "datasymbolNil": { "no": "."},
+  "datasymbolSum": { "no": "."},
+  "source": { "no": "Statistisk sentralbyrå", "en": "Statistics Norway" }
+}

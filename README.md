@@ -63,7 +63,7 @@ poetry run pytest
 pre-commit install
 ```
 
-# Branch 1_1
+# Branch 1_2
 
 Excel -> Parquet + JSON -> px
 
@@ -78,3 +78,13 @@ Python Excel2pxt\excel_to_pxjson_general3_2.py Excel2pxt\input\<ID>.xlsx
 
 Converting from Parquet to px:
 python RunPx.py
+
+# Branch csv_to_px: 
+
+python csv2px.py <table_ID>
+echo "<table_ID>" | python RunPx.py     
+
+f.ex.:
+
+python csv2px.py SYS002     
+echo "SYS002" | python RunPx.py     

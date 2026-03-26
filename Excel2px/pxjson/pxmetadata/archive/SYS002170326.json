@@ -1,0 +1,113 @@
+{
+  "dataset": {
+    "tableId": "SYS002",
+    "baseTitle": {
+      "no": "SYS002",
+      "en": "SYS002"
+    },
+    "label": {
+      "no": "SYS002",
+      "en": "SYS002"
+    },
+    "searchKeywords": {
+      "no": [],
+      "en": []
+    },
+    "statisticsId": "SYS002",
+    "dataFile": "SYS002",
+    "timeDimension": {
+      "dimensionId": "år",
+      "columnName": "år",
+      "label": {
+        "no": "år",
+        "en": "year"
+      }
+    },
+    "codedDimensions": [
+      {
+        "dimensionId": "geografi",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "geografi",
+          "en": "geography"
+        },
+        "codelistId": "geografi",
+        "pxcodesId": "geografi",
+        "columnName": "geografi"
+      },
+      {
+        "dimensionId": "kjønn",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "kjønn",
+          "en": "gender"
+        },
+        "codelistId": "kjønn",
+        "pxcodesId": "kjønn",
+        "columnName": "kjønn"
+      },
+      {
+        "dimensionId": "alder",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "alder",
+          "en": "age groups"
+        },
+        "codelistId": "alder",
+        "pxcodesId": "alder",
+        "columnName": "alder"
+      }
+    ],
+    "dimensions": [],
+    "measurements": [
+      {
+        "measurementId": "antall sysselsatte",
+        "measurementCode": "SYSS",
+        "code": "SYSS",
+        "label": {
+          "no": "antall sysselsatte",
+          "en": "employed"
+        },
+        "columnName": "antall sysselsatte",
+        "showDecimals": 0,
+        "aggregationAllowed": true,
+        "unitOfMeasure": {
+          "no": "personer",
+          "en": "persons"
+        }
+      },
+      {
+        "measurementId": "andel sysselsatte",
+        "measurementCode": "ANDE",
+        "code": "ANDE",
+        "label": {
+          "no": "andel sysselsatte",
+          "en": "percentages"
+        },
+        "columnName": "andel sysselsatte",
+        "showDecimals": 1,
+        "aggregationAllowed": true,
+        "unitOfMeasure": {
+          "no": "prosent",
+          "en": "percent"
+        }
+      },
+      {
+        "measurementId": "bosatte totalt",
+        "measurementCode": "BEFO",
+        "code": "BEFO",
+        "label": {
+          "no": "bosatte totalt",
+          "en": "population"
+        },
+        "columnName": "bosatte totalt",
+        "showDecimals": 0,
+        "aggregationAllowed": true,
+        "unitOfMeasure": {
+          "no": "personer",
+          "en": "persons"
+        }
+      }
+    ]
+  }
+}

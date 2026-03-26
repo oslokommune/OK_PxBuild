@@ -1,0 +1,102 @@
+{
+  "dataset": {
+    "tableId": "SYS002",
+    "baseTitle": {
+      "no": "SYS002"
+    },
+    "label": {
+      "no": "SYS002",
+    },
+    "searchKeywords": {
+      "no": [],
+    },
+    "statisticsId": "SYS002",
+    "dataFile": "SYS002",
+    "timeDimension": {
+      "dimensionId": "aar",
+      "columnName": "år",
+      "label": {
+        "no": "aar",
+      }
+    },
+    "codedDimensions": [
+      {
+        "dimensionId": "geografi",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "geografi",
+        },
+        "codelistId": "geografi",
+        "pxcodesId": "geografi",
+        "columnName": "geografi_kode"
+      },
+      {
+        "dimensionId": "kjoenn",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "kjoenn",
+          "en": "kjoenn"
+        },
+        "codelistId": "kjoenn",
+        "pxcodesId": "kjoenn",
+        "columnName": "kjoenn"
+      },
+      {
+        "dimensionId": "aldersgrupper",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "aldersgrupper",
+          "en": "aldersgrupper"
+        },
+        "codelistId": "aldersgrupper",
+        "pxcodesId": "aldersgrupper",
+        "columnName": "aldersgrupper"
+      }
+    ],
+    "dimensions": [],
+    "measurements": [
+      {
+        "measurementId": "sysselsatte",
+        "measurementCode": "SYSS",
+        "code": "SYSS",
+        "label": {
+          "no": "sysselsatte",
+        },
+        "columnName": "sysselsatte",
+        "showDecimals": 1,
+        "aggregationAllowed": true,
+        "unitOfMeasure": {
+          "no": "",
+        }
+      },
+      {
+        "measurementId": "andeler",
+        "measurementCode": "ANDE",
+        "code": "ANDE",
+        "label": {
+          "no": "andeler",
+        },
+        "columnName": "andeler",
+        "showDecimals": 1,
+        "aggregationAllowed": true,
+        "unitOfMeasure": {
+          "no": "",
+        }
+      },
+      {
+        "measurementId": "befolkning",
+        "measurementCode": "BEFO",
+        "code": "BEFO",
+        "label": {
+          "no": "befolkning",
+        },
+        "columnName": "befolkning",
+        "showDecimals": 1,
+        "aggregationAllowed": true,
+        "unitOfMeasure": {
+          "no": "",
+        }
+      }
+    ]
+  }
+}

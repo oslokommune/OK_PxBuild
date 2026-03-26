@@ -1,0 +1,19 @@
+Imports
+
+Functions
+
+
+Input: data + metadata (csv/parquet/Excel + JSON)
+
+If input is Excel: convert
+
+Create pxjson metadata files from input metadata. 
+
+Create px-file With PxBuild. 
+
+
+
+
+-----------------------
+
+CodedDim->dim 

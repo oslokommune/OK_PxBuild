@@ -1,0 +1,51 @@
+{
+  "id": "botid",
+  "admin": {
+    "isFinal": true,
+    "tags": [
+      "auto"
+    ],
+    "todoCreation": null
+  },
+  "sortValueitemsOn": "code",
+  "label": {
+    "no": "botid",
+    "en": "botid"
+  },
+  "valueitems": [
+    {
+      "code": "1",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Innvandrer, kort botid (<=5 år)",
+        "en": "Innvandrer, kort botid (<=5 år)"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "2",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Innvandrer, lang botid (>5 år)",
+        "en": "Innvandrer, lang botid (>5 år)"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "99",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Botid i alt",
+        "en": "Botid i alt"
+      },
+      "rank": null,
+      "notes": null
+    }
+  ],
+  "eliminationPossible": true,
+  "eliminationCode": "99",
+  "sortGroupingsOn": null,
+  "groupings": null
+}

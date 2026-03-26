@@ -59,6 +59,7 @@ class LoadFromPxmetadata:
             self.map_pxstatistics_to_pxfile(self._pxstatistics, out_model)
 
             self.map_coded_dimensions_to_pxfile(out_model)
+            self.map_dimensions_to_pxfile(out_model)
             self.map_measurements_to_pxfile(out_model)
             self.map_decimals_to_pxfile(out_model)
             self.map_time_dimension_to_pxfile(out_model)
@@ -265,6 +266,58 @@ class LoadFromPxmetadata:
                             out_model.note.set(note.text[lang], my_funny_var_id, pxlang)
 
                 # Note on a value in variale
+                my_value_notes = n_var.get_valuenotes()
+                if my_value_notes:
+                    for valuecode in my_value_notes:
+                        for note in my_value_notes[valuecode]:
+                            valuelabel = n_var.get_valuelabel(lang, valuecode)
+                            if note.is_mandatory:
+                                out_model.valuenotex.set(note.text[lang], n_var.get_label(lang), valuelabel, pxlang)
+                            else:
+                                out_model.valuenote.set(note.text[lang], n_var.get_label(lang), valuelabel, pxlang)
+
+    def map_dimensions_to_pxfile(self, out_model: PXFileModel):
+        if self._dims.dimensions:
+            lang = self._current_lang
+            pxlang = self._px_lang(lang)
+            for n_var in self._dims.dimensions:
+
+                out_model.variablecode.set(n_var.get_code(), n_var.get_label(lang), pxlang)
+                out_model.variable_type.set(n_var.get_variabletype(), n_var.get_label(lang), pxlang)
+                # For uncoded dimensions, only set values, not codes
+                out_model.values.set(n_var.get_labels(lang), n_var.get_label(lang), pxlang)
+
+                my_var = n_var.get_pydantic()
+                my_funny_var_id = n_var.get_label(lang)
+
+                if n_var.groupings():
+                    out_model.domain.set(n_var.get_domain_id(lang), my_funny_var_id, pxlang)
+
+                out_model.prestext.set(
+                    self.LabelConstructionOptionDict[str(my_var.label_construction_option)], my_funny_var_id, pxlang
+                )
+
+                if not n_var.elimination_possible:
+                    out_model.elimination.set("NO", my_funny_var_id, pxlang)
+                else:
+                    label = n_var.get_elimination_label(lang)
+                    if label:
+                        out_model.elimination.set(label, my_funny_var_id, pxlang)
+                    else:
+                        out_model.elimination.set("YES", my_funny_var_id, pxlang)
+
+                if my_var.doublecolumn:
+                    out_model.doublecolumn.set(my_var.doublecolumn, my_funny_var_id, pxlang)
+
+                # Note on variable
+                if my_var.notes:
+                    for note in my_var.notes:
+                        if note.is_mandatory:
+                            out_model.notex.set(note.text[lang], my_funny_var_id, pxlang)
+                        else:
+                            out_model.note.set(note.text[lang], my_funny_var_id, pxlang)
+
+                # Note on a value in variable
                 my_value_notes = n_var.get_valuenotes()
                 if my_value_notes:
                     for valuecode in my_value_notes:

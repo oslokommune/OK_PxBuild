@@ -1,9 +1,24 @@
 import pandas as pd
+import re
 from typing import List
 from pxbuild.models.input.pydantic_pxbuildconfig import PxbuildConfig
 from .parquet_datasource import ParquetDatasource
 from .csv_datasource import CsvDatasource
 from .abstract_datasource import AbstractDatasource
+
+NOR_MAP = str.maketrans({"å": "a", "ø": "o", "æ": "ae", "Å": "a", "Ø": "o", "Æ": "ae"})
+
+
+def normalize_column_name(column_name: str) -> str:
+    if column_name is None:
+        return ""
+    normalized = str(column_name).strip()
+    normalized = normalized.translate(NOR_MAP)
+    normalized = normalized.replace(" ", "_")
+    normalized = normalized.lower()
+    normalized = re.sub(r"[^a-z0-9_\.]+", "", normalized)
+    return normalized
+
 
 # Open and read the Parquet file  (or csv for small tests)
 
@@ -117,10 +132,15 @@ class Datadatasource:
         #  it is when we do pd.wide_to_long, this strange mix of column names and code is needed: The code in the cell is the columnnane minus "VALUE"
 
         raw_data: pd.DataFrame = self._my_datasource.get_raw_pandas()
+        raw_data.rename(columns={col: normalize_column_name(col) for col in raw_data.columns}, inplace=True)
         print("raw_data.columns:", raw_data.columns)
 
-        measurement_codes = list(measurement_code_by_column_name.values())
-        column_with_value_prefix = self.make_renamedict(measurement_code_by_column_name, raw_data.columns)
+        normalized_measurement_code_by_column_name = {
+            normalize_column_name(column_name): code for column_name, code in measurement_code_by_column_name.items()
+        }
+
+        measurement_codes = list(normalized_measurement_code_by_column_name.values())
+        column_with_value_prefix = self.make_renamedict(normalized_measurement_code_by_column_name, raw_data.columns)
 
         # todo attributes columns should not be counted as identifier_columns
         identifier_columns = self.get_identifiercolumns(raw_data.columns.values.tolist(), column_with_value_prefix)

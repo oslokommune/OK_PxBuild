@@ -24,7 +24,9 @@
       }
     },
     "codedDimensions": [
-      {
+
+    ],
+    "dimensions": [{
         "dimensionId": "bosted",
         "labelConstructionOption": "text",
         "label": {
@@ -45,9 +47,7 @@
         "codelistId": "innvandringsgrunn",
         "pxcodesId": "innvandringsgrunn",
         "columnName": "innvandringsgrunn"
-      }
-    ],
-    "dimensions": [],
+      }],
     "measurements": [
       {
         "measurementId": "botid_i_alt",

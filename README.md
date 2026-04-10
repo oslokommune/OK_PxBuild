@@ -79,12 +79,12 @@ Python Excel2pxt\excel_to_pxjson_general3_2.py Excel2pxt\input\<ID>.xlsx
 Converting from Parquet to px:
 python RunPx.py
 
-# Branch csv_to_px: 
+# Branch csv_to_px:
 
 python csv2px.py <table_ID>
-echo "<table_ID>" | python RunPx.py     
+python RunPx.py <table_ID>
 
 f.ex.:
 
-python csv2px.py SYS002     
-echo "SYS002" | python RunPx.py     
+python csv2px.py SYS002
+python RunPx.py SYS002

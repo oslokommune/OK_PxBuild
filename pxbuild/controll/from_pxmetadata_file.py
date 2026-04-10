@@ -1,4 +1,5 @@
 from datetime import datetime
+from pathlib import Path
 from turtle import title
 from typing import List, Dict
 
@@ -43,7 +44,7 @@ class LoadFromPxmetadata:
         ##################
         self.models_for_pytest: dict = {}  # Todo make perfect reader, and let the pytest read the files
 
-        self._last_updated = self.get_last_updated(self._pxstatistics)
+        self._last_updated = self.get_last_updated(self._pxmetadata_model, self._pxstatistics)
 
         out_model = PXFileModel()
 
@@ -216,10 +217,9 @@ class LoadFromPxmetadata:
     def map_time_dimension_to_pxfile(self, out_model: PXFileModel):
         time = self._dims.time
         lang = self._current_lang
-        pxlang = self._px_lang(lang)  # <--- added
+        pxlang = self._px_lang(lang)
 
-        out_model.values.set(time.get_labels(lang), time.get_label(lang), pxlang)  # <--- changed
-        out_model.codes.set(time.get_codes(), time.get_label(lang), pxlang)  # <--- changed
+        out_model.values.set(time.get_labels(lang), time.get_label(lang), pxlang)
         out_model.variablecode.set(time.get_code(), time.get_label(lang), lang)
         out_model.variable_type.set(time.get_variabletype(), time.get_label(lang), lang)
 
@@ -354,21 +354,6 @@ class LoadFromPxmetadata:
             if unit_text:
                 out_model.units.set(unit_text, my_funny_cont_id, pxlang)
 
-            out_model.contact.set(self._contact_string, my_funny_cont_id, pxlang)
-            out_model.last_updated.set(self._last_updated, my_funny_cont_id, pxlang)
-
-            if my_cont.reference_period and my_cont.reference_period[lang]:
-                out_model.refperiod.set(my_cont.reference_period[lang], my_funny_cont_id, pxlang)
-
-            if my_cont.base_period and my_cont.base_period[lang]:
-                out_model.baseperiod.set(my_cont.base_period[self._current_lang], my_funny_cont_id, pxlang)
-
-            if my_cont.show_decimals > 0:
-                out_model.precision.set(my_cont.show_decimals, contdim.get_label(lang), my_funny_cont_id, pxlang)
-
-            if my_cont.price_type:
-                out_model.cfprices.set(self.PriceTypeDict[str(my_cont.price_type)], my_funny_cont_id, pxlang)
-
             if my_cont.notes:
                 for note in my_cont.notes:
                     if note.is_mandatory:
@@ -405,17 +390,24 @@ class LoadFromPxmetadata:
 
         return contact_string[:-2]
 
-    def get_last_updated(self, in_model: PxStatistics) -> str:
+    def get_last_updated(self, pxmetadata_model: PxMetadata, pxstatistics_model: PxStatistics) -> str:
+        """Return the last updated date from metadata or statistics."""
+        if pxmetadata_model.dataset.last_updated:
+            try:
+                return convert_to_pxdate_string(pxmetadata_model.dataset.last_updated, "%Y-%m-%dT%H:%M:%SZ")
+            except ValueError:
+                return pxmetadata_model.dataset.last_updated
+
         last_updated_date = ""
-        if in_model.upcoming_releases is None:
+        if pxstatistics_model.upcoming_releases is None:
             return last_updated_date
 
-        if len(in_model.upcoming_releases) < 1:
+        if len(pxstatistics_model.upcoming_releases) < 1:
             return last_updated_date
 
-        last_updated_date = in_model.upcoming_releases[0]
+        last_updated_date = pxstatistics_model.upcoming_releases[0]
 
-        formatted_string = convert_to_pxdate_string(last_updated_date, self._pxstatistics.upcoming_releases_dateformat)
+        formatted_string = convert_to_pxdate_string(last_updated_date, pxstatistics_model.upcoming_releases_dateformat)
 
         return formatted_string
 
@@ -438,8 +430,15 @@ class LoadFromPxmetadata:
         pxlang = self._px_lang(lang)
 
         out_model.subject_area.set(in_model.subject_text[lang], pxlang)
+
+        if self._contact_string:
+            out_model.contact.set(self._contact_string, None, pxlang)
+
         if self._add_language_independent:
             out_model.subject_code.set(in_model.subject_code)
+
+            if self._last_updated:
+                out_model.last_updated.set(self._last_updated)
 
             next_update = self.get_next_update(self._pxstatistics)
             if next_update:
@@ -541,8 +540,9 @@ def write_output(
         language_part = "_" + language
 
     out_file = f"{out_folder}/tab_{temp_tabid}{language_part}.px"
+    Path(out_folder).mkdir(parents=True, exist_ok=True)
 
-    with open(out_file, "w", encoding="cp1252") as f:
+    with open(out_file, "w", encoding="cp1252", errors="replace") as f:
         print(out_model, file=f)
 
     print("File written to:", out_file)

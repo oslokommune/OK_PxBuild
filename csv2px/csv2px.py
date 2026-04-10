@@ -137,7 +137,7 @@ def load_schema_from_metadata(metadata_path: Path) -> DetectedSchema:
 
     dataset = metadata["dataset"]
     tableid = dataset["tableId"]
-    time_col = dataset["timeDimension"]["columnName"]
+    time_col = to_ascii_key(dataset["timeDimension"]["columnName"])
 
     # Get dimensions
     coded_dimensions = dataset.get("codedDimensions", [])
@@ -151,9 +151,10 @@ def load_schema_from_metadata(metadata_path: Path) -> DetectedSchema:
     elimination_map = {}
 
     # Process coded dimensions
+    normalized_columns = [to_ascii_key(d["columnName"]) for d in coded_dimensions + dimensions]
     for dim in coded_dimensions:
         dim_id = dim["dimensionId"]
-        column_name = dim["columnName"]
+        column_name = to_ascii_key(dim["columnName"])
         dims.append(column_name)
         dim_columns.append(column_name)
         coded_dims.append(dim_id)
@@ -163,7 +164,7 @@ def load_schema_from_metadata(metadata_path: Path) -> DetectedSchema:
             navn_col = f"{base}_navn"
             code_name_map[base] = (
                 column_name,
-                navn_col if navn_col in [d["columnName"] for d in coded_dimensions + dimensions] else None,
+                navn_col if navn_col in normalized_columns else None,
             )
         else:
             code_name_map[dim_id] = (column_name, None)
@@ -175,7 +176,7 @@ def load_schema_from_metadata(metadata_path: Path) -> DetectedSchema:
 
     # Process regular dimensions
     for dim in dimensions:
-        column_name = dim["columnName"]
+        column_name = to_ascii_key(dim["columnName"])
         dims.append(column_name)
         dim_columns.append(column_name)
 
@@ -186,7 +187,7 @@ def load_schema_from_metadata(metadata_path: Path) -> DetectedSchema:
         elimination_map[dim_id] = (elimination_possible, elimination_code)
 
     # Get measures
-    measures = [m["columnName"] for m in measurements]
+    measures = [to_ascii_key(m["columnName"]) for m in measurements]
 
     return DetectedSchema(
         tableid=tableid,
@@ -311,12 +312,14 @@ def write_pxcodes(df: pd.DataFrame, schema: DetectedSchema, out_dir: Path) -> No
         )
 
 
-def write_pxstatistics(tableid: str, out_path: Path) -> None:
+def write_pxstatistics(tableid: str, out_path: Path, contacts: list = None) -> None:
+    if contacts is None:
+        contacts = []
     payload = {
         "id": tableid,
         "subjectCode": "GEN",
         "subjectText": {"no": "Generert", "en": "Generated"},
-        "contacts": [],
+        "contacts": contacts,
         "statistics": {"statisticalPresenter": {"no": "Generert", "en": "Generated"}},
         "notes": None,
     }
@@ -366,6 +369,17 @@ def main() -> None:
     # Load schema from metadata
     schema = load_schema_from_metadata(metadata_path)
 
+    # Load full metadata for additional fields like contacts
+    with open(metadata_path, "r", encoding="utf-8") as f:
+        full_metadata = json.load(f)
+    contacts = full_metadata.get("dataset", {}).get("contact")
+    if contacts:
+        # If contact is a single object, wrap in list
+        if not isinstance(contacts, list):
+            contacts = [contacts]
+    else:
+        contacts = []
+
     # Write CSV data (normalized/cleaned version)
     out_csv = root / "pxjson" / "csv_files" / f"{tableid}.csv"
     write_csv(df, schema, out_csv)
@@ -375,7 +389,7 @@ def main() -> None:
         write_pxcodes(df, schema, root / "pxjson" / "pxcodes")
 
     # Write pxstatistics
-    write_pxstatistics(tableid, root / "pxjson" / "pxstatistics" / f"pxstatistics_{tableid}.json")
+    write_pxstatistics(tableid, root / "pxjson" / "pxstatistics" / f"pxstatistics_{tableid}.json", contacts)
 
     print("TABLEID:", tableid)
     print("Processed CSV:", out_csv)

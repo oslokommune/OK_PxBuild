@@ -215,6 +215,10 @@ class Dataset(BaseModel):
     """
     Id of group of tables in the registry of statistics. example: '8765'
     """
+    last_updated: Optional[str] = Field(None, alias="last-updated")
+    """
+    Last updated date from metadata if provided.
+    """
     data_file: Optional[str] = Field(None, alias="dataFile")
     """
     TODO: Er dette en filsti eller en url. required? Adress to the parquet-file with datadata

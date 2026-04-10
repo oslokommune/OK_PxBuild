@@ -81,10 +81,18 @@ python RunPx.py
 
 # Branch csv_to_px:
 
+To run:
+
+cd C:\Users\BYR557209\PxBuild\csv2px
+
+conda activate PxBuild
+
 python csv2px.py <table_ID>
+
 python RunPx.py <table_ID>
 
 f.ex.:
 
 python csv2px.py SYS002
+
 python RunPx.py SYS002

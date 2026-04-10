@@ -71,10 +71,10 @@ To run:
 
 conda activate PxBuild
 
-cd C:\...\PxBuild
+cd C:\Path\To\PxBuild
 
 Converting from Excel to Parquet + JSON:
-Python Excel2pxt\excel_to_pxjson_general3_2.py Excel2pxt\input\<ID>.xlsx
+Python Excel2pxt\excel_to_pxjson_general3_2.py Excel2px\input\<ID>.xlsx
 
 Converting from Parquet to px:
 python RunPx.py
@@ -83,7 +83,7 @@ python RunPx.py
 
 To run:
 
-cd C:\Users\BYR557209\PxBuild\csv2px
+cd C:\Path\To\PxBuild\csv2px
 
 conda activate PxBuild
 

@@ -161,9 +161,13 @@ class Measurement(BaseModel):
     the code of the measurement. Defaults to columName if missing
     """
     label: Dict[str, str]
-    show_decimals: int = Field(..., alias="showDecimals")
+    show_decimals: Optional[int] = Field(None, alias="showDecimals")
     """
-    number of decimal to use in output
+    number of decimal to use in output. Optional if defined at dataset level
+    """
+    precision: Optional[int] = None
+    """
+    Optional precision value for PRECISION keyword in PX file
     """
     price_type: Optional[PriceType] = Field(None, alias="priceType")
     """
@@ -226,6 +230,38 @@ class Dataset(BaseModel):
     base_title: Dict[str, str] = Field(..., alias="baseTitle")
     """
     Text to which tableid is prefixed and _by_ variable list is appended. Is used for the CONTENTS keyword. example: no Utenrikshandel med varer
+    """
+    matrix: Optional[str] = None
+    """
+    Optional explicit override for MATRIX keyword. If omitted, auto-generates 'tab_' + tableId
+    """
+    decimals: Optional[int] = None
+    """
+    Optional explicit override for DECIMALS keyword. If omitted, auto-generates max(stored_decimals, show_decimals)
+    """
+    title: Optional[Dict[str, str]] = None
+    """
+    Optional explicit override for TITLE keyword by language. If omitted, auto-generates formula with dimensions
+    """
+    contents: Optional[Dict[str, str]] = None
+    """
+    Optional explicit override for CONTENTS keyword by language. If omitted, auto-generates 'tableId: baseTitle,'
+    """
+    units: Optional[Dict[str, str]] = None
+    """
+    Optional explicit override for global UNITS keyword by language. If omitted, auto-generates from measurements
+    """
+    subject_code: Optional[str] = Field(None, alias="subjectCode")
+    """
+    Optional explicit override for SUBJECT-CODE keyword. Takes precedence over pxstatistics if provided
+    """
+    subjectarea: Optional[Dict[str, str]] = None
+    """
+    Optional explicit override for SUBJECT-AREA keyword by language. Takes precedence over pxstatistics if provided
+    """
+    show_decimals: Optional[int] = Field(None, alias="showDecimals")
+    """
+    Optional explicit override for SHOWDECIMALS keyword. If omitted, uses min of measurement showDecimals
     """
     search_keywords: Optional[Dict[str, List[str]]] = Field(None, alias="searchKeywords")
     """

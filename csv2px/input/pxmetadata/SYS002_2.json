@@ -1,50 +1,30 @@
 {
   "dataset": {
-    "matrix": "OK-SYS002",
-    "decimals": 2,
-    "showDecimals": 0,
-    "subjectCode": "SYS002",
-    "subjectarea": {
-      "no": "Sysselsatte",
-      "en": "Employed"
-    },
-    "title": {
-      "no": "SYS002: Sysselsatte, bosatte og sysselsettingsandel etter alder, geografi og kjønn",
-      "en": "SYS002: Employed persons, residents, and employment rate by age, geography, and sex"
-    },
-    "contents": {
-      "no": "Sysselsatte, bosatte og sysselsettingsandel",
-      "en": "Employed persons, residents, and employment rate"
-    },
-    "units": {
-      "no": "personer, prosent",
-      "en": "persons, percent"
-    },
-    "last-updated":  "2024-06-01T12:00:00Z",
-    "notes": [
-    {
-      "text": {
-        "no": "Her er en note på norsk",
-        "en": "Here is a note in English"
-      },
-      "isMandatory": false
-    }
+      "last-updated":  "2024-06-01T12:00:00Z",
+      "notes": [
+      {
+        "text": {
+          "no": "Her er en note på norsk",
+          "en": "Here is a note in English"
+        },
+        "isMandatory": false
+      }
     ],
-    "tableId": "SYS002",
+    "tableId": "SYS002_2",
     "baseTitle": {
-      "no": "SYS002",
-      "en": "SYS002"
+      "no": "SYS002_2",
+      "en": "SYS002_2"
     },
     "label": {
-      "no": "SYS002",
-      "en": "SYS002"
+      "no": "SYS002_2",
+      "en": "SYS002_2"
     },
     "searchKeywords": {
       "no": [],
       "en": []
     },
-    "statisticsId": "SYS002",
-    "dataFile": "SYS002",
+    "statisticsId": "SYS002_2",
+    "dataFile": "SYS002_2",
     "timeDimension": {
       "dimensionId": "aar",
       "columnName": "aar",
@@ -54,22 +34,25 @@
       }
     },
     "codedDimensions": [
-    ],
-    "dimensions": [
       {
         "dimensionId": "geografi",
-        "columnName": "geografi",
-        "codelistId": "geografi",
+        "labelConstructionOption": "text",
         "label": {
           "no": "geografi",
           "en": "geografi"
         },
+        "codelistId": "geografi",
+        "pxcodesId": "geografi",
+        "columnName": "geografi_kode",
         "eliminationPossible": true,
-        "eliminationCode": "Oslo i alt"
-      },
+        "eliminationCode": "100000"
+      }
+    ],
+    "dimensions": [
+
       {
         "dimensionId": "alder",
-        "columnName": "alder",
+        "columnName": "aldersgrupper",
         "codelistId": "alder",
         "label": {
           "no": "alder",
@@ -98,8 +81,8 @@
           "no": "andel_sysselsatte",
           "en": "andel_sysselsatte"
         },
-        "columnName": "andel_sysselsatte",
-        "precision": 1,
+        "columnName": "andeler",
+        "showDecimals": 1,
         "aggregationAllowed": true,
         "unitOfMeasure": {
           "no": "Prosent",
@@ -114,7 +97,8 @@
           "no": "antall_sysselsatte",
           "en": "antall_sysselsatte"
         },
-        "columnName": "antall_sysselsatte",
+        "columnName": "sysselsatte",
+        "showDecimals": 0,
         "aggregationAllowed": true,
         "unitOfMeasure": {
           "no": "Personer",
@@ -129,7 +113,8 @@
           "no": "bosatte_totalt",
           "en": "bosatte_totalt"
         },
-        "columnName": "bosatte_totalt",
+        "columnName": "befolkning",
+        "showDecimals": 0,
         "aggregationAllowed": true,
         "unitOfMeasure": {
           "no": "Personer",

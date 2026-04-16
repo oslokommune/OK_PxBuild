@@ -20,9 +20,9 @@
   "charset": "ANSI",
   "axisVersion": "2013",
   "codePage": "WINDOWS-1252",
-  "contvariable": { "no": "innhold"},
+  "contvariable": { "no": "statistikkvariabel"},
   "contvariableCode": "ContentsCode",
-  "descriptionDefault": false,
+  "descriptionDefault": true,
 
   "timevariableCode": "Tid",
   "datasymbol1":  { "no": "."},

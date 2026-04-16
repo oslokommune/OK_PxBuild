@@ -1,34 +1,14 @@
 {
   "dataset": {
-    "matrix": "OK-SYS002",
-    "decimals": 2,
-    "showDecimals": 0,
-    "subjectCode": "SYS002",
-    "subjectarea": {
-      "no": "Sysselsatte",
-      "en": "Employed"
-    },
-    "title": {
-      "no": "SYS002: Sysselsatte, bosatte og sysselsettingsandel etter alder, geografi og kjønn",
-      "en": "SYS002: Employed persons, residents, and employment rate by age, geography, and sex"
-    },
-    "contents": {
-      "no": "Sysselsatte, bosatte og sysselsettingsandel",
-      "en": "Employed persons, residents, and employment rate"
-    },
-    "units": {
-      "no": "personer, prosent",
-      "en": "persons, percent"
-    },
-    "last-updated":  "2024-06-01T12:00:00Z",
-    "notes": [
-    {
-      "text": {
-        "no": "Her er en note på norsk",
-        "en": "Here is a note in English"
-      },
-      "isMandatory": false
-    }
+      "last-updated":  "2024-06-01T12:00:00Z",
+      "notes": [
+      {
+        "text": {
+          "no": "Her er en note på norsk",
+          "en": "Here is a note in English"
+        },
+        "isMandatory": false
+      }
     ],
     "tableId": "SYS002",
     "baseTitle": {
@@ -99,7 +79,7 @@
           "en": "andel_sysselsatte"
         },
         "columnName": "andel_sysselsatte",
-        "precision": 1,
+        "showDecimals": 1,
         "aggregationAllowed": true,
         "unitOfMeasure": {
           "no": "Prosent",
@@ -115,6 +95,7 @@
           "en": "antall_sysselsatte"
         },
         "columnName": "antall_sysselsatte",
+        "showDecimals": 0,
         "aggregationAllowed": true,
         "unitOfMeasure": {
           "no": "Personer",
@@ -130,6 +111,7 @@
           "en": "bosatte_totalt"
         },
         "columnName": "bosatte_totalt",
+        "showDecimals": 0,
         "aggregationAllowed": true,
         "unitOfMeasure": {
           "no": "Personer",

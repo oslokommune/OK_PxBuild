@@ -168,28 +168,31 @@ class LoadFromPxmetadata:
     def map_title_to_pxfile(self, out_model: PXFileModel):
         lang = self._current_lang
         model = self._pxmetadata_model.dataset
-
-        tmp_list = self._dims.get_dimcodes_in_output_order()
-        vari_list = self._dims.get_as_lables(tmp_list, lang)
-
-        tmp_string = ", ".join(vari_list[:-1])
-
-        title = (
-            model.table_id
-            + ": "
-            + model.base_title[lang]
-            + ", "
-            + self._config.admin.the_word_by[lang]
-            + " "
-            + tmp_string
-            + " "
-            + self._config.admin.the_word_and[lang]
-            + " "
-            + vari_list[-1]
-        )
-
-        lang = self._current_lang
         pxlang = self._px_lang(lang)
+
+        # Use explicit title if provided, otherwise auto-generate
+        if model.title and model.title.get(lang):
+            title = model.title[lang]
+        else:
+            tmp_list = self._dims.get_dimcodes_in_output_order()
+            vari_list = self._dims.get_as_lables(tmp_list, lang)
+
+            tmp_string = ", ".join(vari_list[:-1])
+
+            title = (
+                model.table_id
+                + ": "
+                + model.base_title[lang]
+                + ", "
+                + self._config.admin.the_word_by[lang]
+                + " "
+                + tmp_string
+                + " "
+                + self._config.admin.the_word_and[lang]
+                + " "
+                + vari_list[-1]
+            )
+
         out_model.title.set(title, pxlang)
 
     def map_stub_heading_to_pxfile(self, out_model: PXFileModel):
@@ -220,8 +223,8 @@ class LoadFromPxmetadata:
         pxlang = self._px_lang(lang)
 
         out_model.values.set(time.get_labels(lang), time.get_label(lang), pxlang)
-        out_model.variablecode.set(time.get_code(), time.get_label(lang), lang)
-        out_model.variable_type.set(time.get_variabletype(), time.get_label(lang), lang)
+        out_model.variablecode.set(time.get_code(), time.get_label(lang), pxlang)
+        out_model.variable_type.set(time.get_variabletype(), time.get_label(lang), pxlang)
 
     def map_coded_dimensions_to_pxfile(self, out_model: PXFileModel):
 
@@ -335,9 +338,12 @@ class LoadFromPxmetadata:
 
         measurements = self._pxmetadata_model.dataset.measurements
 
+        # Use explicit global units if provided, otherwise auto-generate
         # Force a clean global UNITS instead of pxbuild placeholder text.
         # For multi-content tables, use "flere".
-        if len(measurements) > 1:
+        if self._pxmetadata_model.dataset.units and self._pxmetadata_model.dataset.units.get(lang):
+            out_model.units.set(self._pxmetadata_model.dataset.units[lang], None, pxlang)
+        elif len(measurements) > 1:
             out_model.units.set("flere", None, pxlang)
         else:
             only_unit = measurements[0].unit_of_measure[self._current_lang] if measurements else ""
@@ -354,6 +360,10 @@ class LoadFromPxmetadata:
             if unit_text:
                 out_model.units.set(unit_text, my_funny_cont_id, pxlang)
 
+            # Only write content-specific PRECISION when explicitly set
+            if my_cont.precision is not None:
+                out_model.precision.set(my_cont.precision, contdim.get_label(lang), my_funny_cont_id, pxlang)
+
             if my_cont.notes:
                 for note in my_cont.notes:
                     if note.is_mandatory:
@@ -368,14 +378,37 @@ class LoadFromPxmetadata:
 
     def map_decimals_to_pxfile(self, out_model: PXFileModel):
         if self._add_language_independent:
-            show_decimals_values = [instance.show_decimals for instance in self._pxmetadata_model.dataset.measurements]
-
-            if self._pxmetadata_model.dataset.stored_decimals:
-                out_model.decimals.set(max(self._pxmetadata_model.dataset.stored_decimals, max(show_decimals_values)))
+            # Use explicit decimals if provided, otherwise auto-generate
+            if self._pxmetadata_model.dataset.decimals is not None:
+                out_model.decimals.set(self._pxmetadata_model.dataset.decimals)
             else:
-                out_model.decimals.set(max(show_decimals_values))
+                show_decimals_values = [
+                    instance.show_decimals
+                    for instance in self._pxmetadata_model.dataset.measurements
+                    if instance.show_decimals is not None
+                ]
 
-            out_model.showdecimals.set(min(show_decimals_values))
+                if self._pxmetadata_model.dataset.stored_decimals:
+                    out_model.decimals.set(
+                        max(
+                            self._pxmetadata_model.dataset.stored_decimals,
+                            max(show_decimals_values) if show_decimals_values else 0,
+                        )
+                    )
+                else:
+                    out_model.decimals.set(max(show_decimals_values) if show_decimals_values else 0)
+
+            # Use explicit showdecimals if provided, otherwise use min of measurement values
+            if self._pxmetadata_model.dataset.show_decimals is not None:
+                out_model.showdecimals.set(self._pxmetadata_model.dataset.show_decimals)
+            else:
+                show_decimals_values = [
+                    instance.show_decimals
+                    for instance in self._pxmetadata_model.dataset.measurements
+                    if instance.show_decimals is not None
+                ]
+                if show_decimals_values:
+                    out_model.showdecimals.set(min(show_decimals_values))
 
     def get_contact_string(self, in_data: PxStatistics, language: str) -> str:
         contact_string = ""
@@ -429,13 +462,21 @@ class LoadFromPxmetadata:
         lang = self._current_lang
         pxlang = self._px_lang(lang)
 
-        out_model.subject_area.set(in_model.subject_text[lang], pxlang)
+        # Use explicit subjectarea from pxmetadata if provided, otherwise use pxstatistics
+        if self._pxmetadata_model.dataset.subjectarea and self._pxmetadata_model.dataset.subjectarea.get(lang):
+            out_model.subject_area.set(self._pxmetadata_model.dataset.subjectarea[lang], pxlang)
+        else:
+            out_model.subject_area.set(in_model.subject_text[lang], pxlang)
 
         if self._contact_string:
             out_model.contact.set(self._contact_string, None, pxlang)
 
         if self._add_language_independent:
-            out_model.subject_code.set(in_model.subject_code)
+            # Use explicit subject_code from pxmetadata if provided, otherwise use pxstatistics
+            if self._pxmetadata_model.dataset.subject_code:
+                out_model.subject_code.set(self._pxmetadata_model.dataset.subject_code)
+            else:
+                out_model.subject_code.set(in_model.subject_code)
 
             if self._last_updated:
                 out_model.last_updated.set(self._last_updated)
@@ -450,7 +491,11 @@ class LoadFromPxmetadata:
         lang = self._current_lang
         if self._add_language_independent:
             out_model.tableid.set(in_model.dataset.table_id)
-            out_model.matrix.set("tab_" + in_model.dataset.table_id)
+            # Use explicit matrix if provided, otherwise auto-generate
+            if in_model.dataset.matrix:
+                out_model.matrix.set(in_model.dataset.matrix)
+            else:
+                out_model.matrix.set("tab_" + in_model.dataset.table_id)
             if in_model.dataset.official_statistics:
                 out_model.official_statistics.set(in_model.dataset.official_statistics)
             if in_model.dataset.copyright:
@@ -470,7 +515,11 @@ class LoadFromPxmetadata:
 
         lang = self._current_lang
         pxlang = self._px_lang(lang)
-        out_model.contents.set(in_model.dataset.table_id + ": " + in_model.dataset.base_title[lang] + ",", pxlang)
+        # Use explicit contents if provided, otherwise auto-generate
+        if in_model.dataset.contents and in_model.dataset.contents.get(lang):
+            out_model.contents.set(in_model.dataset.contents[lang], pxlang)
+        else:
+            out_model.contents.set(in_model.dataset.table_id + ": " + in_model.dataset.base_title[lang] + ",", pxlang)
         if in_model.dataset.notes:
             for note in in_model.dataset.notes:
                 if note.is_mandatory:

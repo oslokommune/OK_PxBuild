@@ -35,10 +35,7 @@
       "no": "SYS002",
       "en": "SYS002"
     },
-    "label": {
-      "no": "SYS002",
-      "en": "SYS002"
-    },
+
     "searchKeywords": {
       "no": [],
       "en": []
@@ -92,7 +89,6 @@
     "measurements": [
       {
         "measurementId": "andel_sysselsatte",
-        "measurementCode": "ASXX",
         "code": "ASXX",
         "label": {
           "no": "andel_sysselsatte",
@@ -108,7 +104,6 @@
       },
       {
         "measurementId": "antall_sysselsatte",
-        "measurementCode": "ASX1",
         "code": "ASX1",
         "label": {
           "no": "antall_sysselsatte",
@@ -123,7 +118,6 @@
       },
       {
         "measurementId": "bosatte_totalt",
-        "measurementCode": "BTXX",
         "code": "BTXX",
         "label": {
           "no": "bosatte_totalt",

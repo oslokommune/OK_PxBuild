@@ -29,12 +29,8 @@
     "baseTitle": {
       "no": "MAL000"
     },
-    "label": {
-      "no": "MAL000"
-    },
     "searchKeywords": {
-      "no": [],
-      "en": []
+      "no": []
     },
     "statisticsId": "MAL000",
     "dataFile": "MAL000",

@@ -37,51 +37,8 @@ def to_ascii_key(s: str) -> str:
     return s
 
 
-def safe_tableid_from_filename(path: Path) -> str:
-    stem = path.stem
-    stem = re.sub(r"[^A-Za-z0-9_]+", "_", stem)
-    stem = stem.strip("_")
-    if not stem:
-        stem = "TABLE"
-    return stem.upper()
-
-
-def measure_code(key: str) -> str:
-    """Create a readable base code from a measure name (not necessarily 4-char unique)."""
-    words = [w for w in key.split("_") if w]
-    if not words:
-        return "M"
-    if len(words) == 1:
-        return words[0][:6].upper()
-    return "".join(w[0].upper() for w in words)[:6]
-
-
-def measure_code4(key: str, used: set[str]) -> str:
-    """Return a UNIQUE 4-character measurement code (PX constraint)."""
-    base_full = measure_code(key)
-    base = re.sub(r"[^A-Z0-9]+", "", base_full.upper()) or "M"
-    cand = (base + "XXXX")[:4]
-    if cand not in used:
-        used.add(cand)
-        return cand
-
-    alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    i = 1
-    while True:
-        hi = i // 36
-        lo = i % 36
-        if hi == 0:
-            cand2 = cand[:3] + alphabet[lo]
-        else:
-            cand2 = cand[:2] + alphabet[hi] + alphabet[lo]
-        if cand2 not in used:
-            used.add(cand2)
-            return cand2
-        i += 1
-
-
 def clean_numeric_series(s: pd.Series) -> pd.Series:
-    """Try to coerce Excel-like numeric strings into floats."""
+    """Try to coerce numeric strings into floats. Handles common formats like "1 234", "12,3", and also converts empty strings to NaN."""
     if s.dtype.kind in {"i", "u", "f"}:
         return pd.to_numeric(s, errors="coerce")
     x = s.astype(str).str.strip()
@@ -94,7 +51,7 @@ def clean_numeric_series(s: pd.Series) -> pd.Series:
 
 
 def normalize_headers_and_pair_rename(df: pd.DataFrame) -> pd.DataFrame:
-    """Normalize headers + rename adjacent duplicate pairs x/x.1 into x_kode/x_navn."""
+    """Normalize headers + rename adjacent duplicate pairs x/x.1 into x_kode/x_navn. Identifies coded vs uncoded dimensions."""
     df = df.copy()
     df.columns = [to_ascii_key(c) for c in df.columns]
 
@@ -120,6 +77,8 @@ def normalize_headers_and_pair_rename(df: pd.DataFrame) -> pd.DataFrame:
 # -----------------------------
 @dataclass
 class DetectedSchema:
+    """Structured representation of the detected schema from metadata."""
+
     tableid: str
     time_col: str
     dims: List[str]  # csv columns used as dimensions (time + dim columns)
@@ -205,6 +164,13 @@ def load_schema_from_metadata(metadata_path: Path) -> DetectedSchema:
 # Writers: json + pxjson
 # -----------------------------
 def write_csv(df: pd.DataFrame, schema: DetectedSchema, out_csv: Path) -> pd.DataFrame:
+    """
+    Clean and normalize the input DataFrame according to the detected schema, then write to CSV.
+        - Normalize dimension values to strings
+        - Ensure measure columns are numeric
+        - Collapse duplicates by summing measures for rows with the same dimension combination
+
+    """
     keep_cols = list(dict.fromkeys(schema.dims + schema.measures))
     missing = [c for c in keep_cols if c not in df.columns]
     if missing:
@@ -251,7 +217,7 @@ def write_csv(df: pd.DataFrame, schema: DetectedSchema, out_csv: Path) -> pd.Dat
 
 
 def write_pxcodes(df: pd.DataFrame, schema: DetectedSchema, out_dir: Path) -> None:
-    """Create pxcodes for all csv dimensions (excluding time)."""
+    """Create pxcodes only for CODED dimensions (uncoded dimensions use raw data values)."""
     out_dir.mkdir(parents=True, exist_ok=True)
 
     def norm_code(x) -> str:
@@ -261,15 +227,12 @@ def write_pxcodes(df: pd.DataFrame, schema: DetectedSchema, out_dir: Path) -> No
             return str(int(x))
         return str(x).strip()
 
-    for col in schema.dim_columns:
-        if col.endswith("_kode"):
-            dim_id = col[:-5]
-            code_col = col
-            label_col = f"{dim_id}_navn" if f"{dim_id}_navn" in df.columns else None
-        else:
-            dim_id = col
-            code_col = col
-            label_col = None
+    # Only process coded dimensions
+    for dim_id in schema.coded_dims:
+        if dim_id not in schema.code_name_map:
+            continue
+
+        code_col, label_col = schema.code_name_map[dim_id]
 
         if label_col and label_col in df.columns:
             pairs = df[[code_col, label_col]].dropna().drop_duplicates().sort_values(code_col, kind="stable")
@@ -312,21 +275,6 @@ def write_pxcodes(df: pd.DataFrame, schema: DetectedSchema, out_dir: Path) -> No
         )
 
 
-def write_pxstatistics(tableid: str, out_path: Path, contacts: list = None) -> None:
-    if contacts is None:
-        contacts = []
-    payload = {
-        "id": tableid,
-        "subjectCode": "GEN",
-        "subjectText": {"no": "Generert", "en": "Generated"},
-        "contacts": contacts,
-        "statistics": {"statisticalPresenter": {"no": "Generert", "en": "Generated"}},
-        "notes": None,
-    }
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-
-
 # -----------------------------
 # Main
 # -----------------------------
@@ -344,7 +292,7 @@ def load_csv_with_fallback(csv_path: Path) -> pd.DataFrame:
     raise ValueError(f"Could not decode {csv_path} with any of these encodings: {encodings}")
 
 
-def main() -> None:
+def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("tableid", type=str, help="Table ID (e.g., SYS002)")
     ap.add_argument("--root", type=str, default=".", help="Project root folder (default: current directory)")
@@ -369,35 +317,20 @@ def main() -> None:
     # Load schema from metadata
     schema = load_schema_from_metadata(metadata_path)
 
-    # Load full metadata for additional fields like contacts
-    with open(metadata_path, "r", encoding="utf-8") as f:
-        full_metadata = json.load(f)
-    contacts = full_metadata.get("dataset", {}).get("contact")
-    if contacts:
-        # If contact is a single object, wrap in list
-        if not isinstance(contacts, list):
-            contacts = [contacts]
-    else:
-        contacts = []
-
     # Write CSV data (normalized/cleaned version)
     out_csv = root / "pxjson" / "csv_files" / f"{tableid}.csv"
     write_csv(df, schema, out_csv)
 
-    # Write pxcodes
-    if schema.dim_columns:
+    # Write pxcodes (only if there are coded dimensions)
+    if schema.coded_dims:
         write_pxcodes(df, schema, root / "pxjson" / "pxcodes")
-
-    # Write pxstatistics
-    write_pxstatistics(tableid, root / "pxjson" / "pxstatistics" / f"pxstatistics_{tableid}.json", contacts)
 
     print("TABLEID:", tableid)
     print("Processed CSV:", out_csv)
     print("Dims:", schema.dims)
     print("Measures:", schema.measures)
     print("Coded dims:", schema.coded_dims)
-    print("Wrote pxstatistics:", root / "pxjson" / "pxstatistics" / f"pxstatistics_{tableid}.json")
-    if schema.dim_columns:
+    if schema.coded_dims:
         print("Wrote pxcodes:", root / "pxjson" / "pxcodes")
 
 

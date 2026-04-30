@@ -31,13 +31,18 @@ class LoadedJsons:
 
         self._pxmetadata_model = PxMetadata(**pxmetadata_json)
 
-        # pxstatisticsFormat="example_data/pxstatistics/pxstatistics_{id}.json"
+        # Try to load pxstatistics for backwards compatibility, but make it optional
         pxstatistics_format = self._config.admin.px_statistics_resource.adress_format
         pxstatistics_file = pxstatistics_format.format(id=self._pxmetadata_model.dataset.statistics_id)
 
-        with open(pxstatistics_file, encoding="utf-8-sig") as f:
-            json1 = json.loads(f.read())
-        self._pxstatistics = PxStatistics(**json1)
+        self._pxstatistics = None
+        try:
+            with open(pxstatistics_file, encoding="utf-8-sig") as f:
+                json1 = json.loads(f.read())
+            self._pxstatistics = PxStatistics(**json1)
+        except FileNotFoundError:
+            # pxstatistics file not found - that's ok, metadata may be consolidated into pxmetadata
+            pass
 
         self._resolved_pxcodes_ids: Dict[str, PxCodes] = {}
 

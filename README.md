@@ -63,25 +63,48 @@ poetry run pytest
 pre-commit install
 ```
 
-# Branch 1_2
 
-Excel -> Parquet + JSON -> px
 
-To run:
+## Branch csv_to_px:
 
-conda activate PxBuild
+# csv2px.py (data preparation):
 
-cd C:\Path\To\PxBuild
+Takes table ID (e.g., SYS002)
 
-Converting from Excel to Parquet + JSON:
-Python Excel2pxt\excel_to_pxjson_general3_2.py Excel2px\input\<ID>.xlsx
+Reads raw CSV from input/csv_files/{id}.csv
 
-Converting from Parquet to px:
-python RunPx.py
+Reads metadata from input/pxmetadata/{id}.json
 
-# Branch csv_to_px:
+Normalizes CSV: standardizes headers, cleans numeric values, removes duplicates, converts time to strings
 
-To run:
+Writes cleaned CSV to pxjson/csv_files/{id}.csv
+
+If coded dimensions exist: writes pxcodes JSONs to pxjson/pxcodes/
+
+
+# RunPx.py (PX file generation):
+
+Takes table ID (e.g., SYS002)
+
+Calls pxbuild.LoadFromPxmetadata(ID, config)
+
+pxbuild reads:
+
+Metadata from input/pxmetadata/{id}.json
+
+CSV data from pxjson/csv_files/{id}.csv
+
+Codelists from pxjson/pxcodes/*.json
+
+Generates PX files in output/px/output_{id}/
+
+# Flow:
+
+Raw data + metadata -> csv2px.py -> Clean data (+ codelists if applicable) -> RunPx.py -> PX files
+
+
+
+# To run:
 
 cd C:\Path\To\PxBuild\csv2px
 

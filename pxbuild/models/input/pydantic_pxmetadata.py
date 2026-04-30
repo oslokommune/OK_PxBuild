@@ -45,6 +45,26 @@ class PriceType(Enum):
     fixed = "Fixed"
 
 
+class Contact(BaseModel):
+    """
+    Contact information for statistics (name, email, phone)
+    """
+
+    phone: Optional[str] = None
+    email: Optional[str] = None
+    """
+    Personal or functional
+    """
+    name: Optional[Dict[str, str]] = None
+    """
+    Name of contact in all languages. Personal or functional
+    """
+    raw: Optional[Dict[str, str]] = None
+    """
+    If this has value it replaces the 3 other fields, so they are ignored. Anything, will be put under contact as is.
+    """
+
+
 class AttachmentItem(BaseModel):
     dimension_code: str = Field(..., alias="dimensionCode")
     """
@@ -255,9 +275,29 @@ class Dataset(BaseModel):
     """
     Optional explicit override for SUBJECT-CODE keyword. Takes precedence over pxstatistics if provided
     """
+    subject_text: Optional[Dict[str, str]] = Field(None, alias="subjectText")
+    """
+    Subject area description by language. Used with subjectCode for SUBJECT-AREA keyword.
+    """
     subjectarea: Optional[Dict[str, str]] = None
     """
     Optional explicit override for SUBJECT-AREA keyword by language. Takes precedence over pxstatistics if provided
+    """
+    update_frequency: Optional[Dict[str, str]] = Field(None, alias="updateFrequency")
+    """
+    Not in use. Must mean the same in all languages. example: Quarterly
+    """
+    upcoming_releases_dateformat: Optional[str] = Field("%Y%m%d %H:%M", alias="upcomingReleasesDateformat")
+    """
+    Format for datetime.strptime reading items from upcomingReleases. Default is the pxweb standard which is CCYYMMDD hh:mm
+    """
+    upcoming_releases: Optional[List[str]] = Field(None, alias="upcomingReleases")
+    """
+    List of dates. The first will be used for LAST-UPDATE, the next will be used for NEXT-UPDATE.
+    """
+    contacts: Optional[List[Contact]] = None
+    """
+    Contact information for statistics. Will be used for CONTACT keyword.
     """
     show_decimals: Optional[int] = Field(None, alias="showDecimals")
     """

@@ -4,50 +4,55 @@
     "decimals": 2,
     "showDecimals": 0,
     "subjectCode": "SYS002",
-    "subjectarea": {
+    "subjectText": {
       "no": "Sysselsatte",
-      "en": "Employed"
+      "en": "Employment"
+    },
+    "subjectarea": {
+      "no": "Sysselsatte"
     },
     "title": {
-      "no": "SYS002: Sysselsatte, bosatte og sysselsettingsandel etter alder, geografi og kjønn",
-      "en": "SYS002: Employed persons, residents, and employment rate by age, geography, and sex"
+      "no": "SYS002: Sysselsatte, bosatte og sysselsettingsandel etter alder, geografi og kjønn"
     },
     "contents": {
-      "no": "Sysselsatte, bosatte og sysselsettingsandel",
-      "en": "Employed persons, residents, and employment rate"
+      "no": "Sysselsatte, bosatte og sysselsettingsandel"
     },
     "units": {
-      "no": "personer, prosent",
-      "en": "persons, percent"
+      "no": "personer, prosent"
     },
     "last-updated":  "2024-06-01T12:00:00Z",
     "notes": [
     {
       "text": {
-        "no": "Her er en note på norsk",
-        "en": "Here is a note in English"
+        "no": "Her er en note på norsk"
       },
       "isMandatory": false
     }
     ],
     "tableId": "SYS002",
     "baseTitle": {
-      "no": "SYS002",
-      "en": "SYS002"
+      "no": "SYS002"
     },
 
     "searchKeywords": {
-      "no": [],
-      "en": []
+      "no": []
     },
     "statisticsId": "SYS002",
     "dataFile": "SYS002",
+    "contacts": [
+      {
+        "name": {
+          "no": "Kontakt"
+        },
+        "email": "contact@example.no",
+        "phone": "+47 21 09 00 00"
+      }
+    ],
     "timeDimension": {
       "dimensionId": "aar",
       "columnName": "aar",
       "label": {
-        "no": "aar",
-        "en": "year"
+        "no": "aar"
       }
     },
     "codedDimensions": [
@@ -56,10 +61,8 @@
       {
         "dimensionId": "geografi",
         "columnName": "geografi",
-        "codelistId": "geografi",
         "label": {
-          "no": "geografi",
-          "en": "geografi"
+          "no": "geografi"
         },
         "eliminationPossible": true,
         "eliminationCode": "Oslo i alt"
@@ -67,10 +70,8 @@
       {
         "dimensionId": "alder",
         "columnName": "alder",
-        "codelistId": "alder",
         "label": {
-          "no": "alder",
-          "en": "alder"
+          "no": "alder"
         },
         "eliminationPossible": true,
         "eliminationCode": "Alder i alt"
@@ -78,10 +79,8 @@
       {
         "dimensionId": "kjoenn",
         "columnName": "kjoenn",
-        "codelistId": "kjoenn",
         "label": {
-          "no": "kjoenn",
-          "en": "kjoenn"
+          "no": "kjoenn"
         },
         "eliminationPossible": true,
         "eliminationCode": "Begge kjønn"
@@ -91,43 +90,37 @@
         "measurementId": "andel_sysselsatte",
         "code": "ASXX",
         "label": {
-          "no": "andel_sysselsatte",
-          "en": "andel_sysselsatte"
+          "no": "andel_sysselsatte"
         },
         "columnName": "andel_sysselsatte",
         "precision": 1,
         "aggregationAllowed": true,
         "unitOfMeasure": {
-          "no": "Prosent",
-          "en": "Percent"
+          "no": "Prosent"
         }
       },
       {
         "measurementId": "antall_sysselsatte",
         "code": "ASX1",
         "label": {
-          "no": "antall_sysselsatte",
-          "en": "antall_sysselsatte"
+          "no": "antall_sysselsatte"
         },
         "columnName": "antall_sysselsatte",
         "aggregationAllowed": true,
         "unitOfMeasure": {
-          "no": "Personer",
-          "en": "Persons"
+          "no": "Personer"
         }
       },
       {
         "measurementId": "bosatte_totalt",
         "code": "BTXX",
         "label": {
-          "no": "bosatte_totalt",
-          "en": "bosatte_totalt"
+          "no": "bosatte_totalt"
         },
         "columnName": "bosatte_totalt",
         "aggregationAllowed": true,
         "unitOfMeasure": {
-          "no": "Personer",
-          "en": "Persons"
+          "no": "Personer"
         }
       }
     ]

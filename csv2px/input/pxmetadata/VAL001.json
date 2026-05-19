@@ -1,0 +1,123 @@
+{
+  "dataset": {
+      "last-updated":  "2024-06-01T12:00:00Z",
+      "notes": [
+      {
+        "text": {
+          "no": "Her er en note på norsk",
+          "en": "Here is a note in English"
+        },
+        "isMandatory": false
+      }
+    ],
+    "tableId": "VAL001",
+    "baseTitle": {
+      "no": "VAL001",
+      "en": "VAL001"
+    },
+    "label": {
+      "no": "VAL001",
+      "en": "VAL001"
+    },
+    "searchKeywords": {
+      "no": [],
+      "en": []
+    },
+    "statisticsId": "VAL001",
+    "dataFile": "VAL001",
+    "timeDimension": {
+      "dimensionId": "valgar",
+      "columnName": "valgar",
+      "label": {
+        "no": "Valgår",
+        "en": "Election year"
+      }
+    },
+    "codedDimensions": [
+    ],
+    "dimensions": [
+      {
+        "dimensionId": "bosted",
+        "columnName": "bosted",
+        "codelistId": "bosted",
+        "label": {
+          "no": "bosted",
+          "en": "home location"
+        },
+        "eliminationPossible": true,
+        "eliminationCode": "Oslo i alt"
+      },
+      {
+        "dimensionId": "alder",
+        "columnName": "alder",
+        "codelistId": "alder",
+        "label": {
+          "no": "alder",
+          "en": "alder"
+        },
+        "eliminationPossible": true,
+        "eliminationCode": "Alder i alt"
+      },
+      {
+        "dimensionId": "kjoenn",
+        "columnName": "kjoenn",
+        "codelistId": "kjoenn",
+        "label": {
+          "no": "kjoenn",
+          "en": "kjoenn"
+        },
+        "eliminationPossible": true,
+        "eliminationCode": "Begge kjønn"
+      }],
+    "measurements": [
+      {
+        "measurementId": "valgdeltagelse_prosent",
+        "measurementCode": "ASXX",
+        "code": "ASXX",
+        "label": {
+          "no": "valgdeltagelse prosent",
+          "en": "Voting participation percentage"
+        },
+        "columnName": "valgdeltagelse_prosent",
+        "showDecimals": 1,
+        "aggregationAllowed": true,
+        "unitOfMeasure": {
+          "no": "Prosent",
+          "en": "Percent"
+        }
+      },
+      {
+        "measurementId": "antall_stemmer",
+        "measurementCode": "ASX1",
+        "code": "ASX1",
+        "label": {
+          "no": "antall stemmer",
+          "en": "number of votes"
+        },
+        "columnName": "antall_stemmer",
+        "showDecimals": 0,
+        "aggregationAllowed": true,
+        "unitOfMeasure": {
+          "no": "Personer",
+          "en": "Persons"
+        }
+      },
+      {
+        "measurementId": "antall_stemmeberettigede",
+        "measurementCode": "BTXX",
+        "code": "BTXX",
+        "label": {
+          "no": "antall stemmeberettigede",
+          "en": "number of eligible voters"
+        },
+        "columnName": "antall_stemmeberettigede",
+        "showDecimals": 0,
+        "aggregationAllowed": true,
+        "unitOfMeasure": {
+          "no": "Personer",
+          "en": "Persons"
+        }
+      }
+    ]
+  }
+}

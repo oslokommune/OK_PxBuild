@@ -1,0 +1,122 @@
+{
+  "dataset": {
+      "last-updated":  "2024-06-01T12:00:00Z",
+      "notes": [
+      {
+        "text": {
+          "no": "Her er en note på norsk",
+          "en": "Here is a note in English"
+        },
+        "isMandatory": false
+      }
+    ],
+    "tableId": "SYS002_2",
+    "baseTitle": {
+      "no": "SYS002_2",
+      "en": "SYS002_2"
+    },
+    "label": {
+      "no": "SYS002_2",
+      "en": "SYS002_2"
+    },
+    "searchKeywords": {
+      "no": [],
+      "en": []
+    },
+    "statisticsId": "SYS002_2",
+    "dataFile": "SYS002_2",
+    "timeDimension": {
+      "dimensionId": "aar",
+      "columnName": "aar",
+      "label": {
+        "no": "aar",
+        "en": "year"
+      }
+    },
+    "codedDimensions": [
+      {
+        "dimensionId": "geografi",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "geografi",
+          "en": "geografi"
+        },
+        "codelistId": "geografi",
+        "columnName": "geografi_kode",
+        "eliminationPossible": true,
+        "eliminationCode": "100000"
+      }
+    ],
+    "dimensions": [
+
+      {
+        "dimensionId": "alder",
+        "columnName": "aldersgrupper",
+        "codelistId": "alder",
+        "label": {
+          "no": "alder",
+          "en": "alder"
+        },
+        "eliminationPossible": true,
+        "eliminationCode": "Alder i alt"
+      },
+      {
+        "dimensionId": "kjoenn",
+        "columnName": "kjoenn",
+        "codelistId": "kjoenn",
+        "label": {
+          "no": "kjoenn",
+          "en": "kjoenn"
+        },
+        "eliminationPossible": true,
+        "eliminationCode": "Begge kjønn"
+      }],
+    "measurements": [
+      {
+        "measurementId": "andel_sysselsatte",
+        "code": "ASXX",
+        "label": {
+          "no": "andel_sysselsatte",
+          "en": "andel_sysselsatte"
+        },
+        "columnName": "andeler",
+        "showDecimals": 1,
+        "aggregationAllowed": true,
+        "unitOfMeasure": {
+          "no": "Prosent",
+          "en": "Percent"
+        }
+      },
+      {
+        "measurementId": "antall_sysselsatte",
+        "code": "ASX1",
+        "label": {
+          "no": "antall_sysselsatte",
+          "en": "antall_sysselsatte"
+        },
+        "columnName": "sysselsatte",
+        "showDecimals": 0,
+        "aggregationAllowed": true,
+        "unitOfMeasure": {
+          "no": "Personer",
+          "en": "Persons"
+        }
+      },
+      {
+        "measurementId": "bosatte_totalt",
+        "code": "BTXX",
+        "label": {
+          "no": "bosatte_totalt",
+          "en": "bosatte_totalt"
+        },
+        "columnName": "befolkning",
+        "showDecimals": 0,
+        "aggregationAllowed": true,
+        "unitOfMeasure": {
+          "no": "Personer",
+          "en": "Persons"
+        }
+      }
+    ]
+  }
+}

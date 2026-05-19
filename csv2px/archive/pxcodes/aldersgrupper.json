@@ -1,0 +1,81 @@
+{
+  "id": "aldersgrupper",
+  "admin": {
+    "isFinal": true,
+    "tags": [
+      "auto"
+    ],
+    "todoCreation": null
+  },
+  "sortValueitemsOn": "code",
+  "label": {
+    "no": "aldersgrupper",
+    "en": "aldersgrupper"
+  },
+  "valueitems": [
+    {
+      "code": "15-24 år",
+      "unorderedChildren": null,
+      "label": {
+        "no": "15-24 år",
+        "en": "15-24 år"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "25-39 år",
+      "unorderedChildren": null,
+      "label": {
+        "no": "25-39 år",
+        "en": "25-39 år"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "40-49 år",
+      "unorderedChildren": null,
+      "label": {
+        "no": "40-49 år",
+        "en": "40-49 år"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "50-59 år",
+      "unorderedChildren": null,
+      "label": {
+        "no": "50-59 år",
+        "en": "50-59 år"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "60 -74 år",
+      "unorderedChildren": null,
+      "label": {
+        "no": "60 -74 år",
+        "en": "60 -74 år"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "Alder i alt",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Alder i alt",
+        "en": "Alder i alt"
+      },
+      "rank": null,
+      "notes": null
+    }
+  ],
+  "eliminationPossible": true,
+  "eliminationCode": "Alder i alt",
+  "sortGroupingsOn": null,
+  "groupings": null
+}

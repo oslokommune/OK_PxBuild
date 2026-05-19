@@ -1,0 +1,87 @@
+{
+  "dataset": {
+    "matrix": "NAME_OF_MATRIX",
+    "decimals": 2,
+    "showDecimals": 0,
+    "subjectCode": "MAL000",
+    "subjectarea": {
+      "no": "MEANING_OF_CODE"
+    },
+    "title": {
+      "no": "The title of the table, reflecting its contents and variable"
+    },
+    "contents": {
+      "no": "Information about the contents"
+    },
+    "units": {
+      "no": "UNITS_OF_MEASURE"
+    },
+    "last-updated":  "2024-06-01T12:00:00Z",
+    "notes": [
+    {
+      "text": {
+        "no": "Her er en note på norsk"
+      },
+      "isMandatory": false
+    }
+    ],
+    "tableId": "MAL000",
+    "baseTitle": {
+      "no": "MAL000"
+    },
+    "searchKeywords": {
+      "no": []
+    },
+    "statisticsId": "MAL000",
+    "dataFile": "MAL000",
+    "timeDimension": {
+      "dimensionId": "aar",
+      "columnName": "aar",
+      "label": {
+        "no": "aar"
+      }
+    },
+    "codedDimensions": [
+      {
+        "dimensionId": "CODED_DIMENSION_ID",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "CODED_DIMENSION_ID"
+        },
+        "codelistId": "CODED_DIMENSION_ID",
+        "pxcodesId": "CODED_DIMENSION_ID",
+        "columnName": "CODED_DIMENSION_ID_kode",
+        "eliminationPossible": true,
+        "eliminationCode": "100000 (code of summarized entry, e.g. '100000' for 'Oslo i alt')"
+      }
+    ],
+    "dimensions": [
+      {
+        "dimensionId": "DIMENSION1_ID",
+        "columnName": "DIMENSION1_ID",
+        "codelistId": "DIMENSION1_ID",
+        "label": {
+          "no": "DIMENSION1_ID"
+        },
+        "eliminationPossible": true,
+        "eliminationCode": "*** i alt (name of summarized entry, e.g. 'Oslo i alt')"
+      }
+    ],
+    "measurements": [
+      {
+        "measurementId": "MEASUREMENT1_ID",
+        "measurementCode": "MEASUREMENT1_ID",
+        "code": "MEASUREMENT1_ID",
+        "label": {
+          "no": "MEASUREMENT1_ID"
+        },
+        "columnName": "MEASUREMENT1_ID",
+        "precision": 1,
+        "aggregationAllowed": true,
+        "unitOfMeasure": {
+          "no": "UNIT_OF_MEASURE"
+        }
+      }
+    ]
+  }
+}

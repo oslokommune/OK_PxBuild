@@ -1,0 +1,123 @@
+{
+  "dataset": {
+      "last-updated":  "2024-06-01T12:00:00Z",
+      "notes": [
+      {
+        "text": {
+          "no": "Her er en note på norsk",
+          "en": "Here is a note in English"
+        },
+        "isMandatory": false
+      }
+    ],
+    "tableId": "SYS002",
+    "baseTitle": {
+      "no": "SYS002",
+      "en": "SYS002"
+    },
+    "label": {
+      "no": "SYS002",
+      "en": "SYS002"
+    },
+    "searchKeywords": {
+      "no": [],
+      "en": []
+    },
+    "statisticsId": "SYS002",
+    "dataFile": "SYS002",
+    "timeDimension": {
+      "dimensionId": "aar",
+      "columnName": "aar",
+      "label": {
+        "no": "aar",
+        "en": "year"
+      }
+    },
+    "codedDimensions": [
+    ],
+    "dimensions": [
+      {
+        "dimensionId": "geografi",
+        "columnName": "geografi",
+        "codelistId": "geografi",
+        "label": {
+          "no": "geografi",
+          "en": "geografi"
+        },
+        "eliminationPossible": true,
+        "eliminationCode": "Oslo i alt"
+      },
+      {
+        "dimensionId": "alder",
+        "columnName": "alder",
+        "codelistId": "alder",
+        "label": {
+          "no": "alder",
+          "en": "alder"
+        },
+        "eliminationPossible": true,
+        "eliminationCode": "Alder i alt"
+      },
+      {
+        "dimensionId": "kjoenn",
+        "columnName": "kjoenn",
+        "codelistId": "kjoenn",
+        "label": {
+          "no": "kjoenn",
+          "en": "kjoenn"
+        },
+        "eliminationPossible": true,
+        "eliminationCode": "Begge kjønn"
+      }],
+    "measurements": [
+      {
+        "measurementId": "andel_sysselsatte",
+        "measurementCode": "ASXX",
+        "code": "ASXX",
+        "label": {
+          "no": "andel_sysselsatte",
+          "en": "andel_sysselsatte"
+        },
+        "columnName": "andel_sysselsatte",
+        "showDecimals": 1,
+        "aggregationAllowed": true,
+        "unitOfMeasure": {
+          "no": "Prosent",
+          "en": "Percent"
+        }
+      },
+      {
+        "measurementId": "antall_sysselsatte",
+        "measurementCode": "ASX1",
+        "code": "ASX1",
+        "label": {
+          "no": "antall_sysselsatte",
+          "en": "antall_sysselsatte"
+        },
+        "columnName": "antall_sysselsatte",
+        "showDecimals": 0,
+        "aggregationAllowed": true,
+        "unitOfMeasure": {
+          "no": "Personer",
+          "en": "Persons"
+        }
+      },
+      {
+        "measurementId": "bosatte_totalt",
+        "measurementCode": "BTXX",
+        "code": "BTXX",
+        "label": {
+          "no": "bosatte_totalt",
+          "en": "bosatte_totalt"
+        },
+        "columnName": "bosatte_totalt",
+        "showDecimals": 0,
+        "aggregationAllowed": true,
+        "unitOfMeasure": {
+          "no": "Personer",
+          "en": "Persons"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "dataset": {
+      "last-updated":  "2024-06-01T12:00:00Z",
+      "contact": {
+        "name": {
+          "no": "Fornavn Etternavn",
+          "en": "FirstName LastName"
+        },
+        "phone": "+47 123 45 678",
+        "email": "example@example.com"
+      },
+      "notes": [
+      {
+        "text": {
+          "no": "Her er en note på norsk",
+          "en": "Here is a note in English"
+        },
+        "isMandatory": false
+      }
+    ],
+    "tableId": "KOM011",
+    "baseTitle": {
+      "no": "KOM011",
+      "en": "KOM011"
+    },
+    "label": {
+      "no": "KOM011",
+      "en": "KOM011"
+    },
+    "searchKeywords": {
+      "no": [],
+      "en": []
+    },
+    "statisticsId": "KOM011",
+    "dataFile": "KOM011",
+    "timeDimension": {
+      "dimensionId": "aar",
+      "columnName": "skattear",
+      "label": {
+        "no": "år",
+        "en": "year"
+      }
+    },
+    "codedDimensions": [
+    ],
+    "dimensions": [
+      {
+        "dimensionId": "område",
+        "columnName": "omrade",
+        "codelistId": "område",
+        "label": {
+          "no": "område",
+          "en": "area"
+        },
+        "eliminationPossible": true,
+        "eliminationCode": "Oslo i alt"
+      }
+      ],
+    "measurements": [
+      {
+        "measurementId": "Skatt_for_boligeiendommer_kr",
+        "measurementCode": "ASXX",
+        "code": "ASXX",
+        "label": {
+          "no": "Skatt for boligeiendommer (kr)",
+          "en": "Tax on residential property (NOK)"
+        },
+        "columnName": "Skatt_for_boligeiendommer_kr",
+        "showDecimals": 1,
+        "aggregationAllowed": true,
+        "unitOfMeasure": {
+          "no": "NOK",
+          "en": "NOK"
+        }
+      },
+      {
+        "measurementId": "antall_boenheter",
+        "measurementCode": "ASX1",
+        "code": "ASX1",
+        "label": {
+          "no": "antall boenheter",
+          "en": "number of housing units"
+        },
+        "columnName": "antall_boenheter",
+        "showDecimals": 0,
+        "aggregationAllowed": true,
+        "unitOfMeasure": {
+          "no": "antall",
+          "en": "Amount"
+        }
+      },
+      {
+        "measurementId": "Gjennomsnitt_skatt_pr_boenhet_kr",
+        "measurementCode": "BTXX",
+        "code": "BTXX",
+        "label": {
+          "no": "Gjennomsnitt skatt pr boenhet (kr)",
+          "en": "Average tax per housing unit (NOK)"
+        },
+        "columnName": "Gjennomsnitt_skatt_pr_boenhet_kr",
+        "showDecimals": 0,
+        "aggregationAllowed": true,
+        "unitOfMeasure": {
+          "no": "NOK",
+          "en": "NOK"
+        }
+      },
+      {
+        "measurementId": "Antall boenheter som betaler skatt",
+        "measurementCode": "BTX1",
+        "code": "BTX1",
+        "label": {
+          "no": "Antall boenheter som betaler skatt",
+          "en": "Number of housing units paying tax"
+        },
+        "columnName": "Antall_boenheter_som_betaler_skatt",
+        "showDecimals": 0,
+        "aggregationAllowed": true,
+        "unitOfMeasure": {
+          "no": "Antall",
+          "en": "Amount"
+        }
+      },
+      {
+        "measurementId": "Gjennomsnitt skatt pr boenhet som betaler skatt (kr)",
+        "measurementCode": "BTX2",
+        "code": "BTX2",
+        "label": {
+          "no": "Gjennomsnitt skatt pr boenhet som betaler skatt (kr)",
+          "en": "Average tax per housing unit paying tax (NOK)"
+        },
+        "columnName": "Gjennomsnitt_skatt_pr_boenhet_som_betaler_skatt_kr",
+        "showDecimals": 0,
+        "aggregationAllowed": true,
+        "unitOfMeasure": {
+          "no": "NOK",
+          "en": "NOK"
+        }
+      }
+    ]
+  }
+}

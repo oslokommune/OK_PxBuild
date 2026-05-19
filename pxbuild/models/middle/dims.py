@@ -7,6 +7,7 @@ from typing import Dict, List
 from .time_dim import TimeDim
 from .cont_dim import ContDim
 from .coded_dim import CodedDim
+from .regular_dim import RegularDim
 from .abstract_dim import AbstractDim
 
 from pxbuild.models.input.helper_pxcodes import HelperPxCodes
@@ -22,24 +23,44 @@ class Dims:
         self._headingCodes: List[str] = []
 
         self.coded_dimensions: List[CodedDim] = []
+        self.dimensions: List[RegularDim] = []
 
         # CodedDimensions
-        if meta.coded_dimensions:
-            # In input 2 CodedDimensions can share a codelist. This cannot be expressed in output.
-            pxcodes_by_codelist_id = in_loaded_jsons.get_resolved_pxcodes_ids()
-            pxcodes_helper_by_codelist_id: Dict[str, HelperPxCodes] = {}
-            for codelist_id in pxcodes_by_codelist_id:
-                pxcodes_helper_by_codelist_id[codelist_id] = HelperPxCodes(
-                    pxcodes_by_codelist_id[codelist_id], in_loaded_jsons.get_config().admin.valid_languages
-                )
+        pxcodes_by_codelist_id = in_loaded_jsons.get_resolved_pxcodes_ids()
+        pxcodes_helper_by_codelist_id: Dict[str, HelperPxCodes] = {}
+        for codelist_id in pxcodes_by_codelist_id:
+            pxcodes_helper_by_codelist_id[codelist_id] = HelperPxCodes(
+                pxcodes_by_codelist_id[codelist_id], in_loaded_jsons.get_config().admin.valid_languages
+            )
 
+        if meta.coded_dimensions:
             for n_dim in meta.coded_dimensions:
-                n_dim.codelist_id
+                if n_dim.codelist_id not in pxcodes_helper_by_codelist_id:
+                    raise ValueError(f"Missing pxcodes for codelistId {n_dim.codelist_id}")
+
                 temp_cd = CodedDim(n_dim, pxcodes_helper_by_codelist_id[n_dim.codelist_id], in_loaded_jsons)
                 n_code = temp_cd.get_code()
                 self._stubCodes.append(n_code)
                 self.dim_by_code[n_code] = temp_cd
                 self.coded_dimensions.append(temp_cd)
+
+        # Regular dimensions (no codelist/codes)
+        if meta.dimensions:
+            data = in_datadatasource.get_data()
+            for n_dim in meta.dimensions:
+                # Use unique values from the data source as the dimension values
+                if n_dim.column_name not in data.columns:
+                    raise ValueError(f"Regular dimension column {n_dim.column_name} not found in data source")
+
+                values = data[n_dim.column_name].dropna().unique().tolist()
+                values = [str(v).strip() for v in values]
+                values = sorted(set(values))
+
+                temp_dim = RegularDim(n_dim, values)
+                n_code = temp_dim.get_code()
+                self._stubCodes.append(n_code)
+                self.dim_by_code[n_code] = temp_dim
+                self.dimensions.append(temp_dim)
 
         # CONT
         self.contdim: ContDim = ContDim(in_loaded_jsons)

@@ -1,0 +1,121 @@
+{
+  "id": "innvandringsgrunn",
+  "admin": {
+    "isFinal": true,
+    "tags": [
+      "auto"
+    ],
+    "todoCreation": null
+  },
+  "sortValueitemsOn": "code",
+  "label": {
+    "no": "innvandringsgrunn",
+    "en": "innvandringsgrunn"
+  },
+  "valueitems": [
+    {
+      "code": "Alle innvandringsgrunner",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Alle innvandringsgrunner",
+        "en": "Alle innvandringsgrunner"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "Andre grunner",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Andre grunner",
+        "en": "Andre grunner"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "Arbeid",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Arbeid",
+        "en": "Arbeid"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "Familie",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Familie",
+        "en": "Familie"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "Familie, referanseperson annet",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Familie, referanseperson annet",
+        "en": "Familie, referanseperson annet"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "Familie, referanseperson flukt",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Familie, referanseperson flukt",
+        "en": "Familie, referanseperson flukt"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "Flukt",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Flukt",
+        "en": "Flukt"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "Uoppgitt innvandringsgrunn",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Uoppgitt innvandringsgrunn",
+        "en": "Uoppgitt innvandringsgrunn"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "Utdanning",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Utdanning",
+        "en": "Utdanning"
+      },
+      "rank": null,
+      "notes": null
+    },
+    {
+      "code": "Uten innvandringsgrunn",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Uten innvandringsgrunn",
+        "en": "Uten innvandringsgrunn"
+      },
+      "rank": null,
+      "notes": null
+    }
+  ],
+  "eliminationPossible": false,
+  "eliminationCode": null,
+  "sortGroupingsOn": null,
+  "groupings": null
+}

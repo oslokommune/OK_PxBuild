@@ -62,3 +62,60 @@ poetry run pytest
 ```
 pre-commit install
 ```
+
+
+
+## Branch csv_to_px:
+
+# csv2px.py (data preparation):
+
+Takes table ID (e.g., SYS002)
+
+Reads raw CSV from input/csv_files/{id}.csv
+
+Reads metadata from input/pxmetadata/{id}.json
+
+Normalizes CSV: standardizes headers, cleans numeric values, removes duplicates, converts time to strings
+
+Writes cleaned CSV to pxjson/csv_files/{id}.csv
+
+If coded dimensions exist: writes pxcodes JSONs to pxjson/pxcodes/
+
+
+# RunPx.py (PX file generation):
+
+Takes table ID (e.g., SYS002)
+
+Calls pxbuild.LoadFromPxmetadata(ID, config)
+
+pxbuild reads:
+
+Metadata from input/pxmetadata/{id}.json
+
+CSV data from pxjson/csv_files/{id}.csv
+
+Codelists from pxjson/pxcodes/*.json
+
+Generates PX files in output/px/output_{id}/
+
+# Flow:
+
+Raw data + metadata -> csv2px.py -> Clean data (+ codelists if applicable) -> RunPx.py -> PX files
+
+
+
+# To run:
+
+cd C:\Path\To\PxBuild\csv2px
+
+conda activate PxBuild
+
+python csv2px.py <table_ID>
+
+python RunPx.py <table_ID>
+
+f.ex.:
+
+python csv2px.py SYS002
+
+python RunPx.py SYS002

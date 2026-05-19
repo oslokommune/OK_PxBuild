@@ -1,0 +1,128 @@
+{
+  "dataset": {
+    "matrix": "OK-SYS002",
+    "decimals": 2,
+    "showDecimals": 0,
+    "subjectCode": "SYS002",
+    "subjectText": {
+      "no": "Sysselsatte",
+      "en": "Employment"
+    },
+    "subjectarea": {
+      "no": "Sysselsatte"
+    },
+    "title": {
+      "no": "SYS002: Sysselsatte, bosatte og sysselsettingsandel etter alder, geografi og kjønn"
+    },
+    "contents": {
+      "no": "Sysselsatte, bosatte og sysselsettingsandel"
+    },
+    "units": {
+      "no": "personer, prosent"
+    },
+    "last-updated":  "2024-06-01T12:00:00Z",
+    "notes": [
+    {
+      "text": {
+        "no": "Her er en note på norsk"
+      },
+      "isMandatory": false
+    }
+    ],
+    "tableId": "SYS002",
+    "baseTitle": {
+      "no": "SYS002"
+    },
+
+    "searchKeywords": {
+      "no": []
+    },
+    "statisticsId": "SYS002",
+    "dataFile": "SYS002",
+    "contacts": [
+      {
+        "name": {
+          "no": "Kontakt"
+        },
+        "email": "contact@example.no",
+        "phone": "+47 21 09 00 00"
+      }
+    ],
+    "timeDimension": {
+      "dimensionId": "aar",
+      "columnName": "aar",
+      "label": {
+        "no": "aar"
+      }
+    },
+    "codedDimensions": [
+    ],
+    "dimensions": [
+      {
+        "dimensionId": "geografi",
+        "columnName": "geografi",
+        "label": {
+          "no": "geografi"
+        },
+        "eliminationPossible": true,
+        "eliminationCode": "Oslo i alt"
+      },
+      {
+        "dimensionId": "alder",
+        "columnName": "alder",
+        "label": {
+          "no": "alder"
+        },
+        "eliminationPossible": true,
+        "eliminationCode": "Alder i alt"
+      },
+      {
+        "dimensionId": "kjoenn",
+        "columnName": "kjoenn",
+        "label": {
+          "no": "kjoenn"
+        },
+        "eliminationPossible": true,
+        "eliminationCode": "Begge kjønn"
+      }],
+    "measurements": [
+      {
+        "measurementId": "andel_sysselsatte",
+        "code": "ASXX",
+        "label": {
+          "no": "andel_sysselsatte"
+        },
+        "columnName": "andel_sysselsatte",
+        "precision": 1,
+        "aggregationAllowed": true,
+        "unitOfMeasure": {
+          "no": "Prosent"
+        }
+      },
+      {
+        "measurementId": "antall_sysselsatte",
+        "code": "ASX1",
+        "label": {
+          "no": "antall_sysselsatte"
+        },
+        "columnName": "antall_sysselsatte",
+        "aggregationAllowed": true,
+        "unitOfMeasure": {
+          "no": "Personer"
+        }
+      },
+      {
+        "measurementId": "bosatte_totalt",
+        "code": "BTXX",
+        "label": {
+          "no": "bosatte_totalt"
+        },
+        "columnName": "bosatte_totalt",
+        "aggregationAllowed": true,
+        "unitOfMeasure": {
+          "no": "Personer"
+        }
+      }
+    ]
+  }
+}

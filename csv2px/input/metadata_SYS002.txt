@@ -1,0 +1,24 @@
+---------------------
+OBLIGATORISK METADATA
+---------------------
+Tabell-kode: SYS002
+Antall desimaler: 2
+Navn på tidsdimensjon: aar
+Dimensjoner: geografi, alder, kjoenn
+Statistikkvariabler: andel_sysselsatte, antall_sysselsatte, bosatte_totalt
+Måleénheter: prosent, personer, personer
+subject-area: Sysselsatte
+---------------------
+
+---------------------
+VALGFRI METADATA
+---------------------
+Tittel: SYS002: Sysselsatte, bosatte og sysselsettingsandel etter alder, geografi og kjønn
+Innhold: Sysselsatte, bosatte og sysselsettingsandel
+Basetittel: Sysselsatte
+Presisjon: 1, 0, 0
+aggregationAllowed: true
+Sist oppdatert: 2024-06-01T12:00:00Z
+Notater: note 1.
+Kontakt: Kontakt, contact@example.no, +47 21 09 00 00
+Eliminasjon: Oslo i alt, Alder i alt, Begge kjønn

@@ -1,0 +1,26 @@
+---------------------
+OBLIGATORISK METADATA
+---------------------
+Tabell-kode: 
+antall desimaler: 
+Navn på tidsdimensjon: 
+Dimensjoner navn: 
+Statistikkvariabler: 
+Måleénheter: 
+subject-area: 
+---------------------
+
+---------------------
+VALGFRI METADATA
+---------------------
+dimensjoner kode:
+aggregationAllowed: 
+Sist oppdatert: 
+Notater: 
+Kontakt: 
+Eliminasjon: 
+
+
+
+---
+spesifiser kode/navn

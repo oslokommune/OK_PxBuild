@@ -1,0 +1,21 @@
+---------------------
+OBLIGATORISK METADATA
+---------------------
+Tabell-kode: SYS002_2
+Antall desimaler: 2
+Navn på tidsdimensjon: aargang
+Dimensjoner navn: geografi_navn, aldersgrupper, kjoenn
+Statistikkvariabler: andeler, sysselsatte, befolkning
+Måleénheter: prosent, personer, personer
+subject-area: sysselsatte
+---------------------
+
+---------------------
+VALGFRI METADATA
+---------------------
+Dimensjoner kode: geografi_kode
+aggregationAllowed: true
+Sist oppdatert: 2024-06-01T12:00:00Z
+Notater: note 1.
+Kontakt: Kontakt, contact@example.no, +47 21 09 00 00
+Eliminasjon: 100000, Alder i alt, Begge kjønn

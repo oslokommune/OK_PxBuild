@@ -26,7 +26,7 @@ def to_ascii_key(s: str) -> str:
     s = s.lower()
     # keep dot for pandas duplicate columns (".1") so we can detect pairs
     s = re.sub(r"[^a-z0-9_\.]+", "", s)
-
+    """
     # synonyms
     if s in {"ar", "aar", "aargang", "year"}:
         return "aar"
@@ -34,6 +34,7 @@ def to_ascii_key(s: str) -> str:
         return "kjoenn"
     if s == "kjonn.1":
         return "kjoenn.1"
+    """
     return s
 
 
@@ -120,10 +121,12 @@ def load_schema_from_metadata(metadata_path: Path) -> DetectedSchema:
         # Assume kode/navn pairs if column_name ends with _kode
         if column_name.endswith("_kode"):
             base = column_name[:-5]
-            navn_col = f"{base}_navn"
+            # Use labelColumnName from metadata if present, otherwise infer
+            label_column_name = dim.get("labelColumnName")
+            navn_col = to_ascii_key(label_column_name) if label_column_name else f"{base}_navn"
             code_name_map[base] = (
                 column_name,
-                navn_col if navn_col in normalized_columns else None,
+                navn_col if (label_column_name or navn_col in normalized_columns) else None,
             )
         else:
             code_name_map[dim_id] = (column_name, None)

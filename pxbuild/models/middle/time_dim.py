@@ -5,6 +5,7 @@ from pxbuild.controll.helpers.loaded_jsons import LoadedJsons
 
 
 from pxbuild.controll.helpers.datadata_helpers.for_get_data import CubemathsHelper
+from pxbuild.controll.helpers.datadata_helpers.datadatasource import normalize_column_name
 
 
 class TimeDim(AbstractDim):
@@ -16,7 +17,8 @@ class TimeDim(AbstractDim):
         col_name = meta.time_dimension.column_name
         self._periods = in_datadatasource.get_timeperiodes(col_name)
 
-        self._for_get_data = CubemathsHelper(col_name, self._periods)
+        # The tidy dataframe normalizes column names, so the lookup name must match.
+        self._for_get_data = CubemathsHelper(normalize_column_name(col_name), self._periods)
 
     # for time : code == label
 

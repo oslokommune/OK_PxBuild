@@ -2,6 +2,7 @@ from typing import List, Optional
 from .abstract_dim import AbstractDim
 from ..input.pydantic_pxmetadata import Dimension
 from pxbuild.controll.helpers.datadata_helpers.for_get_data import CubemathsHelper
+from pxbuild.controll.helpers.datadata_helpers.datadatasource import normalize_column_name
 
 
 class RegularDim(AbstractDim):
@@ -26,7 +27,8 @@ class RegularDim(AbstractDim):
         return value_code
 
     def get_cubemaths_helper(self, language: str) -> CubemathsHelper:
-        return CubemathsHelper(self._raw.column_name, self._values)
+        # The tidy dataframe normalizes column names, so the lookup name must match.
+        return CubemathsHelper(normalize_column_name(self._raw.column_name), self._values)
 
     def groupings(self) -> Optional[List]:
         return None

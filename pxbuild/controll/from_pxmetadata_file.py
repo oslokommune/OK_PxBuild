@@ -448,9 +448,12 @@ class LoadFromPxmetadata:
             return contact_string
 
         for contact in in_data.dataset.contacts:
-            if contact.name is None:
-                return contact_string
-            contact_string += f"{contact.name.get(language, '')}#{contact.phone}#{contact.email}##"
+            # 'raw' is a verbatim passthrough (e.g. "Byrådsavdeling for finans (e@post)");
+            # fall back to the structured name#phone#email form when raw is absent.
+            if contact.raw and contact.raw.get(language):
+                contact_string += f"{contact.raw[language]}##"
+            elif contact.name is not None:
+                contact_string += f"{contact.name.get(language, '')}#{contact.phone}#{contact.email}##"
 
         return contact_string[:-2]
 
@@ -519,6 +522,11 @@ class LoadFromPxmetadata:
             next_update = self.get_next_update()
             if next_update:
                 out_model.next_update.set(next_update)
+
+            # UPDATE-FREQUENCY (language-independent) — read from the consolidated pxmetadata.
+            update_frequency = self._pxmetadata_model.dataset.update_frequency
+            if update_frequency and update_frequency.get(lang):
+                out_model.update_frequency.set(update_frequency[lang])
 
     def map_pxmetadata_to_pxfile(self, in_model: PxMetadata, out_model: PXFileModel):
         """Map general metadata fields from pxmetadata to PX file, handling both language-independent and language-specific cases."""

@@ -58,6 +58,13 @@ class CodedDim(AbstractDim):
     def get_domain_id(self, language: str) -> str:
         return self._raw.codelist_id + "_" + language
 
+    def get_domain_literal(self) -> str | None:
+        """Literal DOMAIN pointer to an external, shared value set, or None.
+
+        Written verbatim to the DOMAIN keyword with no language suffix, for value
+        sets managed outside pxbuild (vs. groupings defined inline)."""
+        return self._raw.domain
+
     # For Support_files.py:
     def get_helper_pxcodes(self) -> HelperPxCodes:
         return self._pxcodes_helper

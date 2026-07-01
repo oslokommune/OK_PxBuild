@@ -123,6 +123,10 @@ class CodedDimension(BaseModel):
     """
     A Link to a PxCodes document
     """
+    domain: Optional[str] = None
+    """
+    Literal DOMAIN pointer to an external, shared value set (e.g. 'geo_pendling'). Written verbatim to the DOMAIN keyword, with no language suffix. Use when the value set is managed outside pxbuild, instead of groupings defined inline.
+    """
     label_construction_option: Optional[LabelConstructionOption] = Field(
         LabelConstructionOption.text, alias="labelConstructionOption"
     )

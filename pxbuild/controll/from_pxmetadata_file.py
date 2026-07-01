@@ -261,7 +261,12 @@ class LoadFromPxmetadata:
                     lang
                 )  # the variable label is used as the subkey for these additional fields in the PX file, and the language is specified for multilingual files
 
-                if n_var.groupings():
+                if n_var.get_domain_literal():
+                    # A literal domain pointer was supplied in the pxmetadata. Write it verbatim to DOMAIN,
+                    # with no language suffix. Used when the value set is managed outside pxbuild (e.g. shared
+                    # .vs/.agg sets referenced across tables).
+                    out_model.domain.set(n_var.get_domain_literal(), my_funny_var_id, pxlang)
+                elif n_var.groupings():
                     # If the coded dimension has groupings defined in the pxmetadata, set the domain in the PX file based on the domain ID from the pxmetadata for that dimension.
                     # This will link the variable to its corresponding domain in the output PX file, allowing for correct interpretation of the coded values based on the defined groupings.
                     out_model.domain.set(n_var.get_domain_id(lang), my_funny_var_id, pxlang)

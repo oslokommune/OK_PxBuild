@@ -167,6 +167,9 @@ components:
                   codelistId:
                     type: string
                     description: A Link to a PxCodes document
+                  domain:
+                    type: string
+                    description: "Literal DOMAIN pointer to an external, shared value set (e.g. 'geo_pendling'). Written verbatim to the DOMAIN keyword, with no language suffix. Use when the value set is managed outside pxbuild, instead of groupings defined inline."
                   labelConstructionOption:
                     type: string
                     enum:

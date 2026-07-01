@@ -1,0 +1,73 @@
+{
+  "id": "OK-FOR002_alder",
+  "admin": {
+    "isFinal": true,
+    "tags": [],
+    "todoCreation": null
+  },
+  "sortValueitemsOn": "rank",
+  "label": {
+    "no": "alder"
+  },
+  "valueitems": [
+    {
+      "code": "I alt",
+      "unorderedChildren": null,
+      "label": {
+        "no": "I alt"
+      },
+      "rank": {
+        "no": "0000"
+      },
+      "notes": null
+    },
+    {
+      "code": "17-24 år",
+      "unorderedChildren": null,
+      "label": {
+        "no": "17-24 år"
+      },
+      "rank": {
+        "no": "0001"
+      },
+      "notes": null
+    },
+    {
+      "code": "25-44 år",
+      "unorderedChildren": null,
+      "label": {
+        "no": "25-44 år"
+      },
+      "rank": {
+        "no": "0002"
+      },
+      "notes": null
+    },
+    {
+      "code": "45-66 år",
+      "unorderedChildren": null,
+      "label": {
+        "no": "45-66 år"
+      },
+      "rank": {
+        "no": "0003"
+      },
+      "notes": null
+    },
+    {
+      "code": "67 år eller eldre",
+      "unorderedChildren": null,
+      "label": {
+        "no": "67 år eller eldre"
+      },
+      "rank": {
+        "no": "0004"
+      },
+      "notes": null
+    }
+  ],
+  "eliminationPossible": false,
+  "eliminationCode": null,
+  "sortGroupingsOn": null,
+  "groupings": null
+}

@@ -1,0 +1,73 @@
+{
+  "id": "OK-SYS005_alder",
+  "admin": {
+    "isFinal": true,
+    "tags": [],
+    "todoCreation": null
+  },
+  "sortValueitemsOn": "rank",
+  "label": {
+    "no": "alder"
+  },
+  "valueitems": [
+    {
+      "code": "15-29",
+      "unorderedChildren": null,
+      "label": {
+        "no": "15-29"
+      },
+      "rank": {
+        "no": "0000"
+      },
+      "notes": null
+    },
+    {
+      "code": "30-61",
+      "unorderedChildren": null,
+      "label": {
+        "no": "30-61"
+      },
+      "rank": {
+        "no": "0001"
+      },
+      "notes": null
+    },
+    {
+      "code": "62-74",
+      "unorderedChildren": null,
+      "label": {
+        "no": "62-74"
+      },
+      "rank": {
+        "no": "0002"
+      },
+      "notes": null
+    },
+    {
+      "code": "75+",
+      "unorderedChildren": null,
+      "label": {
+        "no": "75+"
+      },
+      "rank": {
+        "no": "0003"
+      },
+      "notes": null
+    },
+    {
+      "code": "Alder i alt",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Alder i alt"
+      },
+      "rank": {
+        "no": "0004"
+      },
+      "notes": null
+    }
+  ],
+  "eliminationPossible": true,
+  "eliminationCode": "Alder i alt",
+  "sortGroupingsOn": null,
+  "groupings": null
+}

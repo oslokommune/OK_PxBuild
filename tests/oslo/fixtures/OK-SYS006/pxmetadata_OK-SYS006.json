@@ -1,0 +1,93 @@
+{
+  "dataset": {
+    "tableId": "OK-SYS006",
+    "matrix": "OK-SYS006",
+    "statisticsId": "OK-SYS006",
+    "dataFile": "data.csv",
+    "subjectCode": "SYS",
+    "subjectText": {
+      "no": "Sysselsetting"
+    },
+    "subjectarea": {
+      "no": "Sysselsetting"
+    },
+    "updateFrequency": {
+      "no": "årlig"
+    },
+    "contacts": [
+      {
+        "raw": {
+          "no": "Byrådsavdeling for finans (oslostatistikken@byr.oslo.kommune.no)"
+        }
+      }
+    ],
+    "last-updated": "2025-05-23T08:00:00Z",
+    "baseTitle": {
+      "no": "Pendlingsstrømmer inn og ut fra Oslo (sysselsatte 15-74 år) (B)"
+    },
+    "contents": {
+      "no": "Pendlingsstrømmer inn og ut fra Oslo (sysselsatte 15-74 år) (B)"
+    },
+    "title": {
+      "no": "SYS006: Pendlingsstrømmer inn og ut fra Oslo (sysselsatte 15-74 år) (B) 2025"
+    },
+    "searchKeywords": {
+      "no": []
+    },
+    "notes": [
+      {
+        "text": {
+          "no": "Tabellen viser sysselsatte med arbeidssted i Oslo i alderen 15 til 74 år per 4. kvartal hvert år, fordelt på bosted.##En sysselsatt er her definert som enten lønnstaker eller selvstendig næringsdrivende. En lønnstaker er en som har utført inntektsgivende arbeid av minst én times varighet i løpet av referanseuken. Tabellen gir en indikasjon på innpendling til Oslo, men viser ikke pendlingsreiser.##Tallene hentes fra sysselsettingsstatistikken hos SSB. Fra og med 2015 bygger statistikken på nye datakilder. For 4.kvartal 2015 ligger antall sysselsatte i alt 60 000 lavere enn Arbeidskraftundersøkelsene (AKU). Tidligere var totaltallet i disse to statistikkene samordnet, og viste dermed samme antall sysselsatte. Dette har ført til et brudd i statistikken, og tabellen viser dermed en nedgang i tallene for 2015.##Se nærmere omtale her: https://ssb.no/regsys##For å lese mer om pendling til og fra Oslo, se: https://www.oslo.kommune.no/politikk-og-administrasjon/statistikk/arbeids-og-naringsliv-bygg/naringsliv-sysselsetting-og-pendling/"
+        },
+        "isMandatory": false
+      }
+    ],
+    "timeDimension": {
+      "columnName": "år",
+      "timePeriodFormat": "åååå",
+      "label": {
+        "no": "år"
+      }
+    },
+    "codedDimensions": [
+      {
+        "columnName": "bosted",
+        "code": "bosted",
+        "isGeoVariableType": false,
+        "codelistId": "OK-SYS006_bosted",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "bosted"
+        },
+        "notes": null,
+        "domain": "geo_pendling"
+      },
+      {
+        "columnName": "arbeidssted",
+        "code": "arbeidssted",
+        "isGeoVariableType": false,
+        "codelistId": "OK-SYS006_arbeidssted",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "arbeidssted"
+        },
+        "notes": null,
+        "domain": "geo_pendling"
+      }
+    ],
+    "measurements": [
+      {
+        "columnName": "antall_sysselsatte",
+        "code": "Antallsysselsatte",
+        "showDecimals": 0,
+        "aggregationAllowed": true,
+        "label": {
+          "no": "Antall sysselsatte"
+        },
+        "unitOfMeasure": {
+          "no": "sysselsatte"
+        }
+      }
+    ]
+  }
+}

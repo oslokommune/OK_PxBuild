@@ -1,0 +1,51 @@
+{
+  "id": "OK-DEMO001_arbeidssted",
+  "admin": {
+    "isFinal": true,
+    "tags": [],
+    "todoCreation": null
+  },
+  "sortValueitemsOn": "rank",
+  "label": {
+    "no": "arbeidssted"
+  },
+  "valueitems": [
+    {
+      "code": "1030101",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Gamle Oslo"
+      },
+      "rank": {
+        "no": "0000"
+      },
+      "notes": null
+    },
+    {
+      "code": "1030102",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Grünerløkka"
+      },
+      "rank": {
+        "no": "0001"
+      },
+      "notes": null
+    },
+    {
+      "code": "2010000",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Østfold"
+      },
+      "rank": {
+        "no": "0002"
+      },
+      "notes": null
+    }
+  ],
+  "eliminationPossible": false,
+  "eliminationCode": null,
+  "sortGroupingsOn": null,
+  "groupings": null
+}

@@ -1,0 +1,94 @@
+{
+  "dataset": {
+    "tableId": "OK-SYS003",
+    "matrix": "OK-SYS003",
+    "statisticsId": "OK-SYS003",
+    "dataFile": "data.csv",
+    "subjectCode": "SYS",
+    "subjectText": {
+      "no": "Sysselsetting"
+    },
+    "subjectarea": {
+      "no": "Sysselsetting"
+    },
+    "updateFrequency": {
+      "no": "årlig"
+    },
+    "contacts": [
+      {
+        "raw": {
+          "no": "Byrådsavdeling for finans (oslostatistikken@byr.oslo.kommune.no)"
+        }
+      }
+    ],
+    "last-updated": null,
+    "baseTitle": {
+      "no": "Unge utenfor arbeid, utdanning og opplæring (NEETs i aldersgruppen 15-29) (D)"
+    },
+    "contents": {
+      "no": "Unge utenfor arbeid, utdanning og opplæring (NEETs i aldersgruppen 15-29) (D)"
+    },
+    "title": {
+      "no": "SYS003: Unge utenfor arbeid, utdanning og opplæring (NEETs i aldersgruppen 15-29) (D) 2017-2024"
+    },
+    "searchKeywords": {
+      "no": []
+    },
+    "notes": [
+      {
+        "text": {
+          "no": "Statistikken viser andel av befolkningen i aldersgruppe 15-29 år som er klassifisert som NEETs. NEET er en forkortelse av «Not in Education, Employment or Training» og er en fellesbetegnelse for personer som verken er i arbeid, utdanning eller opplæring.##Se følgende artikkel hos SSB for mer informasjon om denne klassifiseringen - https://www.ssb.no/arbeid-og-lonn/artikler-og-publikasjoner/ungdom-som-verken-er-i-arbeid-eller-utdanning.###Kilde: Statistisk sentralbyrå"
+        },
+        "isMandatory": false
+      }
+    ],
+    "timeDimension": {
+      "columnName": "år",
+      "timePeriodFormat": "åååå",
+      "label": {
+        "no": "år"
+      }
+    },
+    "codedDimensions": [
+      {
+        "columnName": "bosted",
+        "code": "bosted",
+        "isGeoVariableType": false,
+        "codelistId": "OK-SYS003_bosted",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "bosted"
+        },
+        "notes": null,
+        "domain": "delbydeler_preagg"
+      }
+    ],
+    "measurements": [
+      {
+        "columnName": "andel_neets",
+        "code": "AndelNEETs",
+        "showDecimals": 1,
+        "aggregationAllowed": true,
+        "label": {
+          "no": "Andel NEETs"
+        },
+        "unitOfMeasure": {
+          "no": "personer"
+        },
+        "precision": 1
+      },
+      {
+        "columnName": "antall_neets",
+        "code": "AntallNEETs",
+        "showDecimals": 0,
+        "aggregationAllowed": true,
+        "label": {
+          "no": "Antall NEETs"
+        },
+        "unitOfMeasure": {
+          "no": "personer"
+        }
+      }
+    ]
+  }
+}

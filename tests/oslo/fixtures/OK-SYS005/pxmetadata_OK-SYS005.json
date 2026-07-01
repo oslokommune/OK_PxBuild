@@ -1,0 +1,139 @@
+{
+  "dataset": {
+    "tableId": "OK-SYS005",
+    "matrix": "OK-SYS005",
+    "statisticsId": "OK-SYS005",
+    "dataFile": "data.csv",
+    "subjectCode": "SYS",
+    "subjectText": {
+      "no": "Sysselsetting"
+    },
+    "subjectarea": {
+      "no": "Sysselsetting"
+    },
+    "updateFrequency": {
+      "no": "årlig"
+    },
+    "contacts": [
+      {
+        "raw": {
+          "no": "Byrådsavdeling for finans (oslostatistikken@byr.oslo.kommune.no)"
+        }
+      }
+    ],
+    "last-updated": null,
+    "baseTitle": {
+      "no": "Arbeidsstyrkestatus (inkl. NEET) for personer 15+ år, etter bosted, alder og utdanning (B)"
+    },
+    "contents": {
+      "no": "Arbeidsstyrkestatus (inkl. NEET) for personer 15+ år, etter bosted, alder og utdanning (B)"
+    },
+    "title": {
+      "no": "SYS005: Arbeidsstyrkestatus (inkl. NEET) for personer 15+ år, etter bosted, alder og utdanning (B) 2024"
+    },
+    "searchKeywords": {
+      "no": []
+    },
+    "notes": [
+      {
+        "text": {
+          "no": "Bosatte 15 år og over fordelt på utdanningsvnivå, alder og deres tilknytning til arbeidslivet. Tabellen inneholder en gruppe for NEET som står for 'Neither in Employment, Education or Training' og er altså personer som ikke er sysselsatt, i utdanning eller i et arbeidsmarkedstiltak.##Tallene i statistikken baserer seg på informasjon fra system for persondata (SFP). Dette systemet består av registre som inneholder data for områder som arbeidsmarked, utdanningsaktivitet og velferdsordninger som er ment å kompensere for manglende arbeidsinntekt. I SFP finnes det også demografiske bakgrunnsvariabler, slik som kjønn og alder. De fleste variabler hentes direkte fra de forskjellige grunnlagsregistrene, mens enkelte blir konstruert ved å kombinere data fra ulike kilder. Tellingstidspunktet er 4. kvartal hvert år.##De viktigste datakildene i SFP er SSBs registerbasert sysselsettingsstatistikk og utdanningsstatistikk (igangværende utdanning), Det sentrale folkeregisteret (DSF) og NAVs registre over arbeidsledige og personer på ulike tiltak og offentlige ytelser.##Tallene for sysselsatte til og med 2014 er basert på data fra NAVs Arbeidsgiver-/arbeidstakerregister (Aa-registeret) og lønns- og trekkoppgaveregister (LTO-registeret). Fra og med 2015 er disse erstattet med A-ordningen. I tillegg til a-ordningen benyttes andre registre, der de viktigste er selvangivelsesregisteret administrert av Skattedirektoratet, registeret over vernepliktige fra Vernepliktsverket og Enhetsregisteret. Les mer om datakildene for sysselsatte i «Om statistikken» for registerbasert sysselsettingsstatistikk.##Tall for registrerte ledige og arbeidssøkere på tiltak bygger på data fra NAVs saksbehandlersystem, ARENA (tidligere SOFA-søker). Registeret omfatter blant annet personer registrerte som helt arbeidsledige, personer i ordinære arbeidsmarkedstiltak, samt personer med nedsatt arbeidsevne."
+        },
+        "isMandatory": false
+      }
+    ],
+    "timeDimension": {
+      "columnName": "år",
+      "timePeriodFormat": "åååå",
+      "label": {
+        "no": "år"
+      }
+    },
+    "codedDimensions": [
+      {
+        "columnName": "bosted",
+        "code": "bosted",
+        "isGeoVariableType": false,
+        "codelistId": "OK-SYS005_bosted",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "bosted"
+        },
+        "notes": null
+      },
+      {
+        "columnName": "utdanningsnivå",
+        "code": "utdanningsnivå",
+        "isGeoVariableType": false,
+        "codelistId": "OK-SYS005_utdanningsnivå",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "utdanningsnivå"
+        },
+        "notes": null
+      },
+      {
+        "columnName": "alder",
+        "code": "alder",
+        "isGeoVariableType": false,
+        "codelistId": "OK-SYS005_alder",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "alder"
+        },
+        "notes": null
+      },
+      {
+        "columnName": "sysselsettingsstatus",
+        "code": "sysselsettingsstatus",
+        "isGeoVariableType": false,
+        "codelistId": "OK-SYS005_sysselsettingsstatus",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "sysselsettingsstatus"
+        },
+        "notes": null,
+        "domain": "arbeidsstyrkestatus"
+      }
+    ],
+    "measurements": [
+      {
+        "columnName": "antall_personer",
+        "code": "antallpersoner",
+        "showDecimals": 0,
+        "aggregationAllowed": true,
+        "label": {
+          "no": "antall personer"
+        },
+        "unitOfMeasure": {
+          "no": "personer"
+        }
+      },
+      {
+        "columnName": "andel_av_referansegruppe",
+        "code": "andelavreferansegruppe",
+        "showDecimals": 1,
+        "aggregationAllowed": true,
+        "label": {
+          "no": "andel av referansegruppe"
+        },
+        "unitOfMeasure": {
+          "no": "personer"
+        },
+        "precision": 1
+      },
+      {
+        "columnName": "referansegruppe",
+        "code": "referansegruppe",
+        "showDecimals": 0,
+        "aggregationAllowed": true,
+        "label": {
+          "no": "referansegruppe"
+        },
+        "unitOfMeasure": {
+          "no": "personer"
+        }
+      }
+    ]
+  }
+}

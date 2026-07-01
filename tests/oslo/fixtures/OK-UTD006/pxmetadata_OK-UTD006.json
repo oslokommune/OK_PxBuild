@@ -1,0 +1,117 @@
+{
+  "dataset": {
+    "tableId": "OK-UTD006",
+    "matrix": "OK-UTD006",
+    "statisticsId": "OK-UTD006",
+    "dataFile": "data.csv",
+    "subjectCode": "UTD",
+    "subjectText": {
+      "no": "Utdanning"
+    },
+    "subjectarea": {
+      "no": "Utdanning"
+    },
+    "updateFrequency": {
+      "no": "årlig"
+    },
+    "contacts": [
+      {
+        "raw": {
+          "no": "Byrådsavdeling for finans (oslostatistikken@byr.oslo.kommune.no)"
+        }
+      }
+    ],
+    "last-updated": null,
+    "baseTitle": {
+      "no": "Barn i barnehage (antall og andel) fordelt på alder (D),"
+    },
+    "contents": {
+      "no": "Barn i barnehage (antall og andel) fordelt på alder (D),"
+    },
+    "title": {
+      "no": "UTD006: Barn i barnehage (antall og andel) fordelt på alder (D), 2023-2025"
+    },
+    "searchKeywords": {
+      "no": []
+    },
+    "notes": [
+      {
+        "text": {
+          "no": "Statistikken er en egenproduksjon av Oslo kommune hvor data fra fagsystemet IST kobles med befolkningsdata fra SSB. Tabellen gir oversikt over barn som var registrert i fagsystemet IST per 1.1 og deres registrerte bostedsadresse i fagsystemet på tidspunktet. Andelstall beregnes ved å sammenligne antall deltagere i barnehage med befolkningstall fra SSB for samme aldersgruppe og geografisk område.##Forskjell fra KOSTRA-statistikk på barnehagedekning:#KOSTRA-statistikken på barnehage publiseres på SSB.no og gir en indikasjon på antall og andel deltagere i barnehage per bydel i Oslo (<A HREF=http://www.ssb.no/statbank/table/13529/ TARGET=_blank>www.ssb.no/statbank/table/13529/</A>). Hovedforskjellen til denne statistikken er at KOSTRA-statistikken baserer seg på antall barn per barnehage og fordeler antall barn til hver bydel ut fra barnehagenes geografiske plassering, og ikke barnets bosted.##Usikkerhet:#Barn som er bosatt i Oslo, men som går i barnehage utenfor kommunen er ikke med i statistikken. Dette antallet varierer noe fra år til år, og i 2022 utgjorde dette omtrent 300 barn. SSB benytter folkeregistrert adresse som bostedsadresse og det kan være tilfeller der reell bostedsadresse er ulik den som er oppgitt i folkeregisteret. Statistikken er produsert på delbydelsnivå og i områder (delbydeler) med få bosatte vil relativt små endringer i antall kunne gi betydelige utslag på andelstall."
+        },
+        "isMandatory": false
+      }
+    ],
+    "timeDimension": {
+      "columnName": "årgang",
+      "timePeriodFormat": "åååå",
+      "label": {
+        "no": "årgang"
+      }
+    },
+    "codedDimensions": [
+      {
+        "columnName": "bosted",
+        "code": "bosted",
+        "isGeoVariableType": false,
+        "codelistId": "OK-UTD006_bosted",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "bosted"
+        },
+        "notes": null,
+        "domain": "delbydeler_preagg"
+      },
+      {
+        "columnName": "aldersgruppe",
+        "code": "aldersgruppe",
+        "isGeoVariableType": false,
+        "codelistId": "OK-UTD006_aldersgruppe",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "aldersgruppe"
+        },
+        "notes": null
+      }
+    ],
+    "measurements": [
+      {
+        "columnName": "andel",
+        "code": "andel",
+        "showDecimals": 1,
+        "aggregationAllowed": true,
+        "label": {
+          "no": "andel"
+        },
+        "unitOfMeasure": {
+          "no": "flere"
+        },
+        "precision": 1
+      },
+      {
+        "columnName": "barn_i_barnehage",
+        "code": "barnibarnehage",
+        "showDecimals": 0,
+        "aggregationAllowed": true,
+        "label": {
+          "no": "barn i barnehage"
+        },
+        "unitOfMeasure": {
+          "no": "flere"
+        }
+      },
+      {
+        "columnName": "bosatte",
+        "code": "bosatte",
+        "showDecimals": 0,
+        "aggregationAllowed": true,
+        "label": {
+          "no": "bosatte"
+        },
+        "unitOfMeasure": {
+          "no": "flere"
+        }
+      }
+    ]
+  }
+}

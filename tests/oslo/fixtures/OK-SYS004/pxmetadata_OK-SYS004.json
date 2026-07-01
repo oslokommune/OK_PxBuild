@@ -1,0 +1,104 @@
+{
+  "dataset": {
+    "tableId": "OK-SYS004",
+    "matrix": "OK-SYS004",
+    "statisticsId": "OK-SYS004",
+    "dataFile": "data.csv",
+    "subjectCode": "SYS",
+    "subjectText": {
+      "no": "Sysselsetting"
+    },
+    "subjectarea": {
+      "no": "Sysselsetting"
+    },
+    "updateFrequency": {
+      "no": "årlig"
+    },
+    "contacts": [
+      {
+        "raw": {
+          "no": "Byrådsavdeling for finans (oslostatistikken@byr.oslo.kommune.no)"
+        }
+      }
+    ],
+    "last-updated": null,
+    "baseTitle": {
+      "no": "Sysselsatte (15-74 år) etter arbeidssted, bosted og næring (SN2007 3-siffer) (B)"
+    },
+    "contents": {
+      "no": "Sysselsatte (15-74 år) etter arbeidssted, bosted og næring (SN2007 3-siffer) (B)"
+    },
+    "title": {
+      "no": "SYS004: Sysselsatte (15-74 år) etter arbeidssted, bosted og næring (SN2007 3-siffer) (B) 2025"
+    },
+    "searchKeywords": {
+      "no": []
+    },
+    "notes": [
+      {
+        "text": {
+          "no": "Tabellen viser sysselsatte i alderen 15 til 74 år med arbeidsted og/eller bosted i Oslo per 4.kvartal og fordelt på næringskoder.##En sysselsatt er her definert som enten lønnstaker eller selvstendig næringsdrivende. En lønnstaker er en som har utført inntektsgivende arbeid av minst#én times varighet i løpet av referanseuken.##Næring gjelder virksomheten hvor personen arbeider, og virksomhetene er kategorisert etter standard for næringsgruppering for 2007 (SN 2007). Se mer informasjon om SN2007 her:#<A HREF=https://www.ssb.no/klass/klassifikasjoner/6 TARGET=_blank>https://www.ssb.no/klass/klassifikasjoner/6</A>##Tallene hentes fra sysselsettingsstatistikken hos SSB. Fra og med 2015 bygger statistikken på nye datakilder. For 4.kvartal 2015 ligger antall sysselsatte i alt 60 000 lavere enn Arbeidskraftundersøkelsene (AKU). Tidligere var totaltallet i disse to statistikkene samordnet, og viste dermed samme antall sysselsatte. Dette har ført til et brudd i statistikken, og tabellen viser dermed en nedgang i tallene for 2015.#Fra og med 2020 har SSB tatt i bruk en ny og bedre metode for å beregne antall selvstendig næringsdrivende, som gir noen flere selvstendige og dermed en liten økning i antall sysselsatte sammenlignet med tidligere beregninger. Tall fra og med 2015 er oppdatert med denne beregningsmetoden.#Se nærmere omtale her: <A HREF=https://www.ssb.no/klass/klassifikasjoner/6 TARGET=_blank>https://www.ssb.no/klass/klassifikasjoner/6</A>"
+        },
+        "isMandatory": false
+      }
+    ],
+    "timeDimension": {
+      "columnName": "år",
+      "timePeriodFormat": "åååå",
+      "label": {
+        "no": "år"
+      }
+    },
+    "codedDimensions": [
+      {
+        "columnName": "geografi",
+        "code": "geografi",
+        "isGeoVariableType": false,
+        "codelistId": "OK-SYS004_geografi",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "geografi"
+        },
+        "notes": null
+      },
+      {
+        "columnName": "næring (SN2007)",
+        "code": "næring (SN2007)",
+        "isGeoVariableType": false,
+        "codelistId": "OK-SYS004_næring (SN2007)",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "næring (SN2007)"
+        },
+        "notes": null,
+        "domain": "sn2007-3nivå"
+      }
+    ],
+    "measurements": [
+      {
+        "columnName": "sysselsatte_etter_bosted",
+        "code": "sysselsatteetterbosted",
+        "showDecimals": 0,
+        "aggregationAllowed": true,
+        "label": {
+          "no": "sysselsatte etter bosted"
+        },
+        "unitOfMeasure": {
+          "no": "sysselsatte personer"
+        }
+      },
+      {
+        "columnName": "sysselsatte_etter_arbeidssted",
+        "code": "sysselsatteetterarbeidssted",
+        "showDecimals": 0,
+        "aggregationAllowed": true,
+        "label": {
+          "no": "sysselsatte etter arbeidssted"
+        },
+        "unitOfMeasure": {
+          "no": "sysselsatte personer"
+        }
+      }
+    ]
+  }
+}

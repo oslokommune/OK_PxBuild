@@ -1,0 +1,128 @@
+{
+  "dataset": {
+    "tableId": "OK-SYS002",
+    "matrix": "OK-SYS002",
+    "statisticsId": "OK-SYS002",
+    "dataFile": "data.csv",
+    "subjectCode": "SYS",
+    "subjectText": {
+      "no": "Sysselsetting"
+    },
+    "subjectarea": {
+      "no": "Sysselsetting"
+    },
+    "updateFrequency": {
+      "no": "årlig"
+    },
+    "contacts": [
+      {
+        "raw": {
+          "no": "Byrådsavdeling for finans (oslostatistikken@byr.oslo.kommune.no)"
+        }
+      }
+    ],
+    "last-updated": null,
+    "baseTitle": {
+      "no": "Sysselsatte (15-74 år) og sysselsettingsandel etter alder og kjønn (D)"
+    },
+    "contents": {
+      "no": "Sysselsatte (15-74 år) og sysselsettingsandel etter alder og kjønn (D)"
+    },
+    "title": {
+      "no": "SYS002: Sysselsatte (15-74 år) og sysselsettingsandel etter alder og kjønn (D) 2025"
+    },
+    "searchKeywords": {
+      "no": []
+    },
+    "notes": [
+      {
+        "text": {
+          "no": "Statistikken viser antall sysselsatte (15-74 år) bosatt i Oslo i 4. kvartal, referansebefolkning som er bosatte 01.01 påfølgende år, og sysselsettingsandel basert på disse to måltallene.Tabellen inneholder alle sysselsatte som bor i Oslo (15-74 år) uavhengig av arbeidssted. Sysselsatte er definert som personer som utførte inntektsgivende arbeid av minst én times varighet i referanseuken, samt personer som har et slikt arbeid, men som var midlertidig fraværende pga. sykdom, ferie, lønnet permisjon ''e.l. Personer som er inne til førstegangs militær- eller siviltjeneste regnes somsysselsatte. Personer på sysselsettingstiltak med lønn fra arbeidsgiver klassifiseres også som sysselsatte. Dette følger anbefalingene fra den internasjonale arbeidsorganisasjonen ILO.##Tallene hentes fra sysselsettingsstatistikken hos SSB. Fra og med 2015 bygger statistikken på nye datakilder.For 4.kvartal 2015 ligger antall sysselsatte i alt 60 000 lavere enn Arbeidskraftundersøkelsene (AKU). Tidligere var totaltallet i disse to statistikkene samordnet, og viste dermed samme antall sysselsatte. Dette har ført til et brudd i statistikken, og tabellen viser dermed en nedgang i tallene for 2015. Fra og med 2020 har SSB tatt i bruk en ny og bedre metode for å beregne antall selvstendig næringsdrivende, som gir noen flere selvstendige og dermed en liten økning i antall sysselsatte sammenlignet med tidligere beregninger. Tall fra og med 2015 er oppdatert med denne beregningsmetoden. Se nærmere omtale her: <A HREF=https://ssb.no/regsys TARGET=_blank>https://ssb.no/regsys</A>https://ssb.no/regsys##Områder/grupper med lav befolkning kan få sysselsettingsandeler på over 100% grunnet flyttinger fra målepunkt for sysselsatte (4.kvartal) og målepunkt for referansebefolkning (1.1. året etter). Dette gjelder spesielt sentrum og personer uten registrert adresse. Disse verdiene er fjernet fra tabellen."
+        },
+        "isMandatory": false
+      }
+    ],
+    "timeDimension": {
+      "columnName": "år",
+      "timePeriodFormat": "åååå",
+      "label": {
+        "no": "år"
+      }
+    },
+    "codedDimensions": [
+      {
+        "columnName": "geografi",
+        "code": "geografi",
+        "isGeoVariableType": false,
+        "codelistId": "OK-SYS002_geografi",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "geografi"
+        },
+        "notes": null,
+        "domain": "delbydeler_preagg"
+      },
+      {
+        "columnName": "alder",
+        "code": "alder",
+        "isGeoVariableType": false,
+        "codelistId": "OK-SYS002_alder",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "alder"
+        },
+        "notes": null
+      },
+      {
+        "columnName": "kjønn",
+        "code": "kjønn",
+        "isGeoVariableType": false,
+        "codelistId": "OK-SYS002_kjønn",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "kjønn"
+        },
+        "notes": null
+      }
+    ],
+    "measurements": [
+      {
+        "columnName": "andel_sysselsatte",
+        "code": "andelsysselsatte",
+        "showDecimals": 1,
+        "aggregationAllowed": true,
+        "label": {
+          "no": "andel sysselsatte"
+        },
+        "unitOfMeasure": {
+          "no": "flere"
+        },
+        "precision": 1
+      },
+      {
+        "columnName": "antall_sysselsatte",
+        "code": "antallsysselsatte",
+        "showDecimals": 0,
+        "aggregationAllowed": true,
+        "label": {
+          "no": "antall sysselsatte"
+        },
+        "unitOfMeasure": {
+          "no": "flere"
+        }
+      },
+      {
+        "columnName": "bosatte_totalt",
+        "code": "bosattetotalt",
+        "showDecimals": 0,
+        "aggregationAllowed": true,
+        "label": {
+          "no": "bosatte totalt"
+        },
+        "unitOfMeasure": {
+          "no": "flere"
+        }
+      }
+    ]
+  }
+}

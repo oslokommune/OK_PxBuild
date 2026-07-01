@@ -1,0 +1,131 @@
+{
+  "dataset": {
+    "tableId": "OK-FOR002",
+    "matrix": "OK-FOR002",
+    "statisticsId": "OK-FOR002",
+    "dataFile": "data.csv",
+    "subjectCode": "FOR",
+    "subjectText": {
+      "no": "Inntekt og formue"
+    },
+    "subjectarea": {
+      "no": "Inntekt og formue"
+    },
+    "updateFrequency": {
+      "no": "årlig"
+    },
+    "contacts": [
+      {
+        "raw": {
+          "no": "Byrådsavdeling for finans (oslostatistikken@byr.oslo.kommune.no)"
+        }
+      }
+    ],
+    "last-updated": null,
+    "baseTitle": {
+      "no": "Bruttoformue, gjeld og nettoformue for bosatte personer 17 år og eldre kjønn og alder, 2017-2024 (GKO)"
+    },
+    "contents": {
+      "no": "Bruttoformue, gjeld og nettoformue for bosatte personer 17 år og eldre kjønn og alder, 2017-2024 (GKO)"
+    },
+    "title": {
+      "no": "FOR002: Bruttoformue, gjeld og nettoformue for bosatte personer 17 år og eldre kjønn og alder, 2017-2024 (GKO) 2025"
+    },
+    "searchKeywords": {
+      "no": []
+    },
+    "notes": null,
+    "timeDimension": {
+      "columnName": "år",
+      "timePeriodFormat": "åååå",
+      "label": {
+        "no": "år"
+      }
+    },
+    "codedDimensions": [
+      {
+        "columnName": "bosted",
+        "code": "bosted",
+        "isGeoVariableType": false,
+        "codelistId": "OK-FOR002_bosted",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "bosted"
+        },
+        "notes": null
+      },
+      {
+        "columnName": "kjønn",
+        "code": "kjønn",
+        "isGeoVariableType": false,
+        "codelistId": "OK-FOR002_kjønn",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "kjønn"
+        },
+        "notes": null
+      },
+      {
+        "columnName": "alder",
+        "code": "alder",
+        "isGeoVariableType": false,
+        "codelistId": "OK-FOR002_alder",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "alder"
+        },
+        "notes": null
+      }
+    ],
+    "measurements": [
+      {
+        "columnName": "antall_personer",
+        "code": "Antallpersoner",
+        "showDecimals": 0,
+        "aggregationAllowed": true,
+        "label": {
+          "no": "Antall personer"
+        },
+        "unitOfMeasure": {
+          "no": "flere"
+        }
+      },
+      {
+        "columnName": "gjennomsnittlig_skattepliktig_bruttoformue",
+        "code": "Gjennomsnittligskattepliktigbruttoformue",
+        "showDecimals": 0,
+        "aggregationAllowed": true,
+        "label": {
+          "no": "Gjennomsnittlig skattepliktig bruttoformue"
+        },
+        "unitOfMeasure": {
+          "no": "flere"
+        }
+      },
+      {
+        "columnName": "gjennomsnittlig_gjeld",
+        "code": "Gjennomsnittliggjeld",
+        "showDecimals": 0,
+        "aggregationAllowed": true,
+        "label": {
+          "no": "Gjennomsnittlig gjeld"
+        },
+        "unitOfMeasure": {
+          "no": "flere"
+        }
+      },
+      {
+        "columnName": "gjennomsnittlig_nettoformue",
+        "code": "Gjennomsnittlignettoformue",
+        "showDecimals": 0,
+        "aggregationAllowed": true,
+        "label": {
+          "no": "Gjennomsnittlig nettoformue"
+        },
+        "unitOfMeasure": {
+          "no": "flere"
+        }
+      }
+    ]
+  }
+}

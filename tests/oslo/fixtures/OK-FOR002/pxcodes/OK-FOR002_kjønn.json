@@ -1,0 +1,51 @@
+{
+  "id": "OK-FOR002_kjønn",
+  "admin": {
+    "isFinal": true,
+    "tags": [],
+    "todoCreation": null
+  },
+  "sortValueitemsOn": "rank",
+  "label": {
+    "no": "kjønn"
+  },
+  "valueitems": [
+    {
+      "code": "I alt",
+      "unorderedChildren": null,
+      "label": {
+        "no": "I alt"
+      },
+      "rank": {
+        "no": "0000"
+      },
+      "notes": null
+    },
+    {
+      "code": "Menn",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Menn"
+      },
+      "rank": {
+        "no": "0001"
+      },
+      "notes": null
+    },
+    {
+      "code": "Kvinner",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Kvinner"
+      },
+      "rank": {
+        "no": "0002"
+      },
+      "notes": null
+    }
+  ],
+  "eliminationPossible": false,
+  "eliminationCode": null,
+  "sortGroupingsOn": null,
+  "groupings": null
+}

@@ -1,0 +1,370 @@
+{
+  "id": "OK-SYS006_bosted",
+  "admin": {
+    "isFinal": true,
+    "tags": [],
+    "todoCreation": null
+  },
+  "sortValueitemsOn": "rank",
+  "label": {
+    "no": "bosted"
+  },
+  "valueitems": [
+    {
+      "code": "1030101",
+      "unorderedChildren": null,
+      "label": {
+        "no": "1030101"
+      },
+      "rank": {
+        "no": "0000"
+      },
+      "notes": null
+    },
+    {
+      "code": "1030102",
+      "unorderedChildren": null,
+      "label": {
+        "no": "1030102"
+      },
+      "rank": {
+        "no": "0001"
+      },
+      "notes": null
+    },
+    {
+      "code": "1030103",
+      "unorderedChildren": null,
+      "label": {
+        "no": "1030103"
+      },
+      "rank": {
+        "no": "0002"
+      },
+      "notes": null
+    },
+    {
+      "code": "1030104",
+      "unorderedChildren": null,
+      "label": {
+        "no": "1030104"
+      },
+      "rank": {
+        "no": "0003"
+      },
+      "notes": null
+    },
+    {
+      "code": "1030105",
+      "unorderedChildren": null,
+      "label": {
+        "no": "1030105"
+      },
+      "rank": {
+        "no": "0004"
+      },
+      "notes": null
+    },
+    {
+      "code": "1030106",
+      "unorderedChildren": null,
+      "label": {
+        "no": "1030106"
+      },
+      "rank": {
+        "no": "0005"
+      },
+      "notes": null
+    },
+    {
+      "code": "1030107",
+      "unorderedChildren": null,
+      "label": {
+        "no": "1030107"
+      },
+      "rank": {
+        "no": "0006"
+      },
+      "notes": null
+    },
+    {
+      "code": "1030108",
+      "unorderedChildren": null,
+      "label": {
+        "no": "1030108"
+      },
+      "rank": {
+        "no": "0007"
+      },
+      "notes": null
+    },
+    {
+      "code": "1030109",
+      "unorderedChildren": null,
+      "label": {
+        "no": "1030109"
+      },
+      "rank": {
+        "no": "0008"
+      },
+      "notes": null
+    },
+    {
+      "code": "1030110",
+      "unorderedChildren": null,
+      "label": {
+        "no": "1030110"
+      },
+      "rank": {
+        "no": "0009"
+      },
+      "notes": null
+    },
+    {
+      "code": "1030111",
+      "unorderedChildren": null,
+      "label": {
+        "no": "1030111"
+      },
+      "rank": {
+        "no": "0010"
+      },
+      "notes": null
+    },
+    {
+      "code": "1030112",
+      "unorderedChildren": null,
+      "label": {
+        "no": "1030112"
+      },
+      "rank": {
+        "no": "0011"
+      },
+      "notes": null
+    },
+    {
+      "code": "1030113",
+      "unorderedChildren": null,
+      "label": {
+        "no": "1030113"
+      },
+      "rank": {
+        "no": "0012"
+      },
+      "notes": null
+    },
+    {
+      "code": "1030114",
+      "unorderedChildren": null,
+      "label": {
+        "no": "1030114"
+      },
+      "rank": {
+        "no": "0013"
+      },
+      "notes": null
+    },
+    {
+      "code": "1030115",
+      "unorderedChildren": null,
+      "label": {
+        "no": "1030115"
+      },
+      "rank": {
+        "no": "0014"
+      },
+      "notes": null
+    },
+    {
+      "code": "1030116",
+      "unorderedChildren": null,
+      "label": {
+        "no": "1030116"
+      },
+      "rank": {
+        "no": "0015"
+      },
+      "notes": null
+    },
+    {
+      "code": "1030117",
+      "unorderedChildren": null,
+      "label": {
+        "no": "1030117"
+      },
+      "rank": {
+        "no": "0016"
+      },
+      "notes": null
+    },
+    {
+      "code": "1030199",
+      "unorderedChildren": null,
+      "label": {
+        "no": "1030199"
+      },
+      "rank": {
+        "no": "0017"
+      },
+      "notes": null
+    },
+    {
+      "code": "2110000",
+      "unorderedChildren": null,
+      "label": {
+        "no": "2110000"
+      },
+      "rank": {
+        "no": "0018"
+      },
+      "notes": null
+    },
+    {
+      "code": "2150000",
+      "unorderedChildren": null,
+      "label": {
+        "no": "2150000"
+      },
+      "rank": {
+        "no": "0019"
+      },
+      "notes": null
+    },
+    {
+      "code": "2180000",
+      "unorderedChildren": null,
+      "label": {
+        "no": "2180000"
+      },
+      "rank": {
+        "no": "0020"
+      },
+      "notes": null
+    },
+    {
+      "code": "2310000",
+      "unorderedChildren": null,
+      "label": {
+        "no": "2310000"
+      },
+      "rank": {
+        "no": "0021"
+      },
+      "notes": null
+    },
+    {
+      "code": "2320000",
+      "unorderedChildren": null,
+      "label": {
+        "no": "2320000"
+      },
+      "rank": {
+        "no": "0022"
+      },
+      "notes": null
+    },
+    {
+      "code": "2330000",
+      "unorderedChildren": null,
+      "label": {
+        "no": "2330000"
+      },
+      "rank": {
+        "no": "0023"
+      },
+      "notes": null
+    },
+    {
+      "code": "2340000",
+      "unorderedChildren": null,
+      "label": {
+        "no": "2340000"
+      },
+      "rank": {
+        "no": "0024"
+      },
+      "notes": null
+    },
+    {
+      "code": "2390000",
+      "unorderedChildren": null,
+      "label": {
+        "no": "2390000"
+      },
+      "rank": {
+        "no": "0025"
+      },
+      "notes": null
+    },
+    {
+      "code": "2400000",
+      "unorderedChildren": null,
+      "label": {
+        "no": "2400000"
+      },
+      "rank": {
+        "no": "0026"
+      },
+      "notes": null
+    },
+    {
+      "code": "2420000",
+      "unorderedChildren": null,
+      "label": {
+        "no": "2420000"
+      },
+      "rank": {
+        "no": "0027"
+      },
+      "notes": null
+    },
+    {
+      "code": "2460000",
+      "unorderedChildren": null,
+      "label": {
+        "no": "2460000"
+      },
+      "rank": {
+        "no": "0028"
+      },
+      "notes": null
+    },
+    {
+      "code": "2500000",
+      "unorderedChildren": null,
+      "label": {
+        "no": "2500000"
+      },
+      "rank": {
+        "no": "0029"
+      },
+      "notes": null
+    },
+    {
+      "code": "2550000",
+      "unorderedChildren": null,
+      "label": {
+        "no": "2550000"
+      },
+      "rank": {
+        "no": "0030"
+      },
+      "notes": null
+    },
+    {
+      "code": "2560000",
+      "unorderedChildren": null,
+      "label": {
+        "no": "2560000"
+      },
+      "rank": {
+        "no": "0031"
+      },
+      "notes": null
+    }
+  ],
+  "eliminationPossible": false,
+  "eliminationCode": null,
+  "sortGroupingsOn": null,
+  "groupings": null
+}

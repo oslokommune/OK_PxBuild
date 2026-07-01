@@ -1,0 +1,93 @@
+{
+  "dataset": {
+    "tableId": "OK-DEMO001",
+    "matrix": "OK-DEMO001",
+    "statisticsId": "OK-DEMO001",
+    "dataFile": "data.csv",
+    "subjectCode": "SYS",
+    "subjectText": {
+      "no": "Sysselsetting"
+    },
+    "subjectarea": {
+      "no": "Sysselsetting"
+    },
+    "updateFrequency": {
+      "no": "årlig"
+    },
+    "contacts": [
+      {
+        "raw": {
+          "no": "Byrådsavdeling for finans (oslostatistikken@byr.oslo.kommune.no)"
+        }
+      }
+    ],
+    "last-updated": null,
+    "baseTitle": {
+      "no": "Pendling mellom utvalgte bydeler og fylker (demo)"
+    },
+    "contents": {
+      "no": "Pendling mellom utvalgte bydeler og fylker (demo)"
+    },
+    "title": {
+      "no": "DEMO001: Pendling mellom utvalgte bydeler og fylker (demo) 2023-2024"
+    },
+    "searchKeywords": {
+      "no": []
+    },
+    "notes": [
+      {
+        "text": {
+          "no": "Demotabell som viser hvordan en saksbehandler leverer data + metadata til\nPX-Fabrikken.##Tallene er fiktive og kun ment for å illustrere brukerreisen."
+        },
+        "isMandatory": false
+      }
+    ],
+    "timeDimension": {
+      "columnName": "år",
+      "timePeriodFormat": "åååå",
+      "label": {
+        "no": "år"
+      }
+    },
+    "codedDimensions": [
+      {
+        "columnName": "bosted",
+        "code": "bosted",
+        "isGeoVariableType": false,
+        "codelistId": "OK-DEMO001_bosted",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "bosted"
+        },
+        "notes": null,
+        "domain": "geo_pendling"
+      },
+      {
+        "columnName": "arbeidssted",
+        "code": "arbeidssted",
+        "isGeoVariableType": false,
+        "codelistId": "OK-DEMO001_arbeidssted",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "arbeidssted"
+        },
+        "notes": null,
+        "domain": "geo_pendling"
+      }
+    ],
+    "measurements": [
+      {
+        "columnName": "antall",
+        "code": "Antallsysselsatte",
+        "showDecimals": 0,
+        "aggregationAllowed": true,
+        "label": {
+          "no": "Antall sysselsatte"
+        },
+        "unitOfMeasure": {
+          "no": "sysselsatte"
+        }
+      }
+    ]
+  }
+}

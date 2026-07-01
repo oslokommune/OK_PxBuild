@@ -1,0 +1,29 @@
+{
+  "id": "OK-SYS003_bosted",
+  "admin": {
+    "isFinal": true,
+    "tags": [],
+    "todoCreation": null
+  },
+  "sortValueitemsOn": "rank",
+  "label": {
+    "no": "bosted"
+  },
+  "valueitems": [
+    {
+      "code": "102",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Grønland"
+      },
+      "rank": {
+        "no": "0000"
+      },
+      "notes": null
+    }
+  ],
+  "eliminationPossible": false,
+  "eliminationCode": null,
+  "sortGroupingsOn": null,
+  "groupings": null
+}

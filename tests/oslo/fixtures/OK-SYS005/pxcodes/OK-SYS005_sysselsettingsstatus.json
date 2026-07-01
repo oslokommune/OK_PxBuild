@@ -1,0 +1,40 @@
+{
+  "id": "OK-SYS005_sysselsettingsstatus",
+  "admin": {
+    "isFinal": true,
+    "tags": [],
+    "todoCreation": null
+  },
+  "sortValueitemsOn": "rank",
+  "label": {
+    "no": "sysselsettingsstatus"
+  },
+  "valueitems": [
+    {
+      "code": "A",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Arbeidsstyrken"
+      },
+      "rank": {
+        "no": "0000"
+      },
+      "notes": null
+    },
+    {
+      "code": "TOT",
+      "unorderedChildren": null,
+      "label": {
+        "no": "I alt"
+      },
+      "rank": {
+        "no": "0001"
+      },
+      "notes": null
+    }
+  ],
+  "eliminationPossible": true,
+  "eliminationCode": "TOT",
+  "sortGroupingsOn": null,
+  "groupings": null
+}

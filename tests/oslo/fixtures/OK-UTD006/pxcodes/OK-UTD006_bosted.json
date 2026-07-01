@@ -1,0 +1,29 @@
+{
+  "id": "OK-UTD006_bosted",
+  "admin": {
+    "isFinal": true,
+    "tags": [],
+    "todoCreation": null
+  },
+  "sortValueitemsOn": "rank",
+  "label": {
+    "no": "bosted"
+  },
+  "valueitems": [
+    {
+      "code": "100000",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Oslo i alt"
+      },
+      "rank": {
+        "no": "0000"
+      },
+      "notes": null
+    }
+  ],
+  "eliminationPossible": true,
+  "eliminationCode": "100000",
+  "sortGroupingsOn": null,
+  "groupings": null
+}

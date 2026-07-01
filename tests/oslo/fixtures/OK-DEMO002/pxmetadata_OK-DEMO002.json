@@ -1,0 +1,104 @@
+{
+  "dataset": {
+    "tableId": "OK-DEMO002",
+    "matrix": "OK-DEMO002",
+    "statisticsId": "OK-DEMO002",
+    "dataFile": "data.csv",
+    "subjectCode": "SYS",
+    "subjectText": {
+      "no": "Sysselsetting"
+    },
+    "subjectarea": {
+      "no": "Sysselsetting"
+    },
+    "updateFrequency": {
+      "no": "årlig"
+    },
+    "contacts": [
+      {
+        "raw": {
+          "no": "Byrådsavdeling for finans (oslostatistikken@byr.oslo.kommune.no)"
+        }
+      }
+    ],
+    "last-updated": null,
+    "baseTitle": {
+      "no": "Sysselsatte og sysselsettingsandel etter bydel og kjønn (demo)"
+    },
+    "contents": {
+      "no": "Sysselsatte og sysselsettingsandel etter bydel og kjønn (demo)"
+    },
+    "title": {
+      "no": "DEMO002: Sysselsatte og sysselsettingsandel etter bydel og kjønn (demo) 2023-2024"
+    },
+    "searchKeywords": {
+      "no": []
+    },
+    "notes": [
+      {
+        "text": {
+          "no": "Demotabell for å teste flere måltall, desimaler og koder med ledende nuller."
+        },
+        "isMandatory": false
+      }
+    ],
+    "timeDimension": {
+      "columnName": "år",
+      "timePeriodFormat": "åååå",
+      "label": {
+        "no": "år"
+      }
+    },
+    "codedDimensions": [
+      {
+        "columnName": "geografi",
+        "code": "geografi",
+        "isGeoVariableType": false,
+        "codelistId": "OK-DEMO002_geografi",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "geografi"
+        },
+        "notes": null
+      },
+      {
+        "columnName": "kjonn",
+        "code": "kjonn",
+        "isGeoVariableType": false,
+        "codelistId": "OK-DEMO002_kjonn",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "kjonn"
+        },
+        "notes": null
+      }
+    ],
+    "measurements": [
+      {
+        "columnName": "antall",
+        "code": "Antallsysselsatte",
+        "showDecimals": 0,
+        "aggregationAllowed": true,
+        "label": {
+          "no": "Antall sysselsatte"
+        },
+        "unitOfMeasure": {
+          "no": "personer"
+        }
+      },
+      {
+        "columnName": "andel",
+        "code": "Sysselsettingsandel",
+        "showDecimals": 1,
+        "aggregationAllowed": true,
+        "label": {
+          "no": "Sysselsettingsandel"
+        },
+        "unitOfMeasure": {
+          "no": "prosent"
+        },
+        "precision": 1
+      }
+    ]
+  }
+}

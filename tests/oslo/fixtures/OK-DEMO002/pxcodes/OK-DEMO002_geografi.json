@@ -1,0 +1,40 @@
+{
+  "id": "OK-DEMO002_geografi",
+  "admin": {
+    "isFinal": true,
+    "tags": [],
+    "todoCreation": null
+  },
+  "sortValueitemsOn": "rank",
+  "label": {
+    "no": "geografi"
+  },
+  "valueitems": [
+    {
+      "code": "01",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Gamle Oslo"
+      },
+      "rank": {
+        "no": "0000"
+      },
+      "notes": null
+    },
+    {
+      "code": "02",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Grünerløkka"
+      },
+      "rank": {
+        "no": "0001"
+      },
+      "notes": null
+    }
+  ],
+  "eliminationPossible": false,
+  "eliminationCode": null,
+  "sortGroupingsOn": null,
+  "groupings": null
+}

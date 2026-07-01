@@ -1,0 +1,40 @@
+{
+  "id": "OK-SYS005_bosted",
+  "admin": {
+    "isFinal": true,
+    "tags": [],
+    "todoCreation": null
+  },
+  "sortValueitemsOn": "rank",
+  "label": {
+    "no": "bosted"
+  },
+  "valueitems": [
+    {
+      "code": "01",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Gamle Oslo"
+      },
+      "rank": {
+        "no": "0000"
+      },
+      "notes": null
+    },
+    {
+      "code": "301",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Oslo i alt"
+      },
+      "rank": {
+        "no": "0001"
+      },
+      "notes": null
+    }
+  ],
+  "eliminationPossible": true,
+  "eliminationCode": "301",
+  "sortGroupingsOn": null,
+  "groupings": null
+}

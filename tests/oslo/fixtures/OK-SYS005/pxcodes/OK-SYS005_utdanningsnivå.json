@@ -1,0 +1,73 @@
+{
+  "id": "OK-SYS005_utdanningsnivå",
+  "admin": {
+    "isFinal": true,
+    "tags": [],
+    "todoCreation": null
+  },
+  "sortValueitemsOn": "rank",
+  "label": {
+    "no": "utdanningsnivå"
+  },
+  "valueitems": [
+    {
+      "code": "Grunnskole",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Grunnskole"
+      },
+      "rank": {
+        "no": "0000"
+      },
+      "notes": null
+    },
+    {
+      "code": "Universitets- og høgskoleutdanning",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Universitets- og høgskoleutdanning"
+      },
+      "rank": {
+        "no": "0001"
+      },
+      "notes": null
+    },
+    {
+      "code": "Uoppgitt eller ingen fullført utdanning",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Uoppgitt eller ingen fullført utdanning"
+      },
+      "rank": {
+        "no": "0002"
+      },
+      "notes": null
+    },
+    {
+      "code": "Utdanning i alt",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Utdanning i alt"
+      },
+      "rank": {
+        "no": "0003"
+      },
+      "notes": null
+    },
+    {
+      "code": "Videregående skole",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Videregående skole"
+      },
+      "rank": {
+        "no": "0004"
+      },
+      "notes": null
+    }
+  ],
+  "eliminationPossible": true,
+  "eliminationCode": "Utdanning i alt",
+  "sortGroupingsOn": null,
+  "groupings": null
+}

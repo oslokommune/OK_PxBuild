@@ -1,0 +1,29 @@
+{
+  "id": "OK-FOR002_bosted",
+  "admin": {
+    "isFinal": true,
+    "tags": [],
+    "todoCreation": null
+  },
+  "sortValueitemsOn": "rank",
+  "label": {
+    "no": "bosted"
+  },
+  "valueitems": [
+    {
+      "code": "100000",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Oslo"
+      },
+      "rank": {
+        "no": "0000"
+      },
+      "notes": null
+    }
+  ],
+  "eliminationPossible": false,
+  "eliminationCode": null,
+  "sortGroupingsOn": null,
+  "groupings": null
+}

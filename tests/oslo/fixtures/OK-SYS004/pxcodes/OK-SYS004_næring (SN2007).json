@@ -1,0 +1,29 @@
+{
+  "id": "OK-SYS004_næring (SN2007)",
+  "admin": {
+    "isFinal": true,
+    "tags": [],
+    "todoCreation": null
+  },
+  "sortValueitemsOn": "rank",
+  "label": {
+    "no": "næring (SN2007)"
+  },
+  "valueitems": [
+    {
+      "code": "01.1",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Dyrking av ettårige vekster"
+      },
+      "rank": {
+        "no": "0000"
+      },
+      "notes": null
+    }
+  ],
+  "eliminationPossible": false,
+  "eliminationCode": null,
+  "sortGroupingsOn": null,
+  "groupings": null
+}

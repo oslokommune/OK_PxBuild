@@ -1,0 +1,29 @@
+{
+  "id": "OK-SYS004_geografi",
+  "admin": {
+    "isFinal": true,
+    "tags": [],
+    "todoCreation": null
+  },
+  "sortValueitemsOn": "rank",
+  "label": {
+    "no": "geografi"
+  },
+  "valueitems": [
+    {
+      "code": "100000",
+      "unorderedChildren": null,
+      "label": {
+        "no": "Oslo i alt"
+      },
+      "rank": {
+        "no": "0000"
+      },
+      "notes": null
+    }
+  ],
+  "eliminationPossible": true,
+  "eliminationCode": "100000",
+  "sortGroupingsOn": null,
+  "groupings": null
+}

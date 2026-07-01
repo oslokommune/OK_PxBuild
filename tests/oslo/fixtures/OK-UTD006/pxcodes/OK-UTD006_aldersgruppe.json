@@ -1,0 +1,51 @@
+{
+  "id": "OK-UTD006_aldersgruppe",
+  "admin": {
+    "isFinal": true,
+    "tags": [],
+    "todoCreation": null
+  },
+  "sortValueitemsOn": "rank",
+  "label": {
+    "no": "aldersgruppe"
+  },
+  "valueitems": [
+    {
+      "code": "1-2 år",
+      "unorderedChildren": null,
+      "label": {
+        "no": "1-2 år"
+      },
+      "rank": {
+        "no": "0000"
+      },
+      "notes": null
+    },
+    {
+      "code": "3-5 år",
+      "unorderedChildren": null,
+      "label": {
+        "no": "3-5 år"
+      },
+      "rank": {
+        "no": "0001"
+      },
+      "notes": null
+    },
+    {
+      "code": "1-5 år",
+      "unorderedChildren": null,
+      "label": {
+        "no": "1-5 år"
+      },
+      "rank": {
+        "no": "0002"
+      },
+      "notes": null
+    }
+  ],
+  "eliminationPossible": true,
+  "eliminationCode": "1-5 år",
+  "sortGroupingsOn": null,
+  "groupings": null
+}

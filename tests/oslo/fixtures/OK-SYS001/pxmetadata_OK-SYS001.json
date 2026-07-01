@@ -1,0 +1,93 @@
+{
+  "dataset": {
+    "tableId": "OK-SYS001",
+    "matrix": "OK-SYS001",
+    "statisticsId": "OK-SYS001",
+    "dataFile": "data.csv",
+    "subjectCode": "SYS",
+    "subjectText": {
+      "no": "Sysselsetting"
+    },
+    "subjectarea": {
+      "no": "Sysselsetting"
+    },
+    "updateFrequency": {
+      "no": "årlig"
+    },
+    "contacts": [
+      {
+        "raw": {
+          "no": "Byrådsavdeling for finans (oslostatistikken@byr.oslo.kommune.no)"
+        }
+      }
+    ],
+    "last-updated": null,
+    "baseTitle": {
+      "no": "Sysselsatte (15-74 år) etter arbeidssted og bosted (G)"
+    },
+    "contents": {
+      "no": "Sysselsatte (15-74 år) etter arbeidssted og bosted (G)"
+    },
+    "title": {
+      "no": "SYS001: Sysselsatte (15-74 år) etter arbeidssted og bosted (G) 2025"
+    },
+    "searchKeywords": {
+      "no": []
+    },
+    "notes": [
+      {
+        "text": {
+          "no": "Tabellen viser sysselsatte med arbeidssted i Oslo i alderen 15 til 74 år, som er sysselsatte per 4. kvartal hvert år.##En sysselsatt er her definert som enten lønnstaker eller selvstendig næringsdrivende. En lønnstaker er en som har utført inntektsgivende arbeid av minst én times varighet i løpet av referanseuken.##For å ivareta personvernet er statistikken anonymisert i tilfeller hvor det er færre enn 3 observasjoner. I tabellen kan verdiene 0 og 3 (antall i befolkningen) bety både 0, 1, 2 og 3.##Tabellen er delt inn i geografiske bydeler. For mer informasjon om de geografiske inndelingene i Oslo, se <A HREF=https://www.oslo.kommune.no/politikk-og-administrasjon/statistikk/geografiske-inndelinger/ TARGET=_blank>https://www.oslo.kommune.no/politikk-og-administrasjon/statistikk/geografiske-inndelinger/</A>##Kommentarer til tabellen#Tallene hentes fra sysselsettingsstatistikken hos SSB. Fra og med 2015 bygger statistikken på nye datakilder. For 4.kvartal 2015 ligger antall sysselsatte i alt 60 000 lavere enn Arbeidskraftundersøkelsene (AKU). Tidligere var totaltallet i disse to statistikkene samordnet, og viste dermed samme antall sysselsatte. Dette har ført til et brudd i statistikken, og tabellen viser dermed en nedgang i tallene for 2015.##Fra og med 2020 har SSB tatt i bruk en ny og bedre metode for å beregne antall selvstendig næringsdrivende, som gir noen flere selvstendige og dermed en liten økning i antall sysselsatte sammenlignet med tidligere beregninger. Tall fra og med 2015 er oppdatert med denne beregningsmetoden.#Se nærmere omtale her: <A HREF=https://ssb.no/regsys TARGET=_blank>https://ssb.no/regsys</A>"
+        },
+        "isMandatory": false
+      }
+    ],
+    "timeDimension": {
+      "columnName": "år",
+      "timePeriodFormat": "åååå",
+      "label": {
+        "no": "år"
+      }
+    },
+    "codedDimensions": [
+      {
+        "columnName": "geografi",
+        "code": "geografi",
+        "isGeoVariableType": false,
+        "codelistId": "OK-SYS001_geografi",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "geografi"
+        },
+        "notes": null,
+        "domain": "grunnkrets_alle"
+      }
+    ],
+    "measurements": [
+      {
+        "columnName": "sysselsatte_med_arbeidssted_i_oslo",
+        "code": "sysselsattemedarbeidsstediOslo",
+        "showDecimals": 0,
+        "aggregationAllowed": true,
+        "label": {
+          "no": "sysselsatte med arbeidssted i Oslo"
+        },
+        "unitOfMeasure": {
+          "no": "sysselsatte personer"
+        }
+      },
+      {
+        "columnName": "sysselsatte_med_bosted_i_oslo",
+        "code": "sysselsattemedbostediOslo",
+        "showDecimals": 0,
+        "aggregationAllowed": true,
+        "label": {
+          "no": "sysselsatte med bosted i Oslo"
+        },
+        "unitOfMeasure": {
+          "no": "sysselsatte personer"
+        }
+      }
+    ]
+  }
+}

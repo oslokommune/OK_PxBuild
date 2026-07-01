@@ -1,0 +1,29 @@
+{
+  "id": "OK-SYS001_geografi",
+  "admin": {
+    "isFinal": true,
+    "tags": [],
+    "todoCreation": null
+  },
+  "sortValueitemsOn": "rank",
+  "label": {
+    "no": "geografi"
+  },
+  "valueitems": [
+    {
+      "code": "3010101",
+      "unorderedChildren": null,
+      "label": {
+        "no": "0101 Sentrum 1 /rode 1"
+      },
+      "rank": {
+        "no": "0000"
+      },
+      "notes": null
+    }
+  ],
+  "eliminationPossible": false,
+  "eliminationCode": null,
+  "sortGroupingsOn": null,
+  "groupings": null
+}

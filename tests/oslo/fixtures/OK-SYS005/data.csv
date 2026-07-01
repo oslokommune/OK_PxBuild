@@ -1,0 +1,28 @@
+bosted;utdanningsnivå;alder;sysselsettingsstatus;år;antall_personer;andel_av_referansegruppe;referansegruppe
+01;Grunnskole;15-29;A;2024;1494;43.4;3441
+01;Grunnskole;30-61;A;2024;2766;54.2;5099
+01;Grunnskole;62-74;A;2024;223;21.8;1025
+01;Grunnskole;75+;A;2024;7;1.5;454
+01;Grunnskole;Alder i alt;A;2024;4490;44.8;10019
+01;Universitets- og høgskoleutdanning;15-29;A;2024;7201;90.7;7937
+01;Universitets- og høgskoleutdanning;30-61;A;2024;20606;90.6;22755
+01;Universitets- og høgskoleutdanning;62-74;A;2024;889;43.4;2047
+01;Universitets- og høgskoleutdanning;75+;A;2024;62;9.6;647
+01;Universitets- og høgskoleutdanning;Alder i alt;A;2024;28758;86.1;33386
+01;Uoppgitt eller ingen fullført utdanning;15-29;A;2024;72;38.1;189
+01;Uoppgitt eller ingen fullført utdanning;30-61;A;2024;139;40.8;341
+01;Uoppgitt eller ingen fullført utdanning;62-74;A;2024;7;7.2;97
+01;Uoppgitt eller ingen fullført utdanning;75+;A;2024;0;0;68
+01;Uoppgitt eller ingen fullført utdanning;Alder i alt;A;2024;218;31.4;695
+01;Utdanning i alt;15-29;A;2024;11113;76.1;14603
+01;Utdanning i alt;30-61;A;2024;28589;82.2;34760
+01;Utdanning i alt;62-74;A;2024;1580;33.6;4707
+01;Utdanning i alt;75+;A;2024;98;5.1;1911
+01;Utdanning i alt;Alder i alt;A;2024;41380;73.9;55981
+01;Videregående skole;15-29;A;2024;2346;77.3;3036
+01;Videregående skole;30-61;A;2024;5078;77.3;6565
+01;Videregående skole;62-74;A;2024;461;30;1538
+01;Videregående skole;75+;A;2024;29;3.9;742
+01;Videregående skole;Alder i alt;A;2024;7914;66.6;11881
+301;Grunnskole;15-29;A;2024;17595;38.3;45963
+01;Grunnskole;15-29;TOT;2024;3441;100;3441

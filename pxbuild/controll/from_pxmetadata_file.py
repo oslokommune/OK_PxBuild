@@ -235,7 +235,8 @@ class LoadFromPxmetadata:
             raise Exception("Sorry, both stub and heading are empty.")
 
     def map_time_dimension_to_pxfile(self, out_model: PXFileModel) -> None:
-        """Map time dimension to PX file, setting values, variablecode, and variable_type based on the time dimension in pxmetadata."""
+        """Map time dimension to PX file, setting values, variablecode, variable_type
+        and TIMEVAL (TLIST) based on the time dimension in pxmetadata."""
         time = self._dims.time
         lang = self._current_lang
         pxlang = self._px_lang(lang)
@@ -243,6 +244,11 @@ class LoadFromPxmetadata:
         out_model.values.set(time.get_labels(lang), time.get_label(lang), pxlang)
         out_model.variablecode.set(time.get_code(), time.get_label(lang), pxlang)
         out_model.variable_type.set(time.get_variabletype(), time.get_label(lang), pxlang)
+
+        # TIMEVAL: derive the TLIST timescale from timePeriodFormat and list the periods.
+        timescale = _tlist_timescale(self._pxmetadata_model.dataset.time_dimension.time_period_format)
+        if timescale:
+            out_model.timeval.set(timescale, time.get_codes(), time.get_label(lang), pxlang)
 
     def map_coded_dimensions_to_pxfile(self, out_model: PXFileModel) -> None:
         """Map coded dimensions to PX file, setting variablecode, variable_type, codes, values, domain, prestext, elimination,
@@ -603,6 +609,34 @@ class LoadFromPxmetadata:
             out_model.datasymbolsum.set(str(in_config.datasymbol_sum[self._current_lang]), pxlang)
 
         out_model.source.set(in_config.source[self._current_lang], pxlang)
+
+
+_TLIST_BY_FORMAT = {
+    "åååå": "A1", "yyyy": "A1",
+    "ååååHh": "H1",
+    "ååååKk": "Q1", "ååååQq": "Q1",
+    "ååååMmm": "M1", "ååååMm": "M1",
+    "ååååUuu": "W1", "ååååWw": "W1",
+}
+
+
+def _tlist_timescale(time_period_format: str) -> str:
+    """Map a timePeriodFormat to a PX TLIST timescale (A1/H1/Q1/M1/W1). Returns
+    None if no format is given. Falls back to token detection, then annual."""
+    if not time_period_format:
+        return None
+    if time_period_format in _TLIST_BY_FORMAT:
+        return _TLIST_BY_FORMAT[time_period_format]
+    f = time_period_format.lower()
+    if "u" in f or "w" in f:
+        return "W1"
+    if "m" in f:
+        return "M1"
+    if "k" in f or "q" in f:
+        return "Q1"
+    if "h" in f:
+        return "H1"
+    return "A1"
 
 
 def convert_to_pxdate_string(date_string: str, date_format: str) -> str:

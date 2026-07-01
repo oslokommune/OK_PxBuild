@@ -111,7 +111,9 @@ class Datadatasource:
         my_out = {}
         for column_name in measurement_code_by_column_name:
             my_out[column_name] = f"VALUE_{measurement_code_by_column_name[column_name]}"
-            corresponding_symbol_column = column_name + "_SYMBOL"
+            # columns_in_datafile have been normalized (lowercased), so the "_SYMBOL"
+            # suffix is normalized too; match it the same way.
+            corresponding_symbol_column = normalize_column_name(column_name + "_SYMBOL")
             if corresponding_symbol_column in columns_in_datafile:
                 my_out[corresponding_symbol_column] = f"SYMBOL_{measurement_code_by_column_name[column_name]}"
 

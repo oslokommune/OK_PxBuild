@@ -5,6 +5,7 @@ from ..input.pydantic_pxcodes import Grouping
 
 from pxbuild.controll.helpers.loaded_jsons import LoadedJsons
 from pxbuild.controll.helpers.datadata_helpers.for_get_data import CubemathsHelper
+from pxbuild.controll.helpers.datadata_helpers.datadatasource import normalize_column_name
 from pxbuild.models.input.helper_pxcodes import HelperPxCodes
 
 
@@ -36,7 +37,8 @@ class CodedDim(AbstractDim):
         return self._pxcodes_helper.get_label(language, value_code)
 
     def get_cubemaths_helper(self, language: str) -> CubemathsHelper:
-        return CubemathsHelper(self._column_name, self._pxcodes_helper.get_codes(language))
+        # The tidy dataframe normalizes column names, so the lookup name must match.
+        return CubemathsHelper(normalize_column_name(self._column_name), self._pxcodes_helper.get_codes(language))
 
     def groupings(self) -> List[Grouping] | None:
         return self._pxcodes_helper.groupings()

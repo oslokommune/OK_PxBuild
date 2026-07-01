@@ -65,9 +65,13 @@ pre-commit install
 
 
 
-## Branch csv_to_px:
+# OK_PxBuild:
 
-# csv2px.py (data preparation):
+## metadata_to_json.py (metadata handler):
+
+Reads user-friendly txt metadata and writes JSON metadata. 
+
+## csv2px.py (data preparation):
 
 Takes table ID (e.g., SYS002)
 
@@ -82,7 +86,7 @@ Writes cleaned CSV to pxjson/csv_files/{id}.csv
 If coded dimensions exist: writes pxcodes JSONs to pxjson/pxcodes/
 
 
-# RunPx.py (PX file generation):
+## RunPx.py (PX file generation):
 
 Takes table ID (e.g., SYS002)
 
@@ -98,23 +102,27 @@ Codelists from pxjson/pxcodes/*.json
 
 Generates PX files in output/px/output_{id}/
 
-# Flow:
+## Flow:
 
 Raw data + metadata -> csv2px.py -> Clean data (+ codelists if applicable) -> RunPx.py -> PX files
 
 
 
-# To run:
+## To run:
 
 cd C:\Path\To\PxBuild\csv2px
 
 conda activate PxBuild
+
+python metadata_to_json.py <path\to\input-file> <path\to\output-file>
 
 python csv2px.py <table_ID>
 
 python RunPx.py <table_ID>
 
 f.ex.:
+
+python metadata_to_json.py input\metadata_SYS002.txt input\pxmetadata\SYS002.json
 
 python csv2px.py SYS002
 

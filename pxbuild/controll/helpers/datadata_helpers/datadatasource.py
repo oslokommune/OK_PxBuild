@@ -81,7 +81,10 @@ class Datadatasource:
         return self._raw_df
 
     def get_timeperiodes(self, column_name: str) -> List[str]:
-        """Reads all values from a column, applies unique and sorts descending."""
+        """Reads all values from a column, applies unique and sorts ascending
+        (chronological). TIMEVAL/VALUES for the time variable must list periods
+        oldest-first: PxEdit warns on descending order, and published px files
+        conventionally use ascending."""
 
         if column_name not in self._raw_df.columns:
             raise PxDataSourceError(f"Column '{column_name}' not found in the CSV file.")
@@ -91,7 +94,7 @@ class Datadatasource:
         # Get distinct values from the column
         distinct_values = column_data.unique()
         as_list = distinct_values.tolist()
-        as_sorted_list = sorted(as_list, reverse=True)
+        as_sorted_list = sorted(as_list)
         return as_sorted_list
 
     def get_identifiercolumns(self, all_columns: list, measurement_map: dict) -> List[str]:

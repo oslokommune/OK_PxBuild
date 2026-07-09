@@ -122,8 +122,8 @@ class TestOsloKeywords:
         """Flerårs-tabell: TIMEVAL lister alle perioder (eneste flerårs-dekning)."""
         px = _build_px("OK-DEMO001", tmp_path)
 
-        # flerårs TLIST — periodene hentes fra data (her to årganger)
-        assert 'TIMEVAL("år")=TLIST(A1),"2024","2023";' in px
+        # flerårs TLIST — periodene hentes fra data (her to årganger), stigende kronologi
+        assert 'TIMEVAL("år")=TLIST(A1),"2023","2024";' in px
 
         assert 'DOMAIN("bosted")="geo_pendling";' in px
         assert 'UPDATE-FREQUENCY="årlig";' in px
@@ -149,7 +149,7 @@ class TestOsloKeywords:
         # ledende nuller i koder bevart
         assert 'CODES("geografi")="01","02";' in px
 
-        assert 'TIMEVAL("år")=TLIST(A1),"2024","2023";' in px
+        assert 'TIMEVAL("år")=TLIST(A1),"2023","2024";' in px
         assert 'UPDATE-FREQUENCY="årlig";' in px
 
     def test_sys001_grunnkrets(self, tmp_path):

@@ -199,11 +199,20 @@ def write_csv(df: pd.DataFrame, schema: DetectedSchema, out_csv: Path) -> pd.Dat
     # numeric artifacts ("2025.0" -> "2025"). Non-numeric formats — quarters
     # "2025K1", interval periods like school years "2011/2012" or rolling
     # windows "2007-2013" (timePeriodFormat "intervall") — must be kept
-    # verbatim; int coercion would raise on them.
+    # verbatim; int coercion would raise on them. Both branches reject missing
+    # time values: the int path via errors="raise", the string path explicitly
+    # (an empty period would otherwise surface as a "" VALUES entry or a
+    # confusing mixed-type sort error deep inside pxbuild).
     if schema.time_format in (None, "åååå", "yyyy"):
         out_df[schema.time_col] = pd.to_numeric(out_df[schema.time_col], errors="raise").astype("int64").astype(str)
     else:
-        out_df[schema.time_col] = out_df[schema.time_col].map(_norm_dim_value)
+        periods = out_df[schema.time_col].map(_norm_dim_value)
+        if (periods == "").any():
+            n_empty = int((periods == "").sum())
+            raise ValueError(
+                f"Time column '{schema.time_col}' has {n_empty} empty value(s); every row needs a time period."
+            )
+        out_df[schema.time_col] = periods
 
     # ensure measures numeric
     for m in schema.measures:

@@ -625,12 +625,17 @@ _TLIST_BY_FORMAT = {
     "ååååKk": "Q1", "ååååQq": "Q1",
     "ååååMmm": "M1", "ååååMm": "M1",
     "ååååUuu": "W1", "ååååWw": "W1",
+    # Interval periods (school years "2011/2012", rolling windows "2007-2013"):
+    # the PX spec has no interval timescale, so follow SCB's convention (e.g.
+    # TAB5826): TLIST(A) without step digit, listing the period strings verbatim.
+    "intervall": "A",
 }
 
 
 def _tlist_timescale(time_period_format: str) -> str:
-    """Map a timePeriodFormat to a PX TLIST timescale (A1/H1/Q1/M1/W1). Returns
-    None if no format is given. Falls back to token detection, then annual."""
+    """Map a timePeriodFormat to a PX TLIST timescale (A1/H1/Q1/M1/W1, or A for
+    interval periods). Returns None if no format is given. Falls back to token
+    detection, then annual."""
     if not time_period_format:
         return None
     if time_period_format in _TLIST_BY_FORMAT:

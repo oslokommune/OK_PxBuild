@@ -1,0 +1,81 @@
+{
+  "dataset": {
+    "tableId": "OK-DEMO003",
+    "matrix": "OK_DEMO003",
+    "statisticsId": "OK-DEMO003",
+    "dataFile": "data.csv",
+    "subjectCode": "UTD",
+    "subjectText": {
+      "no": "Utdanning"
+    },
+    "subjectarea": {
+      "no": "Utdanning"
+    },
+    "updateFrequency": {
+      "no": "årlig"
+    },
+    "contacts": [
+      {
+        "raw": {
+          "no": "Byrådsavdeling for finans (oslostatistikken@byr.oslo.kommune.no)"
+        }
+      }
+    ],
+    "last-updated": null,
+    "baseTitle": {
+      "no": "Deltagelse i aktivitetsskolen etter bydel (demo, skoleår)"
+    },
+    "contents": {
+      "no": "Deltagelse i aktivitetsskolen etter bydel (demo, skoleår)"
+    },
+    "title": {
+      "no": "DEMO003: Deltagelse i aktivitetsskolen etter bydel (demo, skoleår) 2022/2023-2024/2025"
+    },
+    "searchKeywords": {
+      "no": []
+    },
+    "notes": [
+      {
+        "text": {
+          "no": "Demotabell som viser en leveranse der tidsperioden er et intervall (skoleår)\ni stedet for enkeltår.##Tallene er fiktive og kun ment for testing."
+        },
+        "isMandatory": false
+      }
+    ],
+    "timeDimension": {
+      "columnName": "skoleår",
+      "timePeriodFormat": "intervall",
+      "label": {
+        "no": "skoleår"
+      }
+    },
+    "codedDimensions": [
+      {
+        "columnName": "bydel",
+        "code": "bydel",
+        "isGeoVariableType": false,
+        "codelistId": "OK-DEMO003_bydel",
+        "labelConstructionOption": "text",
+        "label": {
+          "no": "bydel"
+        },
+        "notes": null
+      }
+    ],
+    "measurements": [
+      {
+        "columnName": "andel",
+        "code": "AndeleleveriAKS",
+        "showDecimals": 1,
+        "aggregationAllowed": true,
+        "label": {
+          "no": "Andel elever i AKS"
+        },
+        "unitOfMeasure": {
+          "no": "prosent"
+        },
+        "precision": 1
+      }
+    ]
+  }
+}

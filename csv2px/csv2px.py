@@ -88,6 +88,7 @@ class DetectedSchema:
     coded_dims: List[str]  # bases for *_kode columns (mostly for debug)
     code_name_map: Dict[str, Tuple[str, Optional[str]]]  # base -> (kode_col, navn_col or None)
     elimination_map: Dict[str, Tuple[bool, Optional[str]]]  # dim_id -> (eliminationPossible, eliminationCode)
+    time_format: Optional[str] = None  # timeDimension.timePeriodFormat (None in legacy metadata)
 
 
 def load_schema_from_metadata(metadata_path: Path) -> DetectedSchema:
@@ -98,6 +99,7 @@ def load_schema_from_metadata(metadata_path: Path) -> DetectedSchema:
     dataset = metadata["dataset"]
     tableid = dataset["tableId"]
     time_col = to_ascii_key(dataset["timeDimension"]["columnName"])
+    time_format = dataset["timeDimension"].get("timePeriodFormat")
 
     # Get dimensions
     coded_dimensions = dataset.get("codedDimensions", [])
@@ -160,6 +162,7 @@ def load_schema_from_metadata(metadata_path: Path) -> DetectedSchema:
         coded_dims=coded_dims,
         code_name_map=code_name_map,
         elimination_map=elimination_map,
+        time_format=time_format,
     )
 
 
@@ -192,8 +195,15 @@ def write_csv(df: pd.DataFrame, schema: DetectedSchema, out_csv: Path) -> pd.Dat
     for dcol in schema.dim_columns:
         out_df[dcol] = out_df[dcol].map(_norm_dim_value)
 
-    # convert time to string years
-    out_df[schema.time_col] = pd.to_numeric(out_df[schema.time_col], errors="raise").astype("int64").astype(str)
+    # Normalize time to string periods. Pure-year formats go via int64 to strip
+    # numeric artifacts ("2025.0" -> "2025"). Non-numeric formats — quarters
+    # "2025K1", interval periods like school years "2011/2012" or rolling
+    # windows "2007-2013" (timePeriodFormat "intervall") — must be kept
+    # verbatim; int coercion would raise on them.
+    if schema.time_format in (None, "åååå", "yyyy"):
+        out_df[schema.time_col] = pd.to_numeric(out_df[schema.time_col], errors="raise").astype("int64").astype(str)
+    else:
+        out_df[schema.time_col] = out_df[schema.time_col].map(_norm_dim_value)
 
     # ensure measures numeric
     for m in schema.measures:

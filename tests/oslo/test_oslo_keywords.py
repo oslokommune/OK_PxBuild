@@ -136,6 +136,19 @@ class TestOsloKeywords:
         # ett måltall uten desimaler -> ingen PRECISION
         assert "PRECISION" not in px
 
+    def test_demo003_intervall_serie_tlist_a(self, tmp_path):
+        """Intervall-serie (skoleår «2022/2023»): timePeriodFormat "intervall" gir
+        TIMEVAL med TLIST(A) UTEN steg-tall og periodestrengene fra data ordrett,
+        stigende (SCB-presedens, f.eks. TAB5826 — PX-spec har ingen intervall-skala)."""
+        px = _build_px("OK-DEMO003", tmp_path)
+
+        assert 'TIMEVAL("skoleår")=TLIST(A),"2022/2023","2023/2024","2024/2025";' in px
+        assert 'VALUES("skoleår")="2022/2023","2023/2024","2024/2025";' in px
+        assert 'VARIABLE-TYPE("skoleår")="T";' in px
+
+        # fixtur-data er stokket (2023/2024 først) — cellene skal ligge stigende
+        assert "DATA=60.1 61.3 62.0" in px
+
     def test_demo002_flere_måltall_uten_domene(self, tmp_path):
         """Flere måltall (PRECISION per måltall), dimensjon uten domene, ledende nuller."""
         px = _build_px("OK-DEMO002", tmp_path)

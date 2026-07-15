@@ -177,7 +177,13 @@ def write_csv(df: pd.DataFrame, schema: DetectedSchema, out_csv: Path) -> pd.Dat
         - Collapse duplicates by summing measures for rows with the same dimension combination
 
     """
-    keep_cols = list(dict.fromkeys(schema.dims + schema.measures))
+    # Optional symbol columns (<measure>_SYMBOL, normalized to _symbol): carry
+    # PX symbols ("-", ".." ...) per cell through to pxbuild's SYMBOL contract
+    # (datadatasource pairs them with the measure column). They must bypass the
+    # numeric coercion below — that is the whole point of splitting them out.
+    symbol_cols = {m: f"{m}_symbol" for m in schema.measures if f"{m}_symbol" in df.columns}
+
+    keep_cols = list(dict.fromkeys(schema.dims + schema.measures + list(symbol_cols.values())))
     missing = [c for c in keep_cols if c not in df.columns]
     if missing:
         raise ValueError(f"Missing expected columns after normalization: {missing}. Have: {df.columns.tolist()}")
@@ -214,9 +220,11 @@ def write_csv(df: pd.DataFrame, schema: DetectedSchema, out_csv: Path) -> pd.Dat
             )
         out_df[schema.time_col] = periods
 
-    # ensure measures numeric
+    # ensure measures numeric (symbol columns stay verbatim strings)
     for m in schema.measures:
         out_df[m] = clean_numeric_series(out_df[m])
+    for sc in symbol_cols.values():
+        out_df[sc] = out_df[sc].map(_norm_dim_value)
 
     # collapse duplicates (same dim combination)
     if out_df.duplicated(subset=schema.dims, keep=False).any():
@@ -229,8 +237,18 @@ def write_csv(df: pd.DataFrame, schema: DetectedSchema, out_csv: Path) -> pd.Dat
                 return ss.iloc[0]
             return pd.to_numeric(ss, errors="coerce").sum()
 
+        def _agg_symbol(s: pd.Series):
+            ss = [x for x in s if str(x).strip()]
+            return ss[0] if ss else ""
+
         agg_map = {m: _agg_series for m in schema.measures}
+        agg_map.update({sc: _agg_symbol for sc in symbol_cols.values()})
         out_df = out_df.groupby(schema.dims, dropna=False, sort=False, as_index=False).agg(agg_map)
+
+    # Uppercase _SYMBOL suffix on write: pxbuild's datadatasource validates
+    # symbol values only for columns literally ending in "_SYMBOL".
+    if symbol_cols:
+        out_df = out_df.rename(columns={sc: f"{m}_SYMBOL" for m, sc in symbol_cols.items()})
 
     out_csv.parent.mkdir(parents=True, exist_ok=True)
     # Write to CSV with semicolon separator (matching input format)

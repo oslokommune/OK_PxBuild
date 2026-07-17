@@ -616,7 +616,13 @@ class LoadFromPxmetadata:
         if in_config.datasymbol_sum and in_config.datasymbol_sum[self._current_lang]:
             out_model.datasymbolsum.set(str(in_config.datasymbol_sum[self._current_lang]), pxlang)
 
-        out_model.source.set(in_config.source[self._current_lang], pxlang)
+        # Use explicit dataset-level source if provided (per-table attribution,
+        # e.g. NAV vs SSB), otherwise site-level source from pxbuildconfig
+        dataset = self._pxmetadata_model.dataset
+        if dataset.source and dataset.source.get(self._current_lang):
+            out_model.source.set(dataset.source[self._current_lang], pxlang)
+        else:
+            out_model.source.set(in_config.source[self._current_lang], pxlang)
 
 
 _TLIST_BY_FORMAT = {

@@ -275,6 +275,10 @@ class Dataset(BaseModel):
     """
     Optional explicit override for global UNITS keyword by language. If omitted, auto-generates from measurements
     """
+    source: Optional[Dict[str, str]] = None
+    """
+    Optional explicit override for SOURCE keyword by language. If omitted, uses site-level source from pxbuildconfig
+    """
     subject_code: Optional[str] = Field(None, alias="subjectCode")
     """
     Optional explicit override for SUBJECT-CODE keyword. Takes precedence over pxstatistics if provided

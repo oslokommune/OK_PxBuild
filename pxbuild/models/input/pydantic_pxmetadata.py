@@ -86,6 +86,20 @@ class TimeDimension(BaseModel):
     example: yyyy
     """
     label: Optional[Dict[str, str]] = None
+    axis: Optional[str] = Field(None, alias="axis")
+    """
+    Which PX axis the time dimension is declared on: "stub" or "heading".
+
+    Omit it (or pass null) to keep the default placement in HEADING, so existing
+    pxmetadata files are unaffected. "stub" places time FIRST in STUB, which is
+    the dominant convention in published PX databases; per-position control is
+    not supported.
+
+    This is a layout declaration, not a data transform: STUB + HEADING is also
+    the axis order the DATA block is written in, so the value must be set before
+    emission rather than patched into a finished header - moving an axis in the
+    header alone would leave the values in the previous order.
+    """
 
 
 class CellNote(BaseModel):

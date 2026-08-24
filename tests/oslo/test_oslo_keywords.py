@@ -18,7 +18,11 @@ selvstendig: den bygger en config ved kjøring, leser input fra fixtur-mappa og
 skriver output til pytests tmp_path (ingen innsjekkede output-filer).
 """
 import json
+import re
+import shutil
 from pathlib import Path
+
+import pytest
 
 import pxbuild
 
@@ -26,9 +30,13 @@ FIXTURES = Path(__file__).parent / "fixtures"
 KONTAKT = "Byrådsavdeling for finans (oslostatistikken@byr.oslo.kommune.no)"
 
 
-def _build_px(table_id: str, tmp_path) -> str:
-    """Bygg tabellen fra fixtur og returner generert .px som tekst (cp1252)."""
-    fx = (FIXTURES / table_id).resolve().as_posix()
+def _build_px(table_id: str, tmp_path, fixture_root: Path = None) -> str:
+    """Bygg tabellen fra fixtur og returner generert .px som tekst (cp1252).
+
+    fixture_root lar en test bygge fra en KOPI av fixturen, f.eks. for aa varsle
+    et enkelt pxmetadata-felt uten aa sjekke inn en nesten identisk fixtur.
+    """
+    fx = ((fixture_root or FIXTURES) / table_id).resolve().as_posix()
     out_dir = (tmp_path / "out")
     out_dir.mkdir(parents=True, exist_ok=True)
     out = out_dir.resolve().as_posix()
@@ -64,6 +72,63 @@ def _build_px(table_id: str, tmp_path) -> str:
     px_file = out_dir / f"tab_{table_id}_no.px"
     assert px_file.exists(), f"ingen .px generert for {table_id}"
     return px_file.read_text(encoding="cp1252")
+
+
+def _fixture_med_akse(table_id: str, akse, tmp_path) -> Path:
+    """Kopier fixturen og sett (eller fjern) timeDimension.axis i pxmetadata."""
+    rot = tmp_path / "fx"
+    shutil.copytree(FIXTURES / table_id, rot / table_id)
+    meta_sti = rot / table_id / f"pxmetadata_{table_id}.json"
+    meta = json.loads(meta_sti.read_text(encoding="utf-8"))
+    if akse is None:
+        meta["dataset"]["timeDimension"].pop("axis", None)
+    else:
+        meta["dataset"]["timeDimension"]["axis"] = akse
+    meta_sti.write_text(json.dumps(meta, ensure_ascii=False), encoding="utf-8")
+    return rot
+
+
+def _axis_lists(px: str):
+    def liste(kw):
+        m = re.search(kw + r"=(.*?);", px, re.S)
+        return re.findall(r'"([^"]*)"', m.group(1)) if m else []
+    return liste("STUB"), liste("HEADING")
+
+
+class TestTimeDimensionAxis:
+    """timeDimension.axis: hvor tidsaksen deklareres.
+
+    Default er HEADING, som er dagens oppfoersel - eksisterende pxmetadata-filer
+    skal vaere upaavirket. «stub» flytter tiden FOERST i STUB, som er den vanligste
+    formen i publiserte PX-databaser (Oslos base: 130 av 172 tabeller).
+
+    NB at dette maa skje ved emisjon: STUB + HEADING er ogsaa rekkefoelgen DATA
+    skrives i, saa aksen kan ikke flyttes i en ferdig header uten aa la verdiene
+    ligge i forrige rekkefoelge.
+    """
+
+    def test_default_er_heading(self, tmp_path):
+        px = _build_px("OK-SYS006", tmp_path)
+        stub, heading = _axis_lists(px)
+        assert "år" in heading and "år" not in stub
+
+    def test_axis_stub_gir_tid_foerst_i_stub(self, tmp_path):
+        rot = _fixture_med_akse("OK-SYS006", "stub", tmp_path)
+        px = _build_px("OK-SYS006", tmp_path / "build", fixture_root=rot)
+        stub, heading = _axis_lists(px)
+        assert stub[0] == "år", f"forventet aar foerst i STUB, fikk {stub}"
+        assert "år" not in heading
+
+    def test_axis_heading_er_eksplisitt_default(self, tmp_path):
+        rot = _fixture_med_akse("OK-SYS006", "heading", tmp_path)
+        px = _build_px("OK-SYS006", tmp_path / "build", fixture_root=rot)
+        stub, heading = _axis_lists(px)
+        assert "år" in heading and "år" not in stub
+
+    def test_ugyldig_axis_avvises(self, tmp_path):
+        rot = _fixture_med_akse("OK-SYS006", "rows", tmp_path)
+        with pytest.raises(ValueError, match="must be"):
+            _build_px("OK-SYS006", tmp_path / "build", fixture_root=rot)
 
 
 def _title_line(px: str) -> str:

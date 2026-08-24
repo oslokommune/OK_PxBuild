@@ -68,10 +68,21 @@ class Dims:
         self._headingCodes.append(contdim_code)
         self.dim_by_code[contdim_code] = self.contdim
 
-        # TIME
+        # TIME — HEADING by default; "stub" moves it to the front of STUB.
+        # Both lists feed get_dimcodes_in_output_order(), which is the order the
+        # DATA block is written in, so declaring the axis here keeps header and
+        # data consistent by construction.
         self.time: TimeDim = TimeDim(in_loaded_jsons, in_datadatasource)
         time_code = self.time.get_code()
-        self._headingCodes.append(time_code)
+        time_axis = (meta.time_dimension.axis or "heading").strip().lower()
+        if time_axis == "stub":
+            self._stubCodes.insert(0, time_code)
+        elif time_axis == "heading":
+            self._headingCodes.append(time_code)
+        else:
+            raise ValueError(
+                f'timeDimension.axis must be "stub" or "heading", got {meta.time_dimension.axis!r}'
+            )
         self.dim_by_code[time_code] = self.time
 
     def get_dims_in_output_order(self) -> List[AbstractDim]:

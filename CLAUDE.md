@@ -19,15 +19,23 @@ kolonnenavn-normalisering, csv2px SYMBOL-passthrough, dataset-nivå SOURCE-overr
 
 ## Tester
 
-Oslo-suiten `tests/oslo/` (10 tabeller) asserterer keywordene i generert `.px` — **kjør
+Oslo-suiten `tests/oslo/` (11 tabeller) asserterer keywordene i generert `.px` — **kjør
 den når motoren eller generatoren i fabrikken endres**:
 
 ```
 $env:PYTHONIOENCODING='utf-8'; & "C:\Users\BYR272798\AppData\Local\anaconda3\envs\pxbuild-env\python.exe" -m pytest tests/oslo -q
 ```
 
-Full suite skriver om filer under `testdata/out_files/` og `example_data/` — de dukker
-opp som endringer i arbeidstreet og skal **ikke** committes.
+Full suite skriver om filer under `testdata/out_files/`, `example_data/` **og
+`testdata/test_cube_1/`** — de dukker opp som endringer i arbeidstreet og skal **ikke**
+committes.
+
+`testdata/test_cube_1/` sto ikke i lista til 2026-08-25, og det er den farligste av de
+tre: den ligger blant INN-fixturene framfor i en `out_`-mappe, så den ser ut som
+kildedata. Diffen er dessuten TAPSGIVENDE — en kjøring fjernet `UNITS`, `NEXT-UPDATE`,
+`SUBJECT-CODE`, `SUBJECT-AREA` og `STUB` fra `tab_1.px` — så et `git add -A` ville
+committet en svekket fasit til et **public** repo, og testene ville fortsatt vært grønne.
+Fem slike filer lå uncommittet i seks uker før noen så dem.
 
 ## Deploy til Fabric
 

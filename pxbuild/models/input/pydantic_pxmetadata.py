@@ -45,6 +45,16 @@ class PriceType(Enum):
     fixed = "Fixed"
 
 
+class ValueOrder(Enum):
+    """
+    How the values of an uncoded (text) dimension are ordered in VALUES
+    """
+
+    alphabetical = "alphabetical"
+    data = "data"
+    explicit = "explicit"
+
+
 class Contact(BaseModel):
     """
     Contact information for statistics (name, email, phone)
@@ -181,6 +191,38 @@ class Dimension(BaseModel):
     label: Optional[Dict[str, str]] = None
     elimination_possible: Optional[bool] = Field(False, alias="eliminationPossible")
     elimination_code: Optional[str] = Field(None, alias="eliminationCode")
+    value_order: Optional[ValueOrder] = Field(None, alias="valueOrder")
+    """
+    How the values of this uncoded dimension are ordered in VALUES.
+
+    Omit it (or pass null) for "alphabetical", which is the historical behaviour,
+    so existing pxmetadata files are unaffected.
+
+    - "alphabetical": sorted. Note this is codepoint order, not language-aware
+      collation, so in Norwegian data the values are ordered A-Z then Æ, Ø, Å.
+    - "data": order of first appearance in the data source. Use when the source
+      already carries a curated order that alphabetical sorting would destroy.
+    - "explicit": the list in explicitValues, verbatim. The list must name the
+      same values the data holds - no more, no fewer.
+
+    This is an ordering declaration, not a data transform: VALUES order is also
+    the order the DATA block is written in, so it must be set before emission
+    rather than patched into a finished header - reordering VALUES in the header
+    alone would leave the numbers behind under the wrong labels.
+    """
+    explicit_values: Optional[List[str]] = Field(None, alias="explicitValues")
+    """
+    The value order used when valueOrder is "explicit". Ignored otherwise.
+    """
+    total_first: Optional[bool] = Field(False, alias="totalFirst")
+    """
+    Move eliminationCode to the front of VALUES once the order above is applied.
+
+    Independent of valueOrder, because the total's position and the ordering of
+    the remaining values are separate decisions: an alphabetical dimension whose
+    total is "I alt" would otherwise bury it mid-list, since "I" sorts after "A".
+    Requires eliminationCode, and requires that value to be present in the data.
+    """
     doublecolumn: Optional[bool] = False
     notes: Optional[List[Note]] = None
     meta_id: Optional[List[str]] = Field(None, alias="metaId")

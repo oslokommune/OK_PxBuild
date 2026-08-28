@@ -11,6 +11,56 @@ from .regular_dim import RegularDim
 from .abstract_dim import AbstractDim
 
 from pxbuild.models.input.helper_pxcodes import HelperPxCodes
+from pxbuild.models.input.pydantic_pxmetadata import Dimension, ValueOrder
+
+
+def order_values(in_dim: Dimension, in_values: List[str]) -> List[str]:
+    """Order the values of an uncoded dimension for VALUES.
+
+    Takes the values as the data yields them (first appearance first) and
+    returns them in declared order. The default is alphabetical, which is what
+    pxbuild has always done, so a dimension that declares nothing is unchanged.
+
+    Both failure modes raise rather than fall back: a VALUES list that quietly
+    disagrees with the declaration is invisible in the finished file, and the
+    DATA block is written in this same order, so a wrong order here mislabels
+    numbers instead of just looking untidy.
+    """
+    # dict preserves insertion order, so this dedupes without sorting
+    values = list(dict.fromkeys(in_values))
+    code = in_dim.code if in_dim.code is not None else in_dim.column_name
+
+    order = in_dim.value_order or ValueOrder.alphabetical
+    if order == ValueOrder.alphabetical:
+        out = sorted(values)
+    elif order == ValueOrder.data:
+        out = values
+    elif order == ValueOrder.explicit:
+        declared = list(dict.fromkeys(in_dim.explicit_values or []))
+        mangler = [v for v in values if v not in declared]
+        ukjente = [v for v in declared if v not in values]
+        if mangler or ukjente:
+            raise ValueError(
+                f'explicitValues for dimension {code} must name exactly the values in the data. '
+                f"Missing from explicitValues: {mangler or 'none'}. "
+                f"Not present in data: {ukjente or 'none'}."
+            )
+        out = declared
+    else:
+        raise ValueError(f'valueOrder for dimension {code} must be "alphabetical", "data" or "explicit", got {order!r}')
+
+    if in_dim.total_first:
+        total = in_dim.elimination_code
+        if not total:
+            raise ValueError(f"totalFirst is set for dimension {code}, but it has no eliminationCode to put first")
+        if total not in out:
+            raise ValueError(
+                f"totalFirst is set for dimension {code}, but its eliminationCode {total!r} "
+                f"is not among the values in the data"
+            )
+        out = [total] + [v for v in out if v != total]
+
+    return out
 
 
 class Dims:
@@ -54,7 +104,7 @@ class Dims:
 
                 values = data[n_dim.column_name].dropna().unique().tolist()
                 values = [str(v).strip() for v in values]
-                values = sorted(set(values))
+                values = order_values(n_dim, values)
 
                 temp_dim = RegularDim(n_dim, values)
                 n_code = temp_dim.get_code()

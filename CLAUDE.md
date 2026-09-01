@@ -20,10 +20,15 @@ kolonnenavn-normalisering, csv2px SYMBOL-passthrough, dataset-nivå SOURCE-overr
 ## Tester
 
 Oslo-suiten `tests/oslo/` (11 tabeller) asserterer keywordene i generert `.px` — **kjør
-den når motoren eller generatoren i fabrikken endres**:
+den når motoren eller generatoren i fabrikken endres**. Suiten krever `pxbuild`-miljøet, og
+`PYTHONIOENCODING` må settes fordi fixturene inneholder æ/ø/å:
 
 ```
-$env:PYTHONIOENCODING='utf-8'; & "C:\Users\BYR272798\AppData\Local\anaconda3\envs\pxbuild-env\python.exe" -m pytest tests/oslo -q
+# med miljøet aktivert
+PYTHONIOENCODING=utf-8 python -m pytest tests/oslo -q
+
+# Windows / PowerShell — kall miljøets python direkte
+$env:PYTHONIOENCODING='utf-8'; & "<sti-til-pxbuild-env>\python.exe" -m pytest tests/oslo -q
 ```
 
 Full suite skriver om filer under `testdata/out_files/`, `example_data/` **og

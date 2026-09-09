@@ -693,8 +693,9 @@ def write_output(
     # same model produced two different files depending on where pxbuild happened to run.
     # The PX 2013 format is CRLF and every reference database is CRLF, so a build that
     # moved into a Linux container silently stopped matching its own fixtures.
-    # PXFileModel.__str__ joins its sections with "\n" only, so this writes exactly one
-    # CRLF per line — byte-identical to what Windows produced before.
+    # PXFileModel.__str__ joins its sections with "\n" only, so a model whose text values
+    # carry no CR of their own yields exactly one CRLF per line — byte-identical to what
+    # Windows produced before (newline=None never touched an existing "\r" either).
     with open(out_file, "w", encoding="cp1252", errors="replace", newline="\r\n") as f:
         print(out_model, file=f)
 

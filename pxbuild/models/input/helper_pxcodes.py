@@ -21,6 +21,19 @@ class HelperPxCodes:
         self._pxcodes = in_pxcodes
         self.elimination_possible = in_pxcodes.elimination_possible
 
+        # A declared eliminationCode must be one of the root valueitems. Before this
+        # check, an unknown code made get_elimination_label() return "" and the caller
+        # fell back to ELIMINATION=YES — so PxWeb summed the values (including the
+        # total) instead of showing the total row, and nothing in the build said so.
+        elimination_code = in_pxcodes.elimination_code
+        if elimination_code is not None and str(elimination_code) != "":
+            codes = [valueitem.code for valueitem in in_pxcodes.valueitems]
+            if str(elimination_code) not in codes:
+                raise ValueError(
+                    f"eliminationCode {elimination_code!r} in pxcodes {in_pxcodes.id!r} is not among its "
+                    f"valueitem codes: {codes[:8]}{' ...' if len(codes) > 8 else ''}"
+                )
+
         sortby = str(in_pxcodes.sort_valueitems_on).replace("SortValueitemsOn.", "")
         # print("sortby",sortby,"inPxCodes.sort_valueitems_on",str(inPxCodes.sort_valueitems_on))
 

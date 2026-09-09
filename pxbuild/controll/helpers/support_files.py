@@ -57,7 +57,20 @@ class SupportFiles:
                     out_folder = out_folder_format.format(id=self._pxmetadata_id)
                     out_file = out_folder + "/" + my_codes.id() + "_" + language + ".vs"
 
-                    with open(out_file, "w") as f:
+                    # encoding= and newline= EXPLICITLY, not the platform default. `open` in
+                    # text mode without them uses the locale encoding and translates "\n" to
+                    # `os.linesep`, so the very same value set came out cp1252/CRLF on Windows
+                    # and UTF-8/LF in a Linux container. The .vs and .agg files belong to the
+                    # same PC-Axis family as the .px they accompany, and every reader of them
+                    # assumes ANSI and CRLF - a containerised build silently produced mojibake
+                    # for Norwegian labels. `_VSFileModel.__str__` joins its sections with "\n"
+                    # only, so a model whose text values carry no CR of their own yields exactly
+                    # one CRLF per line - byte-identical to what Windows produced before.
+                    # No errors="replace" here, unlike `write_output` for .px: Windows was
+                    # already strict cp1252, so strict keeps today's behaviour unchanged, and a
+                    # value set label that cannot be encoded means a curated code list has gone
+                    # wrong - that should fail loudly rather than ship a "?" to the database.
+                    with open(out_file, "w", encoding="cp1252", newline="\r\n") as f:
                         print(out_vs_model, file=f)
                         print("File written to:", out_file)
 
@@ -91,7 +104,9 @@ class SupportFiles:
         out_folder_format: str = self._config.admin.output_destination.agg_folder_format
         out_folder = out_folder_format.format(id=self._pxmetadata_id)
         out_file = out_folder + "/" + str(grouping.filename_base) + "_" + language + ".agg"
-        with open(out_file, "w") as f:
+        # Same reason as in make_vs_file above: ask for cp1252 and CRLF, never inherit the
+        # platform's. `AggFileModel.__str__` also joins with "\n" only.
+        with open(out_file, "w", encoding="cp1252", newline="\r\n") as f:
             print(out_agg_model, file=f)
             print("File written to:", out_file)
         print("i agg")

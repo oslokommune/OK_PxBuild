@@ -99,7 +99,7 @@ def _fixture_med_akse(table_id: str, akse, tmp_path) -> Path:
 
 
 class TestLinjeskift:
-    """PX 2013 er et CRLF-format, og hele fasiten er CRLF.
+    r"""PX 2013 er et CRLF-format, og hele fasiten er CRLF.
 
     `write_output` aapnet utfila i tekstmodus uten `newline=`, saa Python oversatte
     "\n" til `os.linesep`: CRLF paa Windows, LF paa Linux. Samme modell ga dermed to
@@ -122,7 +122,7 @@ class TestLinjeskift:
         assert b"\r\r" not in raa
 
     def test_writeren_ber_EKSPLISITT_om_crlf(self, tmp_path, monkeypatch):
-        """Denne testen er porten. De to bytes-testene er den ikke.
+        r"""Denne testen er porten. De to bytes-testene er den ikke.
 
         Maalt: med `newline=` fjernet fra `write_output` er begge bytes-testene over
         fortsatt GROENNE paa Windows — `newline=None` oversetter "\n" til `os.linesep`,
@@ -147,12 +147,14 @@ class TestLinjeskift:
             return ekte_open(fil, *a, **kw)
 
         monkeypatch.setattr(builtins, "open", spion)
+        # En str i stedet for en PXFileModel med vilje: `print(out_model, file=f)` tar
+        # hva som helst med __str__, saa testen isolerer skriveren fra modellen.
         write_output("T1", str(tmp_path / "{id}"), 'TITLE="en tabell";')
 
         assert kwargs_per_px, "write_output aapnet ingen .px-fil"
         assert kwargs_per_px[0].get("newline") == "\r\n", (
             "write_output ber ikke eksplisitt om CRLF — da bestemmer plattformen, og "
-            "Fabric-containeren skriver LF")
+            "Linux-containeren skriver LF")
 
     def test_ogsaa_siste_linje_og_en_annen_tabell(self, tmp_path):
         """Formen er bundet ABSOLUTT, ikke til `os.linesep` — en test mot plattformens

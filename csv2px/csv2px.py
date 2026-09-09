@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
@@ -89,6 +89,9 @@ class DetectedSchema:
     code_name_map: Dict[str, Tuple[str, Optional[str]]]  # base -> (kode_col, navn_col or None)
     elimination_map: Dict[str, Tuple[bool, Optional[str]]]  # dim_id -> (eliminationPossible, eliminationCode)
     time_format: Optional[str] = None  # timeDimension.timePeriodFormat (None in legacy metadata)
+    # dim_id -> declared VALUES order for CODED dims: (valueOrder, explicitValues, totalFirst).
+    # Absent (or all-None/False) means the historical behaviour: codes sorted, no lifting.
+    order_map: Dict[str, Tuple[Optional[str], Optional[List[str]], bool]] = field(default_factory=dict)
 
 
 def load_schema_from_metadata(metadata_path: Path) -> DetectedSchema:
@@ -111,6 +114,7 @@ def load_schema_from_metadata(metadata_path: Path) -> DetectedSchema:
     coded_dims = []
     code_name_map = {}
     elimination_map = {}
+    order_map = {}
 
     # Process coded dimensions
     normalized_columns = [to_ascii_key(d["columnName"]) for d in coded_dimensions + dimensions]
@@ -138,6 +142,14 @@ def load_schema_from_metadata(metadata_path: Path) -> DetectedSchema:
         elimination_code = dim.get("eliminationCode", None)
         elimination_map[dim_id] = (elimination_possible, elimination_code)
 
+        # Declared VALUES order (same vocabulary as pxbuild's uncoded `dimensions`:
+        # valueOrder alphabetical/data/explicit + totalFirst). Applied in write_pxcodes.
+        value_order = dim.get("valueOrder")
+        explicit_values = dim.get("explicitValues")
+        total_first = bool(dim.get("totalFirst", False))
+        if value_order is not None or explicit_values is not None or total_first:
+            order_map[dim_id] = (value_order, explicit_values, total_first)
+
     # Process regular dimensions
     for dim in dimensions:
         column_name = to_ascii_key(dim["columnName"])
@@ -163,6 +175,7 @@ def load_schema_from_metadata(metadata_path: Path) -> DetectedSchema:
         code_name_map=code_name_map,
         elimination_map=elimination_map,
         time_format=time_format,
+        order_map=order_map,
     )
 
 
@@ -256,6 +269,79 @@ def write_csv(df: pd.DataFrame, schema: DetectedSchema, out_csv: Path) -> pd.Dat
     return out_df
 
 
+def order_coded_items(
+    dim_id: str,
+    items: List[Tuple[str, str]],
+    value_order: Optional[str],
+    explicit_values: Optional[List[str]],
+    total_first: bool,
+    elimination_code: Optional[str],
+) -> List[Tuple[str, str]]:
+    """Order a coded dimension's (code, label) items for VALUES/CODES.
+
+    `items` come in data order (first appearance first). Mirrors pxbuild's
+    `order_values` for uncoded dimensions, but here the human-facing side is the
+    LABEL, so "alphabetical" sorts on label and "explicit" names labels — that is
+    what the declaring master speaks in, and for a domain-pointer dimension the
+    labels ARE the codes, so both readings hold. totalFirst lifts eliminationCode
+    (a CODE) to the front once the order is applied.
+
+    The default (nothing declared) is the historical csv2px behaviour, codes
+    sorted, so existing metadata builds byte-identical files.
+
+    Every failure raises. VALUES order is also the order the DATA block is written
+    in, so a quietly wrong order mislabels numbers rather than looking untidy.
+    """
+    order = value_order or "code"
+    if order == "code":
+        out = sorted(items, key=lambda it: it[0])
+    elif order == "alphabetical":
+        out = sorted(items, key=lambda it: it[1])
+    elif order == "data":
+        out = list(items)
+    elif order == "explicit":
+        declared = list(dict.fromkeys(str(v).strip() for v in (explicit_values or [])))
+        labels = [lab for _, lab in items]
+        shared = sorted({lab for lab in labels if labels.count(lab) > 1})
+        if shared:
+            raise ValueError(
+                f"explicitValues for coded dimension {dim_id} cannot decide the order: several codes "
+                f"share the same label ({', '.join(shared[:4])}). Use valueOrder data/alphabetical "
+                f"or give the values unique labels."
+            )
+        missing = [lab for lab in labels if lab not in declared]
+        unknown = [lab for lab in declared if lab not in labels]
+        if missing or unknown:
+            raise ValueError(
+                f"explicitValues for coded dimension {dim_id} must name exactly the labels in the data. "
+                f"Missing from explicitValues: {missing or 'none'}. Not present in data: {unknown or 'none'}."
+            )
+        by_label = {lab: it for it in items for lab in [it[1]]}
+        out = [by_label[lab] for lab in declared]
+    else:
+        raise ValueError(
+            f'valueOrder for coded dimension {dim_id} must be "alphabetical", "data" or "explicit", got {order!r}'
+        )
+
+    codes = [c for c, _ in out]
+    # A declared eliminationCode that is not among the codes is a declaration error, and
+    # a silent one downstream: pxbuild would fall back to ELIMINATION=YES, and PxWeb then
+    # SUMS the values — including the total — instead of showing the total row (F-92).
+    if elimination_code is not None and str(elimination_code) != "" and str(elimination_code) not in codes:
+        raise ValueError(
+            f"eliminationCode {elimination_code!r} for coded dimension {dim_id} is not among the codes "
+            f"in the data: {codes[:8]}{' ...' if len(codes) > 8 else ''}"
+        )
+
+    if total_first:
+        if not elimination_code:
+            raise ValueError(f"totalFirst is set for coded dimension {dim_id}, but it has no eliminationCode to put first")
+        total = str(elimination_code)
+        out = [it for it in out if it[0] == total] + [it for it in out if it[0] != total]
+
+    return out
+
+
 def write_pxcodes(df: pd.DataFrame, schema: DetectedSchema, out_dir: Path) -> None:
     """Create pxcodes only for CODED dimensions (uncoded dimensions use raw data values)."""
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -274,33 +360,41 @@ def write_pxcodes(df: pd.DataFrame, schema: DetectedSchema, out_dir: Path) -> No
 
         code_col, label_col = schema.code_name_map[dim_id]
 
+        # Items in DATA order (first appearance). Ordering is decided in one place below.
         if label_col and label_col in df.columns:
-            pairs = df[[code_col, label_col]].dropna().drop_duplicates().sort_values(code_col, kind="stable")
+            pairs = df[[code_col, label_col]].dropna().drop_duplicates()
             items = [(norm_code(k), str(n).strip()) for k, n in pairs.itertuples(index=False)]
         else:
-            codes = df[[code_col]].dropna().drop_duplicates().sort_values(code_col, kind="stable")
+            codes = df[[code_col]].dropna().drop_duplicates()
             items = [(norm_code(k), norm_code(k)) for (k,) in codes.itertuples(index=False)]
 
         items = [(c, lab) for c, lab in items if c != ""]
 
         # Get elimination info from metadata
         elimination_possible, elimination_code = schema.elimination_map.get(dim_id, (False, None))
+        value_order, explicit_values, total_first = schema.order_map.get(dim_id, (None, None, False))
+        declared = dim_id in schema.order_map
 
+        items = order_coded_items(dim_id, items, value_order, explicit_values, total_first, elimination_code)
+
+        # pxbuild re-sorts valueitems by `sortValueitemsOn`, so the order in this file
+        # only survives as RANK. Zero-padded, because pxbuild sorts rank as text.
+        width = max(4, len(str(len(items))))
         valueitems = [
             {
                 "code": code,
                 "unorderedChildren": None,
                 "label": {"no": label_no, "en": label_no},
-                "rank": None,
+                "rank": {"no": f"{i:0{width}d}", "en": f"{i:0{width}d}"} if declared else None,
                 "notes": None,
             }
-            for code, label_no in items
+            for i, (code, label_no) in enumerate(items)
         ]
 
         payload = {
             "id": dim_id,
             "admin": {"isFinal": True, "tags": ["auto"], "todoCreation": None},
-            "sortValueitemsOn": "code",
+            "sortValueitemsOn": "rank" if declared else "code",
             "label": {"no": dim_id, "en": dim_id},
             "valueitems": valueitems,
             "eliminationPossible": elimination_possible,
@@ -319,12 +413,19 @@ def write_pxcodes(df: pd.DataFrame, schema: DetectedSchema, out_dir: Path) -> No
 # Main
 # -----------------------------
 def load_csv_with_fallback(csv_path: Path) -> pd.DataFrame:
-    """Load CSV file, trying multiple encodings if UTF-8 fails."""
+    """Load CSV file, trying multiple encodings if UTF-8 fails.
+
+    Everything is read as text (dtype=str). Codes are identifiers, not numbers:
+    without this, pandas turned "030101" into 30101, so the code no longer matched
+    eliminationCode "0301", pxbuild fell back to ELIMINATION=YES, and PxWeb summed
+    the districts including "Oslo i alt" (F-92). Measures are coerced to numbers
+    later, in write_csv, where that is the intent.
+    """
     encodings = ["utf-8", "iso-8859-1", "cp1252", "latin-1"]
 
     for encoding in encodings:
         try:
-            return pd.read_csv(csv_path, sep=";", encoding=encoding)
+            return pd.read_csv(csv_path, sep=";", encoding=encoding, dtype=str)
         except (UnicodeDecodeError, UnicodeError):
             continue
 

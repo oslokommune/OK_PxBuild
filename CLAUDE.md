@@ -15,7 +15,11 @@ signal om at den hører i generatoren i stedet.
 
 Fikser som er inne: literal domain-pointer, TIMEVAL fra intervall, TLIST(A) for
 skoleår-intervaller, kronologisk periodesortering, pxstatistics-emisjon,
-kolonnenavn-normalisering, csv2px SYMBOL-passthrough, dataset-nivå SOURCE-override.
+kolonnenavn-normalisering, csv2px SYMBOL-passthrough, dataset-nivå SOURCE-override,
+valueOrder/totalFirst for ukodede dimensjoner (T-7) og for kodede via rank i csv2px
+(G-4), timeDimension.axis, csv2px leser data som tekst (dtype=str — koder med ledende
+null, F-92), og pxbuild/csv2px feiler på en eliminationCode som ikke finnes i kodene
+(før: stille fall tilbake til ELIMINATION=YES, som får PxWeb til å summere totalen).
 
 ## Tester
 
@@ -33,7 +37,12 @@ $env:PYTHONIOENCODING='utf-8'; & "<sti-til-pxbuild-env>\python.exe" -m pytest te
 
 Full suite skriver om filer under `testdata/out_files/`, `example_data/` **og
 `testdata/test_cube_1/`** — de dukker opp som endringer i arbeidstreet og skal **ikke**
-committes.
+committes. Rydd med `git checkout -- testdata example_data` etter kjøring. **Åtte
+SSB-arvede kubetester feiler på `main`** (`test_cube_2`, `test_cubes_1nn`,
+`test_cubes_2nn`; målt 09.09.2026 på b2738e7 og etter F-92-fiksen): de sammenligner
+mot SSBs fasitfiler, som Oslo-forken bevisst avviker fra (utaggede STUB/HEADING, ingen
+UNITS/NEXT-UPDATE/SUBJECT-*). Det er ikke regresjon; porten er `tests/oslo`,
+`tests/csv2px` og `tests/models`.
 
 `testdata/test_cube_1/` sto ikke i lista til 2026-08-25, og det er den farligste av de
 tre: den ligger blant INN-fixturene framfor i en `out_`-mappe, så den ser ut som

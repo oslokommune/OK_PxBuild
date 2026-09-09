@@ -63,6 +63,25 @@ def order_values(in_dim: Dimension, in_values: List[str]) -> List[str]:
     return out
 
 
+def check_elimination_code(in_dim: Dimension, values: List[str]) -> None:
+    """Raise if an uncoded dimension declares an eliminationCode that is not in the data.
+
+    ELIMINATION names the value PxWeb shows when the variable is left out. A name
+    that matches no value is a declaration error, and a quiet one: the keyword is
+    written verbatim, so the file builds, and the mismatch only shows in PxWeb.
+    Coded dimensions get the same check in HelperPxCodes.
+    """
+    total = in_dim.elimination_code
+    if total is None or str(total) == "":
+        return
+    if str(total) not in values:
+        code = in_dim.code if in_dim.code is not None else in_dim.column_name
+        raise ValueError(
+            f"eliminationCode {total!r} for dimension {code} is not among the values in the data: "
+            f"{values[:8]}{' ...' if len(values) > 8 else ''}"
+        )
+
+
 class Dims:
     def __init__(self, in_loaded_jsons: LoadedJsons, in_datadatasource: Datadatasource) -> None:
 
@@ -105,6 +124,7 @@ class Dims:
                 values = data[n_dim.column_name].dropna().unique().tolist()
                 values = [str(v).strip() for v in values]
                 values = order_values(n_dim, values)
+                check_elimination_code(n_dim, values)
 
                 temp_dim = RegularDim(n_dim, values)
                 n_code = temp_dim.get_code()

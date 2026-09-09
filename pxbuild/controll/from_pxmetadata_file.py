@@ -688,7 +688,14 @@ def write_output(
     out_file = f"{out_folder}/tab_{temp_tabid}{language_part}.px"
     Path(out_folder).mkdir(parents=True, exist_ok=True)
 
-    with open(out_file, "w", encoding="cp1252", errors="replace") as f:
+    # newline="\r\n" EXPLICITLY, not the platform default. Without it, `open` in text
+    # mode translates "\n" to os.linesep: CRLF on Windows, LF on Linux — so the very
+    # same model produced two different files depending on where pxbuild happened to run.
+    # The PX 2013 format is CRLF and every reference database is CRLF, so a build that
+    # moved into a Linux container silently stopped matching its own fixtures.
+    # PXFileModel.__str__ joins its sections with "\n" only, so this writes exactly one
+    # CRLF per line — byte-identical to what Windows produced before.
+    with open(out_file, "w", encoding="cp1252", errors="replace", newline="\r\n") as f:
         print(out_model, file=f)
 
     print("File written to:", out_file)

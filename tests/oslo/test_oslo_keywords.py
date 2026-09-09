@@ -33,6 +33,16 @@ KONTAKT = "Byrådsavdeling for finans (oslostatistikken@byr.oslo.kommune.no)"
 def _build_px(table_id: str, tmp_path, fixture_root: Path = None) -> str:
     """Bygg tabellen fra fixtur og returner generert .px som tekst (cp1252).
 
+    Leser med `read_text`, altsaa med universelle linjeskift: hele denne suiten er
+    blind for om fila er CRLF eller LF. Det var nettopp derfor LF-en paa Linux kunne
+    leve uoppdaget — se `TestLinjeskift`, som leser BYTES.
+    """
+    return _build_px_file(table_id, tmp_path, fixture_root).read_text(encoding="cp1252")
+
+
+def _build_px_file(table_id: str, tmp_path, fixture_root: Path = None) -> Path:
+    """Som `_build_px`, men returnerer STIEN — for det som maa maales paa bytes.
+
     fixture_root lar en test bygge fra en KOPI av fixturen, f.eks. for aa varsle
     et enkelt pxmetadata-felt uten aa sjekke inn en nesten identisk fixtur.
     """
@@ -71,7 +81,7 @@ def _build_px(table_id: str, tmp_path, fixture_root: Path = None) -> str:
 
     px_file = out_dir / f"tab_{table_id}_no.px"
     assert px_file.exists(), f"ingen .px generert for {table_id}"
-    return px_file.read_text(encoding="cp1252")
+    return px_file
 
 
 def _fixture_med_akse(table_id: str, akse, tmp_path) -> Path:
@@ -86,6 +96,70 @@ def _fixture_med_akse(table_id: str, akse, tmp_path) -> Path:
         meta["dataset"]["timeDimension"]["axis"] = akse
     meta_sti.write_text(json.dumps(meta, ensure_ascii=False), encoding="utf-8")
     return rot
+
+
+class TestLinjeskift:
+    """PX 2013 er et CRLF-format, og hele fasiten er CRLF.
+
+    `write_output` aapnet utfila i tekstmodus uten `newline=`, saa Python oversatte
+    "\n" til `os.linesep`: CRLF paa Windows, LF paa Linux. Samme modell ga dermed to
+    ULIKE filer avhengig av hvor pxbuild tilfeldigvis kjoerte — og da byggene flyttet
+    inn i en Linux-container, sluttet de stille aa matche sin egen fasit.
+
+    Testen leser BYTES. Resten av suiten leser `read_text` med universelle linjeskift
+    og kan derfor ikke se forskjellen — det er hele grunnen til at feilen levde saa
+    lenge, og grunnen til at denne testen maa se paa noe annet enn de andre.
+    """
+
+    def test_linjeskift_er_alltid_crlf(self, tmp_path):
+        raa = _build_px_file("OK-SYS006", tmp_path).read_bytes()
+        assert b"\r\n" in raa, "ingen CRLF i det hele tatt — skrives fila med LF?"
+        # Ingen naken LF: hver eneste "\n" skal ha en "\r" foran seg.
+        naken = raa.count(b"\n") - raa.count(b"\r\n")
+        assert naken == 0, f"{naken} linje(r) har naken LF"
+        # Og ingen dobbel CR: modellen skjoeter med "\n", saa oversettelsen skal ikke
+        # kunne lage "\r\r\n" av et linjeskift som alt var CRLF.
+        assert b"\r\r" not in raa
+
+    def test_writeren_ber_EKSPLISITT_om_crlf(self, tmp_path, monkeypatch):
+        """Denne testen er porten. De to bytes-testene er den ikke.
+
+        Maalt: med `newline=` fjernet fra `write_output` er begge bytes-testene over
+        fortsatt GROENNE paa Windows — `newline=None` oversetter "\n" til `os.linesep`,
+        som ER CRLF her. Feilen er altsaa en FALSK NEGATIV paa byggemaskinen og ekte
+        foerst i Linux-containeren, og en test som bare leser resultatet kan aldri se
+        den. Da maa porten binde MEKANISMEN: at writeren ber om CRLF selv, framfor aa
+        arve plattformens valg.
+
+        Bytes-testene blir staaende ved siden av: de fanger det motsatte uhellet, at
+        noen ber om CRLF paa en modell som alt har det og faar "\r\r\n".
+        """
+        import builtins
+
+        from pxbuild.controll.from_pxmetadata_file import write_output
+
+        ekte_open = builtins.open
+        kwargs_per_px = []
+
+        def spion(fil, *a, **kw):
+            if str(fil).endswith(".px"):
+                kwargs_per_px.append(kw)
+            return ekte_open(fil, *a, **kw)
+
+        monkeypatch.setattr(builtins, "open", spion)
+        write_output("T1", str(tmp_path / "{id}"), 'TITLE="en tabell";')
+
+        assert kwargs_per_px, "write_output aapnet ingen .px-fil"
+        assert kwargs_per_px[0].get("newline") == "\r\n", (
+            "write_output ber ikke eksplisitt om CRLF — da bestemmer plattformen, og "
+            "Fabric-containeren skriver LF")
+
+    def test_ogsaa_siste_linje_og_en_annen_tabell(self, tmp_path):
+        """Formen er bundet ABSOLUTT, ikke til `os.linesep` — en test mot plattformens
+        eget linjeskift ville bestaatt paa Windows uansett hva koden gjorde."""
+        raa = _build_px_file("OK-SYS002", tmp_path).read_bytes()
+        assert raa.endswith(b"\r\n")
+        assert raa.count(b"\n") == raa.count(b"\r\n")
 
 
 def _axis_lists(px: str):

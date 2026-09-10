@@ -2,8 +2,9 @@
 *.ipynb filter=nbstripout
 *.ipynb diff=ipynb
 
-# PX 2013 and the PC-Axis support files that accompany it are CRLF formats: every
-# reference database is CRLF, and so is every fixture checked in here. `* text=auto`
+# PX 2013 and the PC-Axis support files that accompany it are CRLF formats: the
+# production reference database is CRLF throughout, and so is every fixture checked in
+# here. `* text=auto`
 # stores them LF-normalised and then hands the working tree whatever the platform
 # prefers - CRLF on Windows, LF on Linux. Since the engine now writes CRLF on every
 # platform (from_pxmetadata_file.write_output, helpers/support_files.py), a Linux
@@ -11,7 +12,7 @@
 # that has nothing wrong with it. eol=crlf pins the working-tree form everywhere and
 # rewrites no stored blob. NOT `-text`: that would freeze today's LF blobs into the
 # Windows working tree too, and would only be correct together with renormalising all
-# 125 tracked .px/.vs/.agg files to CRLF.
+# tracked .px/.vs/.agg files (85 at the time of writing, none containing NUL) to CRLF.
 *.px eol=crlf
 *.vs eol=crlf
 *.agg eol=crlf

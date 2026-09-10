@@ -61,9 +61,11 @@ class SupportFiles:
                     # text mode without them uses the locale encoding and translates "\n" to
                     # `os.linesep`, so the very same value set came out cp1252/CRLF on Windows
                     # and UTF-8/LF in a Linux container. The .vs and .agg files belong to the
-                    # same PC-Axis family as the .px they accompany, and every reader of them
-                    # assumes ANSI and CRLF - a containerised build silently produced mojibake
-                    # for Norwegian labels. `_VSFileModel.__str__` joins its sections with "\n"
+                    # same PC-Axis family as the .px they accompany; the reference database and
+                    # the shared aggregation library are cp1252 + CRLF throughout (measured), and
+                    # their readers decode strictly as cp1252 - so a containerised build silently
+                    # produced mojibake for Norwegian labels: UTF-8 "å" is two valid cp1252 bytes,
+                    # no decoder complains. `_VSFileModel.__str__` joins its sections with "\n"
                     # only, so a model whose text values carry no CR of their own yields exactly
                     # one CRLF per line - byte-identical to what Windows produced before.
                     # No errors="replace" here, unlike `write_output` for .px: Windows was

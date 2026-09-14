@@ -360,3 +360,70 @@ class TestOsloKeywords:
         assert 'ELIMINATION("bosted")="Oslo i alt";' in px
         assert 'ELIMINATION("aldersgruppe")="1-5 år";' in px   # total trenger ikke være «i alt»
         assert 'PRECISION("statistikkvariabel","andel")=1;' in px
+
+
+def _fixture_med_contents_note(table_id, tmp_path, *, tekst=None, obligatorisk=False,
+                               maaltallsnote=None):
+    """Kopier fixturen og sett dataset.contentsNotes (og evt. en note paa et maaltall).
+
+    Samme grep som `_fixture_med_akse`: variere ETT felt uten aa sjekke inn en nesten
+    identisk fixtur.
+    """
+    rot = tmp_path / "fx"
+    shutil.copytree(FIXTURES / table_id, rot / table_id)
+    meta_sti = rot / table_id / f"pxmetadata_{table_id}.json"
+    meta = json.loads(meta_sti.read_text(encoding="utf-8"))
+    if tekst is not None:
+        meta["dataset"]["contentsNotes"] = [
+            {"text": {"no": tekst}, "isMandatory": obligatorisk}]
+    if maaltallsnote is not None:
+        meta["dataset"]["measurements"][0]["notes"] = [
+            {"text": {"no": maaltallsnote}, "isMandatory": False}]
+    meta_sti.write_text(json.dumps(meta, ensure_ascii=False), encoding="utf-8")
+    return rot
+
+
+class TestNotePåContentsVariabelen:
+    """`dataset.contentsNotes` -> NOTE("<contents-variabel>") med ÉN subnoekkel.
+
+    Motoren hadde felt for noter paa alle andre nivaaer, men ingen vei til en note paa
+    SELVE contents-variabelen. Den eneste baereren var `Measurement.notes`, som emitteres
+    som VALUENOTE("<contents-variabel>","<maaltall>") — altsaa paa én VERDI, med to
+    subnoekler. Aa mappe en variabelnote dit ville flyttet noten og byttet keyword.
+
+    Det er ikke en Oslo-saeregenhet: upstream issue #43 («Ensure all fotnotetypes are
+    read from input») beskriver samme hull, aapnet 2024-01-22. I Oslos fasit paa 172
+    publiserte tabeller staar 12 slike noter, og de gaar tapt i dag uten at noen QA ser
+    det — derfor en port her framfor en kommentar.
+    """
+
+    def test_uten_feltet_er_fila_uendret(self, tmp_path):
+        # Regresjonsvakt: et nytt valgfritt felt skal ikke roere eksisterende filer.
+        px = _build_px("OK-SYS006", tmp_path)
+        assert 'NOTE("statistikkvariabel")' not in px
+        assert 'NOTEX("statistikkvariabel")' not in px
+
+    def test_gir_NOTE_med_én_subnoekkel(self, tmp_path):
+        rot = _fixture_med_contents_note("OK-SYS006", tmp_path, tekst="Om maaltallene.")
+        px = _build_px("OK-SYS006", tmp_path / "build", fixture_root=rot)
+        assert 'NOTE("statistikkvariabel")="Om maaltallene.";' in px
+
+    def test_obligatorisk_gir_NOTEX(self, tmp_path):
+        rot = _fixture_med_contents_note("OK-SYS006", tmp_path, tekst="Maa leses.",
+                                         obligatorisk=True)
+        px = _build_px("OK-SYS006", tmp_path / "build", fixture_root=rot)
+        assert 'NOTEX("statistikkvariabel")="Maa leses.";' in px
+        assert 'NOTE("statistikkvariabel")' not in px
+
+    def test_blandes_IKKE_med_maaltallsnoten(self, tmp_path):
+        """Kjernen i endringen: de to noteformene skal leve side om side og bli ULIKE
+        keywords. Var de samme baerer, ville en variabelnote enten overskrevet
+        maaltallsnoten eller blitt emittert som VALUENOTE paa ett vilkaarlig maaltall."""
+        rot = _fixture_med_contents_note("OK-SYS006", tmp_path, tekst="Om variabelen.",
+                                         maaltallsnote="Om dette maaltallet.")
+        px = _build_px("OK-SYS006", tmp_path / "build", fixture_root=rot)
+        assert 'NOTE("statistikkvariabel")="Om variabelen.";' in px
+        assert '"Om dette maaltallet.";' in px
+        # Variabelnoten skal ALDRI ende som VALUENOTE, og maaltallsnoten aldri som NOTE.
+        assert 'VALUENOTE("statistikkvariabel")' not in px
+        assert 'NOTE("statistikkvariabel")="Om dette maaltallet.";' not in px

@@ -410,6 +410,20 @@ class LoadFromPxmetadata:
                     else:
                         out_model.valuenote.set(note.text[lang], contdim.get_label(lang), my_funny_cont_id, pxlang)
 
+        # Note on the contents variable ITSELF, with a single subkey:
+        # NOTE("<contents variable>"), or NOTEX when mandatory. This is a different thing
+        # from the Measurement.notes loop above, which emits
+        # VALUENOTE("<contents variable>","<measurement>") and therefore documents ONE
+        # value rather than the variable. A note about the statistics variable as a whole
+        # had no expressible form before (issue #43); mapping it onto a measurement would
+        # have moved the note and changed the keyword.
+        if self._pxmetadata_model.dataset.contents_notes:
+            for note in self._pxmetadata_model.dataset.contents_notes:
+                if note.is_mandatory:
+                    out_model.notex.set(note.text[lang], contdim.get_label(lang), pxlang)
+                else:
+                    out_model.note.set(note.text[lang], contdim.get_label(lang), pxlang)
+
         out_model.values.set(contdim.get_labels(lang), contdim.get_label(lang), pxlang)
         out_model.codes.set(contdim.get_codes(), contdim.get_label(lang), pxlang)
         out_model.variablecode.set(contdim.get_code(), contdim.get_label(lang), pxlang)

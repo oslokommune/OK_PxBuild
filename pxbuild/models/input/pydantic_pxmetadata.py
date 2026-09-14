@@ -372,6 +372,14 @@ class Dataset(BaseModel):
     Array of keywords by language for search. Is used for the SYNONYMS keyword. example:'{en: [External trade, export]}'
     """
     notes: Optional[List[Note]] = None
+    contents_notes: Optional[List[Note]] = Field(None, alias="contentsNotes")
+    """
+    Notes on the contents variable ITSELF, emitted as NOTE("<contents variable>") with a
+    single subkey - NOTEX when isMandatory. Distinct from Measurement.notes, which becomes
+    VALUENOTE("<contents variable>","<measurement>") and therefore attaches to one value
+    rather than to the variable. A file that documents its statistics variable as a whole
+    needs the former; there was previously no way to express it. See issue #43.
+    """
     cell_notes: Optional[List[CellNote]] = Field(None, alias="cellNotes")
     time_dimension: TimeDimension = Field(..., alias="timeDimension")
     coded_dimensions: Optional[List[CodedDimension]] = Field(None, alias="codedDimensions")

@@ -1,7 +1,8 @@
 # CLAUDE.md — OK_PxBuild (PX-motoren)
 
-Porteføljekontekst (hvem eier hva, kjøre-/kommandoform, maskinfeller):
-`ok-statbank-fabrikk/CLAUDE.md`. Denne fila er kun det som er lokalt for motoren.
+Porteføljekontekst (hvem eier hva, kjøre-/kommandoform, maskinfeller) lastes automatisk fra
+arbeidsflatens rot-`CLAUDE.md` når repoet står under den — den bor ikke i noe repo. Denne
+fila er kun det som er lokalt for motoren.
 
 ## Dette er en fork
 
@@ -9,9 +10,9 @@ Porteføljekontekst (hvem eier hva, kjøre-/kommandoform, maskinfeller):
 ligger i **`main`** (merget via PR fra `feature/*`- og `fix/*`-grener).
 
 **Grunnprinsipp:** ingen funksjonalitet som krever større px-build-endringer. Bro- og
-fabrikk-logikk hører i `ok-statbank-fabrikk` — her legges bare **små, isolerte
-keyword-funksjoner** som kan PR-es upstream. Er en fiks vanskelig å isolere, er det et
-signal om at den hører i generatoren i stedet.
+fabrikk-logikk hører hos konsumenten (generatoren som kaller motoren) — her legges bare
+**små, isolerte keyword-funksjoner** som kan PR-es upstream. Er en fiks vanskelig å
+isolere, er det et signal om at den hører i generatoren i stedet.
 
 Fikser som er inne: literal domain-pointer, TIMEVAL fra intervall, TLIST(A) for
 skoleår-intervaller, kronologisk periodesortering, pxstatistics-emisjon,
@@ -51,8 +52,9 @@ kildedata. Diffen er dessuten TAPSGIVENDE — en kjøring fjernet `UNITS`, `NEXT
 committet en svekket fasit til et **public** repo, og testene ville fortsatt vært grønne.
 Fem slike filer lå uncommittet i seks uker før noen så dem.
 
-## Deploy til Fabric
+## Motoren konsumeres fra en pinnet commit
 
-Motoren kjøres i Fabric fra en **pinnet commit** herfra; pinnen settes og dokumenteres i
-`ok-statbank-fabrikk` (`deploy/deploy-pxbuild-til-fabric.ps1`, commit-melding «deploy: pin
-\<sha\>»). Endrer du motoren, må pinnen flyttes og fabrikkens tester kjøres på nytt.
+Konsumentene kjører motoren fra en **pinnet commit** herfra, ikke fra `main`-tuppen; pinnen
+settes og dokumenteres hos konsumenten. Endrer du motoren, må konsumenten flytte pinnen og
+kjøre sine egne tester på nytt — `tests/oslo` her er porten for motoren, ikke for det som
+bygges med den.

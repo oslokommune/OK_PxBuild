@@ -71,59 +71,19 @@ pre-commit install
 
 Reads user-friendly txt metadata and writes JSON metadata. 
 
-## csv2px.py (data preparation):
+## CSV preparation (moved out)
 
-Takes table ID (e.g., SYS002)
+**Moved out of this repository on 2026-09-16.** The CSV preparation step and the
+`pxbuild` invocation that followed it were written here, not inherited from
+upstream, and they belong with the consumer that owns them rather than with the
+engine. This repository is now a clean fork of `pxbuild`: the engine, the Oslo
+keyword fixes that are candidates for an upstream PR, and the tests that judge
+them.
 
-Reads raw CSV from input/csv_files/{id}.csv
+`metadata_to_json.py` and `xlsx2csv.py` remain here as the previous developer's
+legacy tooling; nothing in the engine calls them.
 
-Reads metadata from input/pxmetadata/{id}.json
+## To run the engine
 
-Normalizes CSV: standardizes headers, cleans numeric values, removes duplicates, converts time to strings
-
-Writes cleaned CSV to pxjson/csv_files/{id}.csv
-
-If coded dimensions exist: writes pxcodes JSONs to pxjson/pxcodes/
-
-
-## RunPx.py (PX file generation):
-
-Takes table ID (e.g., SYS002)
-
-Calls pxbuild.LoadFromPxmetadata(ID, config)
-
-pxbuild reads:
-
-Metadata from input/pxmetadata/{id}.json
-
-CSV data from pxjson/csv_files/{id}.csv
-
-Codelists from pxjson/pxcodes/*.json
-
-Generates PX files in output/px/output_{id}/
-
-## Flow:
-
-Raw data + metadata -> csv2px.py -> Clean data (+ codelists if applicable) -> RunPx.py -> PX files
-
-
-
-## To run:
-
-cd C:\Path\To\PxBuild\csv2px
-
-conda activate PxBuild
-
-python metadata_to_json.py <path\to\input-file> <path\to\output-file>
-
-python csv2px.py <table_ID>
-
-python RunPx.py <table_ID>
-
-f.ex.:
-
-python metadata_to_json.py input\metadata_SYS002.txt input\pxmetadata\SYS002.json
-
-python csv2px.py SYS002
-
-python RunPx.py SYS002
+See `## First usage` above, and `tests/oslo/` for worked examples of the keywords
+the fork asserts.

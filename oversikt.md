@@ -11,7 +11,7 @@ Prosjektet konverterer CSV-data og tekstbasert metadata til **PX-filer** — det
 To hoveddeler:
 
 - **`pxbuild/`** — eksternt bibliotek fra SSB for å generere selve PX-filen. Mye var uferdig med placeholder-kode; dette er delvis debugget og utvidet.
-- **`csv2px/`** — Oslo kommunes pipeline: tre Python-scripts som tar rå CSV + brukervennlig tekstmetadata og produserer ferdige PX-filer.
+- **`csv2px/`** — rest av forrige utviklers verktøykasse (`metadata_to_json.py`, `xlsx2csv.py`). **Selve CSV-→-PX-steget ble flyttet ut av dette repoet 16.09.2026** og bor hos konsumenten som eier det; beskrivelsene under er derfor historikk for de to stegene som er borte, ikke en kjørbar oppskrift herfra.
 
 ---
 

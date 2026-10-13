@@ -29,6 +29,13 @@ og skriver `.px` til pytests `tmp_path` (ingen innsjekkede output-filer).
 | `OK-FOR002` | kodet dim UTEN domene (ingen DOMAIN skrives), 4 måltall, eget emne (FOR) |
 | `OK-UTD006` | tidsvariabel heter `årgang` (ikke hardkodet «år»), total som ikke er «i alt» (`1-5 år`) |
 
+## SSB-kubene: datadelen
+
+`test_ssb_kuber_data.py` bygger SSB-kubene 2, 101–104 og 200 fra fixturene under
+`testdata/` og sammenligner `DATA` (og `.vs`/`.agg` for kube 2) byte for byte med
+oppstrøms fasit. Metadataen dømmes ikke: der avviker forken, og de SSB-arvede testene
+som dømmer hele fila, er merket som forventet feil i `tests/controll/conftest.py`.
+
 ## Legge til en tabell
 
 Fixturene er pxbuild-input generert av «PX-Fabrikken» (Statistikkbank (PX)-repoet):

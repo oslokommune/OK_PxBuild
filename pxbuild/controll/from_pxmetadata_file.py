@@ -235,13 +235,17 @@ class LoadFromPxmetadata:
             raise Exception("Sorry, both stub and heading are empty.")
 
     def map_time_dimension_to_pxfile(self, out_model: PXFileModel) -> None:
-        """Map time dimension to PX file, setting values, variablecode, variable_type
+        """Map time dimension to PX file, setting values, codes, variablecode, variable_type
         and TIMEVAL (TLIST) based on the time dimension in pxmetadata."""
         time = self._dims.time
         lang = self._current_lang
         pxlang = self._px_lang(lang)
 
         out_model.values.set(time.get_labels(lang), time.get_label(lang), pxlang)
+        # CODES on time, equal to the periods (code == label for time). Without CODES the
+        # API gives the periods positional codes 0..n-1, so a saved query that fixes a
+        # period silently points to another one when a period is added at the front.
+        out_model.codes.set(time.get_codes(), time.get_label(lang), pxlang)
         out_model.variablecode.set(time.get_code(), time.get_label(lang), pxlang)
         out_model.variable_type.set(time.get_variabletype(), time.get_label(lang), pxlang)
 

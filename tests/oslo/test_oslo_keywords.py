@@ -362,6 +362,35 @@ class TestOsloKeywords:
         assert 'PRECISION("statistikkvariabel","andel")=1;' in px
 
 
+class TestKoderPaaTid:
+    """CODES paa tidsvariabelen, lik periodene i VALUES.
+
+    Uten CODES gir API-et periodene posisjonskoder `0`, `1` … . En lagret spoerring med
+    en fast periode peker da stille paa en annen periode naar en periode legges til
+    foran. Koden er perioden selv, slik den staar i VALUES og TIMEVAL.
+    """
+
+    @staticmethod
+    def _liste(px, keyword, variabel):
+        m = re.search(rf'^{keyword}\("{re.escape(variabel)}"\)=(.*?);\r?$', px, re.M | re.S)
+        assert m, f'{keyword}("{variabel}") mangler'
+        return m.group(1)
+
+    @pytest.mark.parametrize("table_id,tidvar", [
+        ("OK-DEMO001", "år"),        # aarlig, flere perioder
+        ("OK-DEMO003", "skoleår"),   # intervall, TLIST(A)
+        ("OK-SYS002", "år"),         # aarlig, en periode
+        ("OK-UTD006", "årgang"),     # tidsvariabel med annet navn
+    ])
+    def test_codes_paa_tid_er_lik_values(self, table_id, tidvar, tmp_path):
+        px = _build_px(table_id, tmp_path)
+        assert self._liste(px, "CODES", tidvar) == self._liste(px, "VALUES", tidvar)
+
+    def test_intervall_koden_er_perioden_ordrett(self, tmp_path):
+        px = _build_px("OK-DEMO003", tmp_path)
+        assert 'CODES("skoleår")="2022/2023","2023/2024","2024/2025";' in px
+
+
 def _fixture_med_contents_note(table_id, tmp_path, *, tekst=None, obligatorisk=False,
                                maaltallsnote=None):
     """Kopier fixturen og sett dataset.contentsNotes (og evt. en note paa et maaltall).

@@ -25,7 +25,8 @@ Bevisste avvik:
 
 - K1: Den ekstra første linja `UNITS="This file was created from pxbuild.";` skrives
   ikke. Den er en ugyldig ekstra `UNITS`.
-- K4: Tidsvariabelen får `TIMEVAL(...)=TLIST(...)`, og `CODES` for den skrives ikke.
+- K4: Tidsvariabelen får `TIMEVAL(...)=TLIST(...)` i tillegg til `CODES` lik periodene;
+  fasiten har bare `CODES`. Fram til 21.10.2026 skrev forken `TIMEVAL` uten `CODES`.
 
 Kjente mangler (ikke ønsket oppførsel, egne spørsmål for motoren):
 
@@ -62,7 +63,7 @@ class _Forventet(NamedTuple):
 
 _METADATA = (
     "Oslo-forken avviker fra oppstrøms fasit i metadata; DATA er lik. "
-    "Bevisst: K1 (ekstra UNITS-linje fjernet), K4 (TIMEVAL/TLIST, ingen CODES for tid). "
+    "Bevisst: K1 (ekstra UNITS-linje fjernet), K4 (TIMEVAL/TLIST i tillegg til CODES for tid). "
     "Kjent mangel: K2 (UNITS \"flere\"), K3 (STUB/HEADING uten [en]), "
     "K5 (NEXT-UPDATE, SUBJECT-*, CONTACT, LAST-UPDATED fra pxstatistics), "
     "K6 (REFPERIOD per måltall{k6}), K7 (PRECISION fra showDecimals){ekstra}. "

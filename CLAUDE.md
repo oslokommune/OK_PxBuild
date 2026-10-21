@@ -51,8 +51,8 @@ per test; testfilene og fasitfilene fra oppstrøms står urørt, så flettingen 
 gir derfor 8 xfailed. Begynner en av dem å passere, blir den `XPASS(strict)` og suiten
 rød, og merkingen skal vurderes på nytt. Avvikene, slik de er klassifisert der:
 
-- **bevisst:** den ekstra første `UNITS`-linja er fjernet (K1), og tid skrives som
-  `TIMEVAL`/`TLIST` uten `CODES` (K4);
+- **bevisst:** den ekstra første `UNITS`-linja er fjernet (K1), og tid skrives med
+  `TIMEVAL`/`TLIST` i tillegg til `CODES` lik periodene, der fasiten bare har `CODES` (K4);
 - **kjent mangel:** `UNITS` blir «flere» ved flere måltall (K2); `STUB`/`HEADING` uten
   `[en]` i tospråklige filer (K3); `NEXT-UPDATE`, `SUBJECT-*`, `CONTACT` og
   `LAST-UPDATED` leses ikke fra `pxstatistics` (K5); `REFPERIOD`, `BASEPERIOD` og

@@ -125,10 +125,13 @@ components:
                default: "."
             officialStatistics:
                type: boolean
-               default: false
+               description: OFFICIAL-STATISTICS. true gives YES, false gives NO, and an absent field gives no line.
             copyright:
                type: boolean
-               default: false
+               description: COPYRIGHT. true gives YES, false gives NO, and an absent field gives no line.
+            survey:
+               $ref: '#/components/schemas/StringByLanguage'
+               description: SURVEY, per language and without subkey. An absent field gives no line.
             firstPublished:
                type: string
                description: The date when the data cube was first published in the format CCYYMMDD hh:mm
@@ -237,7 +240,7 @@ components:
                 type: object
                 additionalProperties:
                   type: string
-                description: Text with information on the reference period for the statistics.
+                description: Text with information on the reference period for the statistics. Emitted as REFPERIOD("<measurement label>"); send it for all measurements or none.
               rank:
                 type: object
                 additionalProperties:

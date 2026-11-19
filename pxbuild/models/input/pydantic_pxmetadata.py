@@ -265,7 +265,9 @@ class Measurement(BaseModel):
     """
     reference_period: Optional[Dict[str, str]] = Field(None, alias="referencePeriod")
     """
-    Text with information on the reference period for the statistics.
+    Text with information on the reference period for the statistics. Emitted as
+    REFPERIOD("<measurement label>"). The keyword is AllContent: if one measurement has
+    it, all should. Validate checks that; the build does not.
     """
     rank: Optional[Dict[str, str]] = None
     """
@@ -406,8 +408,18 @@ class Dataset(BaseModel):
     """
     Value to insert in data when cell is missing.
     """
-    official_statistics: Optional[bool] = Field(False, alias="officialStatistics")
-    copyright: Optional[bool] = False
+    official_statistics: Optional[bool] = Field(None, alias="officialStatistics")
+    """
+    OFFICIAL-STATISTICS. true gives YES, false gives NO, and an absent field gives no line.
+    """
+    copyright: Optional[bool] = None
+    """
+    COPYRIGHT. true gives YES, false gives NO, and an absent field gives no line.
+    """
+    survey: Optional[Dict[str, str]] = None
+    """
+    SURVEY by language: the name of the survey the statistics are based on.
+    """
     first_published: Optional[str] = Field(None, alias="firstPublished")
     """
     The date when the data cube was first published in the format CCYYMMDD hh:mm

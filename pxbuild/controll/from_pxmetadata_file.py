@@ -407,6 +407,11 @@ class LoadFromPxmetadata:
             if my_cont.precision is not None:
                 out_model.precision.set(my_cont.precision, contdim.get_label(lang), my_funny_cont_id, pxlang)
 
+            # REFPERIOD("<measurement>"). The model marks it AllContent, but that is only
+            # checked by Validate, not in the build: the caller sends all or none.
+            if my_cont.reference_period and my_cont.reference_period.get(lang):
+                out_model.refperiod.set(my_cont.reference_period[lang], my_funny_cont_id, pxlang)
+
             if my_cont.notes:
                 for note in my_cont.notes:
                     if note.is_mandatory:
@@ -567,9 +572,11 @@ class LoadFromPxmetadata:
                 out_model.matrix.set(in_model.dataset.matrix)
             else:
                 out_model.matrix.set("tab_" + in_model.dataset.table_id)
-            if in_model.dataset.official_statistics:
+            # `is not None`, not truthiness: false is a statement (NO), an absent field
+            # is not, and gives no line.
+            if in_model.dataset.official_statistics is not None:
                 out_model.official_statistics.set(in_model.dataset.official_statistics)
-            if in_model.dataset.copyright:
+            if in_model.dataset.copyright is not None:
                 out_model.copyright.set(in_model.dataset.copyright)
             if in_model.dataset.first_published:
                 out_model.first_published.set(in_model.dataset.first_published)
@@ -591,6 +598,8 @@ class LoadFromPxmetadata:
             out_model.contents.set(in_model.dataset.contents[lang], pxlang)
         else:
             out_model.contents.set(in_model.dataset.table_id + ": " + in_model.dataset.base_title[lang] + ",", pxlang)
+        if in_model.dataset.survey and in_model.dataset.survey.get(lang):
+            out_model.survey.set(in_model.dataset.survey[lang], pxlang)
         if in_model.dataset.notes:
             for note in in_model.dataset.notes:
                 if note.is_mandatory:

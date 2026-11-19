@@ -74,9 +74,17 @@
 
         Description: Value to insert in data when cell is missing.
 
-     - officialStatistics type: boolean default: False
+     - officialStatistics type: boolean
 
-     - copyright type: boolean default: False
+        Description: OFFICIAL-STATISTICS. true gives YES, false gives NO, and an absent field gives no line.
+
+     - copyright type: boolean
+
+        Description: COPYRIGHT. true gives YES, false gives NO, and an absent field gives no line.
+
+     - survey type:  [StringByLanguage](#stringbylanguage)
+
+        Description: SURVEY, per language and without subkey: the name of the survey the statistics are based on. An absent field gives no line.
 
      - firstPublished type: string
 
@@ -172,7 +180,7 @@
 
  - referencePeriod ND
 
-    Description: Text with information on the reference period for the statistics.
+    Description: Text with information on the reference period for the statistics. Emitted as REFPERIOD("<measurement label>"), one per measurement. The keyword is AllContent: if one measurement has it, all should. The build does not check that (only Validate does), so the caller sends it for all measurements or none.
 
  - rank ND
 

@@ -456,3 +456,103 @@ class TestNotePåContentsVariabelen:
         # Variabelnoten skal ALDRI ende som VALUENOTE, og maaltallsnoten aldri som NOTE.
         assert 'VALUENOTE("statistikkvariabel")' not in px
         assert 'NOTE("statistikkvariabel")="Om dette maaltallet.";' not in px
+
+
+def _fixture_med_felt(table_id, tmp_path, *, dataset=None, maaltall=None):
+    """Kopier fixturen og sett felt i dataset (`dataset`) og paa maaltallene (`maaltall`,
+    en liste med ett dict per maaltall, i fixturens rekkefoelge; None hopper over ett).
+
+    Samme grep som `_fixture_med_akse`. Et felt med verdien `...` fjernes.
+    """
+    rot = tmp_path / "fx"
+    shutil.copytree(FIXTURES / table_id, rot / table_id)
+    meta_sti = rot / table_id / f"pxmetadata_{table_id}.json"
+    meta = json.loads(meta_sti.read_text(encoding="utf-8"))
+
+    def sett(d, felt):
+        for k, v in felt.items():
+            if v is ...:
+                d.pop(k, None)
+            else:
+                d[k] = v
+
+    sett(meta["dataset"], dataset or {})
+    for m, felt in zip(meta["dataset"]["measurements"], maaltall or []):
+        if felt:
+            sett(m, felt)
+    meta_sti.write_text(json.dumps(meta, ensure_ascii=False), encoding="utf-8")
+    return rot
+
+
+class TestCopyrightOgOffisiellStatistikk:
+    """`copyright` og `officialStatistics`: false er et utsagn og gir NO.
+
+    Foer endringen skrev motoren keywordet bare naar verdien var sann. `false` og et
+    manglende felt ga begge ingen linje, saa en utgiver som ville si «nei» uttrykkelig,
+    hadde ingen maate aa gjoere det paa. Et manglende felt gir fortsatt ingen linje.
+    """
+
+    @pytest.mark.parametrize("verdi,linje", [(True, "YES"), (False, "NO")])
+    def test_verdien_skrives_uttrykkelig(self, verdi, linje, tmp_path):
+        rot = _fixture_med_felt("OK-SYS006", tmp_path,
+                                dataset={"copyright": verdi, "officialStatistics": verdi})
+        px = _build_px("OK-SYS006", tmp_path / "build", fixture_root=rot)
+        assert f"COPYRIGHT={linje};" in px
+        assert f"OFFICIAL-STATISTICS={linje};" in px
+
+    def test_uten_feltene_ingen_linje(self, tmp_path):
+        rot = _fixture_med_felt("OK-SYS006", tmp_path,
+                                dataset={"copyright": ..., "officialStatistics": ...})
+        px = _build_px("OK-SYS006", tmp_path / "build", fixture_root=rot)
+        assert "COPYRIGHT" not in px
+        assert "OFFICIAL-STATISTICS" not in px
+
+
+class TestRefperiod:
+    """`measurements[].referencePeriod` -> REFPERIOD("<maaltall>"), ett per maaltall.
+
+    Inndatafeltet og keyword-modellen fantes, men ingen kode koblet dem: feltet ble lest
+    og forkastet. REFPERIOD er `AllContent` i modellen, men det kravet sjekkes ikke i
+    bygget (se testen nederst i klassen).
+    """
+
+    def test_ett_refperiod_per_maaltall(self, tmp_path):
+        rot = _fixture_med_felt("OK-DEMO002", tmp_path, maaltall=[
+            {"referencePeriod": {"no": "1. januar"}},
+            {"referencePeriod": {"no": "4. kvartal"}}])
+        px = _build_px("OK-DEMO002", tmp_path / "build", fixture_root=rot)
+        assert 'REFPERIOD("Antall sysselsatte")="1. januar";' in px
+        assert 'REFPERIOD("Sysselsettingsandel")="4. kvartal";' in px
+        assert len(re.findall(r"^REFPERIOD\(", px, re.M)) == 2
+
+    def test_uten_feltet_ingen_linje(self, tmp_path):
+        px = _build_px("OK-DEMO002", tmp_path)
+        assert "REFPERIOD" not in px
+
+    def test_ett_maaltall_med_og_ett_uten_stopper_ikke_bygget(self, tmp_path):
+        """Maalt, ikke antatt: `AllContent` haandheves IKKE i bygget.
+
+        Kravet staar i keyword-modellen og sjekkes av `check_completeness`, men den
+        kjoeres bare av `Validate`, og `LoadFromPxmetadata` kaller ikke `Validate`. Et
+        maaltall med og ett uten gir derfor en fil med REFPERIOD paa det ene. Regelen
+        «alle eller ingen» er kallestedets; testen laaser at motoren ikke fyller ut.
+        """
+        rot = _fixture_med_felt("OK-DEMO002", tmp_path, maaltall=[
+            {"referencePeriod": {"no": "1. januar"}}, None])
+        px = _build_px("OK-DEMO002", tmp_path / "build", fixture_root=rot)
+        assert 'REFPERIOD("Antall sysselsatte")="1. januar";' in px
+        assert len(re.findall(r"^REFPERIOD\(", px, re.M)) == 1
+
+
+class TestSurvey:
+    """`dataset.survey` -> SURVEY, per spraak og uten subnoekkel."""
+
+    def test_survey_skrives(self, tmp_path):
+        rot = _fixture_med_felt("OK-SYS006", tmp_path,
+                                dataset={"survey": {"no": "Navnet paa undersoekelsen"}})
+        px = _build_px("OK-SYS006", tmp_path / "build", fixture_root=rot)
+        assert 'SURVEY="Navnet paa undersoekelsen";' in px
+
+    def test_uten_feltet_ingen_linje(self, tmp_path):
+        px = _build_px("OK-SYS006", tmp_path)
+        assert "SURVEY" not in px
